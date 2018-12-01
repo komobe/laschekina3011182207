@@ -33,17 +33,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use LSI\MarketBundle\Form\ReserverType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
-use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Validator\Constraints\Regex;
-
 
 
 class MarketController extends Controller
@@ -1288,14 +1284,10 @@ class MarketController extends Controller
                     'annadress' => $annadress,
                 ]);*/
         }
-
        if(!is_null($datedebut) || !is_null($datefin)){ // Ajouté par Moro KONE
            $date =  $this->getRechercheIndexCookie($request);
-
            $serializer = new Serializer(array(new DateTimeNormalizer('Y-m-d')));
-
            $today = $serializer->normalize(new \DateTime());
-
            // if(strtotime($date['debut']) <= strtotime($today)){
             if($date['debut'] <= $today){
                 $this->setRechercheIndexCookie($today, $datefin);
@@ -1303,9 +1295,7 @@ class MarketController extends Controller
                 $this->setRechercheIndexCookie($datedebut, $datefin);
               
             }
-
        }
-
         return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
             [
                 'listeannonce' => $listeannonce,
@@ -1929,65 +1919,12 @@ class MarketController extends Controller
     }
 
 
-
-    /**
-     * @author Moro KONE
-     * @param $private_key
-     * @param $str_to_crypt
-     * @return string
-     */
-    private function crypt($private_key, $str_to_crypt) {
-        $private_key = md5($private_key);
-        $letter = -1;
-        $new_str = '';
-        $strlen = strlen($str_to_crypt);
-
-        for ($i = 0; $i < $strlen; $i++) {
-            $letter++;
-            if ($letter > 31) {
-                $letter = 0;
-            }
-            $neword = ord($str_to_crypt{$i}) + ord($private_key{$letter});
-            if ($neword > 255) {
-                $neword -= 256;
-            }
-            $new_str .= chr($neword);
-        }
-        return base64_encode($new_str);
-    }
-
-    /**
-     * @author Moro KONE
-     * @param $private_key
-     * @param $str_to_decrypt
-     * @return string
-     */
-    private function decrypt($private_key, $str_to_decrypt) {
-        $private_key = md5($private_key);
-        $letter = -1;
-        $new_str = '';
-        $str_to_decrypt = base64_decode($str_to_decrypt);
-        $strlen = strlen($str_to_decrypt);
-        for ($i = 0; $i < $strlen; $i++) {
-            $letter++;
-            if ($letter > 31) {
-                $letter = 0;
-            }
-            $neword = ord($str_to_decrypt{$i}) - ord($private_key{$letter});
-            if ($neword < 1) {
-                $neword += 256;
-            }
-            $new_str .= chr($neword);
-        }
-        return $new_str;
-    }
-
-
-    /**
+ /**
+     * @param Request $request
      * @param $datedebut
      * @param $datefin
      */
-    private function setRechercheIndexCookie($datedebut, $datefin)
+    private function setRechercheIndexCookie(Request $request, $datedebut, $datefin)
     {
 
         $crypt = $this->getRechercheIndexCookieKey();
@@ -2021,7 +1958,7 @@ class MarketController extends Controller
     {
         $private_key = 'marketcookiedate'; // Paramétrage de la clé de cryptage du cookie
 
-        $crypt = $this->crypt($private_key, "indexgetrePchercKhe@#c@okie{+%ZT$");
+        $crypt = $this->crypt($private_key, "dateofrech");
         return $crypt;
     }
 
