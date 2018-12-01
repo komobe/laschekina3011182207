@@ -446,7 +446,7 @@ ls_imarket_annonce_resultsearch:
 ls_imarket_annonce_rechindex:
     path: /resultatpageindex
     defaults:
-        _controller: LSIMarketBundle:Market:rechindex
+          _controller: LSIMarketBundle:Market:rechindex
 
 # Route pour la recherche avancée
 
