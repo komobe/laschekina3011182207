@@ -56,10 +56,14 @@ class MarketController extends Controller
         $formcontact->handleRequest($request);
 
         $annadress = $annonces;
+
+        $date =  $this->getRechercheIndexCookie();
+
         return $this->render('LSIMarketBundle:market:index.html.twig', array(
             'annonces' => $annonces,
             'annadress' => $annadress,
-            'contactForm' => $formcontact->createView()
+            'contactForm' => $formcontact->createView(),
+            'date' => $date
         ));
 
     }
@@ -1280,6 +1284,11 @@ class MarketController extends Controller
                 ]);
         }
 
+        // Ajouté par Moro KONE --Debut
+        
+        $this->setRechercheIndexCookie($request, $datedebut, $datefin);
+
+        // Ajouté par Moro KONE --fin
 
         return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
             ['listeannonce' => $listeannonce]);
@@ -1899,6 +1908,51 @@ class MarketController extends Controller
         ], $statusCode);
 
     }
+
+
+ /**
+     * @param Request $request
+     * @param $datedebut
+     * @param $datefin
+     */
+    private function setRechercheIndexCookie(Request $request, $datedebut, $datefin)
+    {
+
+        $crypt = $this->getRechercheIndexCookieKey();
+        $date =['debut' =>$datedebut , 'fin' => $datefin] ;
+        $content = serialize($date);
+        $cookie = new Cookie($crypt, base64_encode($content), time() + 86400);
+        $response = new Response();
+        $response->headers->setCookie($cookie);
+        $response->send();
+    }
+
+    /**
+     * @param Request $request
+     * @return array|null
+     */
+    private function getRechercheIndexCookie(Request $request)
+    {
+        $crypt = $this->getRechercheIndexCookieKey();
+
+        if ($date = $request->cookies->get($crypt)) {
+            return unserialize(base64_decode($date));
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string
+     */
+    private function getRechercheIndexCookieKey()
+    {
+        $private_key = 'marketcookiedate'; // Paramétrage de la clé de cryptage du cookie
+
+        $crypt = $this->crypt($private_key, "dateofrech");
+        return $crypt;
+    }
+
 
     /* FIN  */
 
