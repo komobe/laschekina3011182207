@@ -61,7 +61,7 @@ class MarketController extends Controller
 
         $annadress = $annonces;
 
-        $date =  $this->getRechercheIndexCookie($request);
+        $date =  $this->getRechercheIndexCookie($request);// Ajouté par Moro KONE 
 
         return $this->render('LSIMarketBundle:market:index.html.twig', array(
             'annonces' => $annonces,
