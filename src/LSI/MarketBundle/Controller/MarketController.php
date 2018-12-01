@@ -33,13 +33,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use LSI\MarketBundle\Form\ReserverType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Validator\Constraints\Regex;
+
 
 
 class MarketController extends Controller
@@ -57,7 +61,7 @@ class MarketController extends Controller
 
         $annadress = $annonces;
 
-        $date =  $this->getRechercheIndexCookie($request); 
+        $date =  $this->getRechercheIndexCookie($request); //by komobe
 
         return $this->render('LSIMarketBundle:market:index.html.twig', array(
             'annonces' => $annonces,
@@ -397,7 +401,7 @@ class MarketController extends Controller
 
         // Récupère les mairies du même EPCI
         $autresMairies = $em->getRepository('LSIMarketBundle:User')
-        	->findMairieEpci($annonce->getAdresse()->getVille()->getEpci()->getNom(), $annonce->getMairie()->getId());
+            ->findMairieEpci($annonce->getAdresse()->getVille()->getEpci()->getNom(), $annonce->getMairie()->getId());
 
         // Verifier pour voir s'il y a une reservation sur l'annonce
         $repo = $this->getDoctrine()->getRepository('LSIMarketBundle:Reserver');
@@ -1171,12 +1175,12 @@ class MarketController extends Controller
 
     /*public function rechindexAction(Request $request){
 
-	    $repo_annonce = $this->getDoctrine()->getRepository('LSIMarketBundle:Annonce');
+        $repo_annonce = $this->getDoctrine()->getRepository('LSIMarketBundle:Annonce');
         // Recuperer le champ titre
-	    $titre = $request->get('titre_name');
-	    // Recuperer le champ ville
+        $titre = $request->get('titre_name');
+        // Recuperer le champ ville
         $ville = $request->get('ville_name');
-	    // Recuperer la date debut de disponibilite de l'annonce
+        // Recuperer la date debut de disponibilite de l'annonce
         $datedebut = $request->get('datedebut');
         //$newdatdebut = $datedebut->format('Y.m.d');
         // Recuperer la date fin de disponibilite de l'annonce
@@ -1184,7 +1188,7 @@ class MarketController extends Controller
         //$newdatfin = date("Y-m-d", $datefin);
         $listeannonce = array();
         //
-	    if ($titre != null && $ville == null ){
+        if ($titre != null && $ville == null ){
             $listeannonce = $repo_annonce->findrechetitreindex($titre);
             return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
                 ['listeannonce' => $listeannonce]);
@@ -1225,83 +1229,100 @@ class MarketController extends Controller
 
         // Recuperer le champ titre
         $titre = $request->get('titre_name');
+
         // Recuperer le champ ville
         $ville = $request->get('ville_name');
+
         // Recuperer la date debut de disponibilite de l'annonce
         $datedebut = $request->get('datedebut');
+
         //$newdatdebut = $datedebut->format('Y.m.d');
+
         // Recuperer la date fin de disponibilite de l'annonce
         $datefin = $request->get('datefin');
+
         //$newdatfin = date("Y-m-d", $datefin);
         $listeannonce = array();
+
         $annadress = array();
         //
         if ($titre != null && $ville == null) {
             $listeannonce = $repo_annonce->findrechetitreindex($titre);
             $annadress = $listeannonce;
-           /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                ['listeannonce' => $listeannonce,
-                    'annadress' => $annadress,
-                ]);*/
+
+            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+                 ['listeannonce' => $listeannonce,
+                     'annadress' => $annadress,
+                 ]);*/
         } elseif ($ville != null && $titre == null) {
             $listeannonce = $repo_annonce->findrechetitrevilleindex($ville);
             $annadress = $listeannonce;
-           /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                ['listeannonce' => $listeannonce,
-                    'annadress' => $annadress,
-                ]);*/
+
+            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+                 ['listeannonce' => $listeannonce,
+                     'annadress' => $annadress,
+                 ]);*/
         } elseif ($titre != null && $ville != null) {
             $listeannonce = $repo_annonce->findtitretitrevilleindex($titre, $ville);
             $annadress = $listeannonce;
-           /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                ['listeannonce' => $listeannonce,
-                    'annadress' => $annadress,
-                ]);*/
+
+            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+                 ['listeannonce' => $listeannonce,
+                     'annadress' => $annadress,
+                 ]);*/
         } elseif ($datedebut != null && $datefin != null && $titre == null && $ville == null) {
             $listeannonce = $repo_annonce->finddispoindex($datedebut, $datefin);
             $annadress = $listeannonce;
-           /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                ['listeannonce' => $listeannonce,
-                    'annadress' => $annadress,
-                ]);*/
+
+            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+                 ['listeannonce' => $listeannonce,
+                     'annadress' => $annadress,
+                 ]);*/
         } elseif ($titre != null && $ville == null && $datedebut != null && $datefin != null) {
             $listeannonce = $repo_annonce->titreperiodeindex($titre, $datedebut, $datefin);
             $annadress = $listeannonce;
+
 //            return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
 //                ['listeannonce' => $listeannonce]);
         } elseif ($titre == null && $ville != null && $datedebut != null && $datefin != null) {
             $listeannonce = $repo_annonce->villeperiodeindex($ville, $datedebut, $datefin);
             $annadress = $listeannonce;
-           /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                ['listeannonce' => $listeannonce,
-                    'annadress' => $annadress,
-                ]);*/
+
+            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+                 ['listeannonce' => $listeannonce,
+                     'annadress' => $annadress,
+                 ]);*/
         } elseif ($titre != null && $ville != null && $datedebut != null && $datefin != null) {
             $listeannonce = $repo_annonce->titrevilleperiodeindex($titre, $ville, $datedebut, $datefin);
             $annadress = $listeannonce;
-           /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                ['listeannonce' => $listeannonce,
-                    'annadress' => $annadress,
-                ]);*/
+
+            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+                 ['listeannonce' => $listeannonce,
+                     'annadress' => $annadress,
+                 ]);*/
         }
-       if(!is_null($datedebut) || !is_null($datefin)){ // Ajouté par Moro KONE
-           $date =  $this->getRechercheIndexCookie($request);
-           $serializer = new Serializer(array(new DateTimeNormalizer('Y-m-d')));
-           $today = $serializer->normalize(new \DateTime());
-           // if(strtotime($date['debut']) <= strtotime($today)){
-            if($date['debut'] <= $today){
-                $this->setRechercheIndexCookie($today, $datefin);
-            }elseif($datedebut <= $today){
-                $this->setRechercheIndexCookie($datedebut, $datefin);
-              
+
+        $response =  $this->render('LSIMarketBundle:market:resultat_recherche.html.twig', [
+            'listeannonce' => $listeannonce,
+            'annadress' => $annadress]);
+
+        if(!is_null($datedebut) || !is_null($datefin)){ // Ajouté par Moro KONE
+            $date =  $this->getRechercheIndexCookie($request);
+
+            $serializer = new Serializer(array(new DateTimeNormalizer('Y-m-d')));
+
+            $today = $serializer->normalize(new \DateTime());
+
+            if(strtotime($date['debut']) <= strtotime($today)){
+                $response = $this->setRechercheIndexCookie($response, $today, $datefin);
+            }elseif(strtotime($datedebut) <= strtotime($today)){
+                $response = $this->setRechercheIndexCookie($response, $datedebut, $datefin);
             }
-       }
-        return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-            [
-                'listeannonce' => $listeannonce,
-                'annadress' => $annadress,
-            ]
-        );
+
+        }
+
+        return $response->send();
+
     }
 
     // Traitement pour la recherche avancée
@@ -1919,21 +1940,76 @@ class MarketController extends Controller
     }
 
 
- /**
-     * @param Request $request
+
+    /**
+     * @author Moro KONE
+     * @param $private_key
+     * @param $str_to_crypt
+     * @return string
+     */
+    private function crypt($private_key, $str_to_crypt) {
+        $private_key = md5($private_key);
+        $letter = -1;
+        $new_str = '';
+        $strlen = strlen($str_to_crypt);
+
+        for ($i = 0; $i < $strlen; $i++) {
+            $letter++;
+            if ($letter > 31) {
+                $letter = 0;
+            }
+            $neword = ord($str_to_crypt{$i}) + ord($private_key{$letter});
+            if ($neword > 255) {
+                $neword -= 256;
+            }
+            $new_str .= chr($neword);
+        }
+        return base64_encode($new_str);
+    }
+
+    /**
+     * @author Moro KONE
+     * @param $private_key
+     * @param $str_to_decrypt
+     * @return string
+     */
+    private function decrypt($private_key, $str_to_decrypt) {
+        $private_key = md5($private_key);
+        $letter = -1;
+        $new_str = '';
+        $str_to_decrypt = base64_decode($str_to_decrypt);
+        $strlen = strlen($str_to_decrypt);
+        for ($i = 0; $i < $strlen; $i++) {
+            $letter++;
+            if ($letter > 31) {
+                $letter = 0;
+            }
+            $neword = ord($str_to_decrypt{$i}) - ord($private_key{$letter});
+            if ($neword < 1) {
+                $neword += 256;
+            }
+            $new_str .= chr($neword);
+        }
+        return $new_str;
+    }
+
+
+    /**
+     * @param $response
      * @param $datedebut
      * @param $datefin
+     * @return Response
      */
-    private function setRechercheIndexCookie(Request $request, $datedebut, $datefin)
+    private function setRechercheIndexCookie($response,$datedebut, $datefin)
     {
 
         $crypt = $this->getRechercheIndexCookieKey();
         $date =['debut' =>$datedebut , 'fin' => $datefin] ;
         $content = serialize($date);
         $cookie = new Cookie($crypt, base64_encode($content), time() + 86400);
-        $response = new Response();
+        //$response = new Response();
         $response->headers->setCookie($cookie);
-        $response->send();
+        return $response;
     }
 
     /**
@@ -1958,7 +2034,7 @@ class MarketController extends Controller
     {
         $private_key = 'marketcookiedate'; // Paramétrage de la clé de cryptage du cookie
 
-        $crypt = $this->crypt($private_key, "dateofrech");
+        $crypt = $this->crypt($private_key, "indexgetrePchercKhe@#c@okie{+%ZT$");
         return $crypt;
     }
 
