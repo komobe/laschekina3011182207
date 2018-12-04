@@ -585,6 +585,12 @@ class MarketController extends Controller
         $em = $this->getDoctrine()->getManager();
         $reserver = new Reserver();
 
+        $dates =  $this->getRechercheIndexCookie($request); // Recuperation des date saisies lors de la derniere recherche(S'il y a )
+        if ($dates!==null) {
+            $reserver->setDebutPrestation(new \DateTime($dates['debut']));
+            $reserver->setFinPrestation(new \DateTime($dates['fin']));
+        }
+
         $form = $this->createForm(ReserverType::class, $reserver);
 
         $annonce = $em->getRepository('LSIMarketBundle:Annonce')->find($id);

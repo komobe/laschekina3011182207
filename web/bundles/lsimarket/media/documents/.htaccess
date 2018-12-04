@@ -1,0 +1,4 @@
+<Files *.pdf>
+	ForceType applicaton/octet-stream
+	Header set Content-Disposition attachment
+</Files>

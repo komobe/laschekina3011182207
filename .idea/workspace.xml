@@ -1,68 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="99da32e9-e8f5-489a-9c7e-cbd816061b11" name="Default Changelist" comment="" />
+    <list default="true" id="99da32e9-e8f5-489a-9c7e-cbd816061b11" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/reservation/reserver.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/reservation/reserver.html.twig" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-89569561">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="php" value="1" />
+          <entry key="php" value="126" />
+          <entry key="twig" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PHP" value="1" />
+          <entry key="PHP" value="126" />
+          <entry key="Twig" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.18" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="php" value="1" />
+          <entry key="twig" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="PHP" value="1" />
+          <entry key="Twig" value="1" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Resources/config/routing.yml">
+        <entry file="file://$USER_HOME$/AppData/Local/Temp/scp45670/Mypublicspace/src/LSI/MarketBundle/Controller/MarketController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="448" column="55" selection-start-line="448" selection-start-column="46" selection-end-line="448" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="63" column="82" selection-start-line="63" selection-start-column="82" selection-end-line="63" selection-end-column="82" />
+            <state relative-caret-position="353">
+              <caret line="607" selection-start-line="602" selection-start-column="8" selection-end-line="607" />
               <folding>
-                <element signature="e#48#84#0#PHP" expanded="true" />
+                <element signature="e#2124#2149#1#PHP" expanded="true" />
+                <element signature="e#2491#2531#0#PHP" expanded="true" />
+                <element signature="e#5297#5322#1#PHP" expanded="true" />
+                <element signature="e#5424#5446#1#PHP" expanded="true" />
+                <element signature="e#5658#5699#0#PHP" expanded="true" />
+                <element signature="e#6056#6081#1#PHP" expanded="true" />
+                <element signature="e#6136#6158#1#PHP" expanded="true" />
+                <element signature="e#6267#6308#0#PHP" expanded="true" />
+                <element signature="e#7411#7453#0#PHP" expanded="true" />
+                <element signature="e#7836#7861#1#PHP" expanded="true" />
+                <element signature="e#8652#8695#0#PHP" expanded="true" />
+                <element signature="e#8969#8994#1#PHP" expanded="true" />
+                <element signature="e#9193#9218#1#PHP" expanded="true" />
+                <element signature="e#9376#9416#0#PHP" expanded="true" />
+                <element signature="e#15285#15310#1#PHP" expanded="true" />
+                <element signature="e#15551#15576#1#PHP" expanded="true" />
+                <element signature="e#15715#15740#1#PHP" expanded="true" />
+                <element signature="e#15912#15937#1#PHP" expanded="true" />
+                <element signature="e#16360#16383#1#PHP" expanded="true" />
+                <element signature="e#16567#16591#1#PHP" expanded="true" />
+                <element signature="e#16801#16827#1#PHP" expanded="true" />
+                <element signature="e#17088#17113#1#PHP" expanded="true" />
+                <element signature="e#17265#17291#1#PHP" expanded="true" />
+                <element signature="e#17439#17469#1#PHP" expanded="true" />
+                <element signature="e#17574#17613#0#PHP" expanded="true" />
+                <element signature="e#19050#19080#1#PHP" expanded="true" />
+                <element signature="e#19185#19224#0#PHP" expanded="true" />
+                <element signature="e#20127#20157#1#PHP" expanded="true" />
+                <element signature="e#20262#20301#0#PHP" expanded="true" />
+                <element signature="e#21204#21234#1#PHP" expanded="true" />
+                <element signature="e#21339#21378#0#PHP" expanded="true" />
+                <element signature="e#22278#22308#1#PHP" expanded="true" />
+                <element signature="e#22413#22452#0#PHP" expanded="true" />
+                <element signature="e#23174#23204#1#PHP" expanded="true" />
+                <element signature="e#23336#23375#0#PHP" expanded="true" />
+                <element signature="e#24112#24137#1#PHP" expanded="true" />
+                <element signature="e#25096#25121#1#PHP" expanded="true" />
+                <element signature="e#25171#25193#1#PHP" expanded="true" />
+                <element signature="e#26434#26482#0#PHP" expanded="true" />
+                <element signature="e#27030#27056#1#PHP" expanded="true" />
+                <element signature="e#27435#27460#1#PHP" expanded="true" />
+                <element signature="e#27598#27653#0#PHP" expanded="true" />
+                <element signature="e#27798#27853#1#PHP" expanded="true" />
+                <element signature="e#28187#28213#1#PHP" expanded="true" />
+                <element signature="e#28511#28536#1#PHP" expanded="true" />
+                <element signature="e#28699#28750#0#PHP" expanded="true" />
+                <element signature="e#29339#29364#1#PHP" expanded="true" />
+                <element signature="e#29524#29570#0#PHP" expanded="true" />
+                <element signature="e#36028#36054#1#PHP" expanded="true" />
+                <element signature="e#36130#36156#1#PHP" expanded="true" />
+                <element signature="e#36224#36249#1#PHP" expanded="true" />
+                <element signature="e#36449#36471#1#PHP" expanded="true" />
+                <element signature="e#37308#37346#0#PHP" expanded="true" />
+                <element signature="e#39368#39406#0#PHP" expanded="true" />
+                <element signature="e#39689#39727#0#PHP" expanded="true" />
+                <element signature="e#39995#40037#1#PHP" expanded="true" />
+                <element signature="e#40977#41024#0#PHP" expanded="true" />
+                <element signature="e#42811#42858#0#PHP" expanded="true" />
+                <element signature="e#43169#43194#1#PHP" expanded="true" />
+                <element signature="e#45128#45171#0#PHP" expanded="true" />
+                <element signature="e#45807#45832#1#PHP" expanded="true" />
+                <element signature="e#47363#47407#0#PHP" expanded="true" />
+                <element signature="e#48078#48126#0#PHP" expanded="true" />
+                <element signature="e#48806#48831#1#PHP" expanded="true" />
+                <element signature="e#49046#49099#0#PHP" expanded="true" />
+                <element signature="e#52308#52333#1#PHP" expanded="true" />
+                <element signature="e#55804#55857#0#PHP" expanded="true" />
+                <element signature="e#58299#58339#0#PHP" expanded="true" />
+                <element signature="e#58488#58540#1#PHP" expanded="true" />
+                <element signature="e#58674#58724#1#PHP" expanded="true" />
+                <element signature="e#59664#59705#1#PHP" expanded="true" />
+                <element signature="e#59747#59800#0#PHP" expanded="true" />
+                <element signature="e#60025#60051#1#PHP" expanded="true" />
+                <element signature="e#60143#60194#0#PHP" expanded="true" />
+                <element signature="e#60613#60639#1#PHP" expanded="true" />
+                <element signature="e#61369#61395#1#PHP" expanded="true" />
+                <element signature="e#62098#62124#1#PHP" expanded="true" />
+                <element signature="e#62193#62219#1#PHP" expanded="true" />
+                <element signature="e#62344#62369#1#PHP" expanded="true" />
+                <element signature="e#62515#62537#1#PHP" expanded="true" />
+                <element signature="e#63106#63180#0#PHP" expanded="true" />
+                <element signature="e#63625#63699#0#PHP" expanded="true" />
+                <element signature="e#64208#64282#0#PHP" expanded="true" />
+                <element signature="e#64791#64865#0#PHP" expanded="true" />
+                <element signature="e#65371#65445#0#PHP" expanded="true" />
+                <element signature="e#65777#65851#0#PHP" expanded="true" />
+                <element signature="e#66497#66523#1#PHP" expanded="true" />
+                <element signature="e#67346#67372#1#PHP" expanded="true" />
+                <element signature="e#68657#68715#0#PHP" expanded="true" />
+                <element signature="e#68832#68890#0#PHP" expanded="true" />
+                <element signature="e#69475#69501#1#PHP" expanded="true" />
+                <element signature="e#70162#70214#0#PHP" expanded="true" />
+                <element signature="e#70795#70821#1#PHP" expanded="true" />
+                <element signature="e#71004#71029#1#PHP" expanded="true" />
+                <element signature="e#71175#71197#1#PHP" expanded="true" />
+                <element signature="e#71859#71911#0#PHP" expanded="true" />
+                <element signature="e#72252#72277#1#PHP" expanded="true" />
+                <element signature="e#72407#72449#0#PHP" expanded="true" />
+                <element signature="e#72855#72880#1#PHP" expanded="true" />
+                <element signature="e#73184#73206#1#PHP" expanded="true" />
+                <element signature="e#74001#74046#0#PHP" expanded="true" />
+                <element signature="e#74369#74394#1#PHP" expanded="true" />
+                <element signature="e#74558#74607#0#PHP" expanded="true" />
+                <element signature="e#75040#75065#1#PHP" expanded="true" />
+                <element signature="e#75555#75600#0#PHP" expanded="true" />
+                <element signature="e#75721#75801#1#PHP" expanded="true" />
+                <element signature="e#75880#75913#1#PHP" expanded="true" />
+                <element signature="e#77334#77370#0#PHP" expanded="true" />
+                <element signature="e#77536#77579#1#PHP" expanded="true" />
+                <element signature="e#77671#77715#1#PHP" expanded="true" />
+                <element signature="e#77809#77857#1#PHP" expanded="true" />
+                <element signature="e#79868#79893#1#PHP" expanded="true" />
+                <element signature="e#79956#79986#1#PHP" expanded="true" />
+                <element signature="e#81369#81394#1#PHP" expanded="true" />
+                <element signature="e#81462#81487#1#PHP" expanded="true" />
+                <element signature="e#82128#82179#0#PHP" expanded="true" />
+                <element signature="e#82328#82379#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/market/index.html.twig">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/reservation/reserver.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="191" column="202" selection-start-line="191" selection-start-column="202" selection-end-line="191" selection-end-column="202" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/config.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="424">
-              <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+            <state relative-caret-position="216">
+              <caret line="77" column="30" lean-forward="true" selection-start-line="77" selection-start-column="30" selection-end-line="77" selection-end-column="30" />
+              <folding>
+                <element signature="e#12#30#0#Twig" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -76,6 +215,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php" />
+        <option value="$USER_HOME$/AppData/Local/Temp/scp45670/Mypublicspace/src/LSI/MarketBundle/Controller/MarketController.php" />
+        <option value="$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/reservation/reserver.html.twig" />
       </list>
     </option>
   </component>
@@ -136,6 +277,11 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
     </include_path>
   </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="width" value="1940" />
+    <option name="height" value="1040" />
+  </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -144,6 +290,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -159,12 +306,6 @@
             <path>
               <item name="laschekina3011182207" type="b2602c69:ProjectViewProjectNode" />
               <item name="laschekina3011182207" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laschekina3011182207" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laschekina3011182207" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -179,14 +320,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="LSI" type="462c0819:PsiDirectoryNode" />
               <item name="MarketBundle" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laschekina3011182207" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laschekina3011182207" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="LSI" type="462c0819:PsiDirectoryNode" />
-              <item name="MarketBundle" type="462c0819:PsiDirectoryNode" />
-              <item name="Controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="laschekina3011182207" type="b2602c69:ProjectViewProjectNode" />
@@ -195,15 +328,6 @@
               <item name="LSI" type="462c0819:PsiDirectoryNode" />
               <item name="MarketBundle" type="462c0819:PsiDirectoryNode" />
               <item name="Resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="laschekina3011182207" type="b2602c69:ProjectViewProjectNode" />
-              <item name="laschekina3011182207" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="LSI" type="462c0819:PsiDirectoryNode" />
-              <item name="MarketBundle" type="462c0819:PsiDirectoryNode" />
-              <item name="Resources" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="laschekina3011182207" type="b2602c69:ProjectViewProjectNode" />
@@ -222,14 +346,16 @@
               <item name="MarketBundle" type="462c0819:PsiDirectoryNode" />
               <item name="Resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="market" type="462c0819:PsiDirectoryNode" />
+              <item name="reservation" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -248,29 +374,26 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fb1913ca-9b9e-4f28-8692-9f795717ae6d" name="Default Changelist" comment="" />
+      <changelist id="99da32e9-e8f5-489a-9c7e-cbd816061b11" name="Default Changelist" comment="" />
       <created>1543625171888</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1543625171888</updated>
       <workItem from="1543625173946" duration="11677000" />
+      <workItem from="1543949685054" duration="4052000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="647000" />
+    <option name="totallyTimeSpent" value="6168000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966443" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2624161" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -278,13 +401,166 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49932885" visible="true" weight="0.3299566" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50067115" side_tool="true" weight="0.3299566" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" weight="0.3295302" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/monespace.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="290" column="64" selection-start-line="290" selection-start-column="64" selection-end-line="290" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Temp/scp45670/Mypublicspace/src/LSI/MarketBundle/Controller/MarketController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="607" selection-start-line="602" selection-start-column="8" selection-end-line="607" />
+          <folding>
+            <element signature="e#2124#2149#1#PHP" expanded="true" />
+            <element signature="e#2491#2531#0#PHP" expanded="true" />
+            <element signature="e#5297#5322#1#PHP" expanded="true" />
+            <element signature="e#5424#5446#1#PHP" expanded="true" />
+            <element signature="e#5658#5699#0#PHP" expanded="true" />
+            <element signature="e#6056#6081#1#PHP" expanded="true" />
+            <element signature="e#6136#6158#1#PHP" expanded="true" />
+            <element signature="e#6267#6308#0#PHP" expanded="true" />
+            <element signature="e#7411#7453#0#PHP" expanded="true" />
+            <element signature="e#7836#7861#1#PHP" expanded="true" />
+            <element signature="e#8652#8695#0#PHP" expanded="true" />
+            <element signature="e#8969#8994#1#PHP" expanded="true" />
+            <element signature="e#9193#9218#1#PHP" expanded="true" />
+            <element signature="e#9376#9416#0#PHP" expanded="true" />
+            <element signature="e#15285#15310#1#PHP" expanded="true" />
+            <element signature="e#15551#15576#1#PHP" expanded="true" />
+            <element signature="e#15715#15740#1#PHP" expanded="true" />
+            <element signature="e#15912#15937#1#PHP" expanded="true" />
+            <element signature="e#16360#16383#1#PHP" expanded="true" />
+            <element signature="e#16567#16591#1#PHP" expanded="true" />
+            <element signature="e#16801#16827#1#PHP" expanded="true" />
+            <element signature="e#17088#17113#1#PHP" expanded="true" />
+            <element signature="e#17265#17291#1#PHP" expanded="true" />
+            <element signature="e#17439#17469#1#PHP" expanded="true" />
+            <element signature="e#17574#17613#0#PHP" expanded="true" />
+            <element signature="e#19050#19080#1#PHP" expanded="true" />
+            <element signature="e#19185#19224#0#PHP" expanded="true" />
+            <element signature="e#20127#20157#1#PHP" expanded="true" />
+            <element signature="e#20262#20301#0#PHP" expanded="true" />
+            <element signature="e#21204#21234#1#PHP" expanded="true" />
+            <element signature="e#21339#21378#0#PHP" expanded="true" />
+            <element signature="e#22278#22308#1#PHP" expanded="true" />
+            <element signature="e#22413#22452#0#PHP" expanded="true" />
+            <element signature="e#23174#23204#1#PHP" expanded="true" />
+            <element signature="e#23336#23375#0#PHP" expanded="true" />
+            <element signature="e#24112#24137#1#PHP" expanded="true" />
+            <element signature="e#25096#25121#1#PHP" expanded="true" />
+            <element signature="e#25171#25193#1#PHP" expanded="true" />
+            <element signature="e#26434#26482#0#PHP" expanded="true" />
+            <element signature="e#27030#27056#1#PHP" expanded="true" />
+            <element signature="e#27435#27460#1#PHP" expanded="true" />
+            <element signature="e#27598#27653#0#PHP" expanded="true" />
+            <element signature="e#27798#27853#1#PHP" expanded="true" />
+            <element signature="e#28187#28213#1#PHP" expanded="true" />
+            <element signature="e#28511#28536#1#PHP" expanded="true" />
+            <element signature="e#28699#28750#0#PHP" expanded="true" />
+            <element signature="e#29339#29364#1#PHP" expanded="true" />
+            <element signature="e#29524#29570#0#PHP" expanded="true" />
+            <element signature="e#36028#36054#1#PHP" expanded="true" />
+            <element signature="e#36130#36156#1#PHP" expanded="true" />
+            <element signature="e#36224#36249#1#PHP" expanded="true" />
+            <element signature="e#36449#36471#1#PHP" expanded="true" />
+            <element signature="e#37308#37346#0#PHP" expanded="true" />
+            <element signature="e#39368#39406#0#PHP" expanded="true" />
+            <element signature="e#39689#39727#0#PHP" expanded="true" />
+            <element signature="e#39995#40037#1#PHP" expanded="true" />
+            <element signature="e#40977#41024#0#PHP" expanded="true" />
+            <element signature="e#42811#42858#0#PHP" expanded="true" />
+            <element signature="e#43169#43194#1#PHP" expanded="true" />
+            <element signature="e#45128#45171#0#PHP" expanded="true" />
+            <element signature="e#45807#45832#1#PHP" expanded="true" />
+            <element signature="e#47363#47407#0#PHP" expanded="true" />
+            <element signature="e#48078#48126#0#PHP" expanded="true" />
+            <element signature="e#48806#48831#1#PHP" expanded="true" />
+            <element signature="e#49046#49099#0#PHP" expanded="true" />
+            <element signature="e#52308#52333#1#PHP" expanded="true" />
+            <element signature="e#55804#55857#0#PHP" expanded="true" />
+            <element signature="e#58299#58339#0#PHP" expanded="true" />
+            <element signature="e#58488#58540#1#PHP" expanded="true" />
+            <element signature="e#58674#58724#1#PHP" expanded="true" />
+            <element signature="e#59664#59705#1#PHP" expanded="true" />
+            <element signature="e#59747#59800#0#PHP" expanded="true" />
+            <element signature="e#60025#60051#1#PHP" expanded="true" />
+            <element signature="e#60143#60194#0#PHP" expanded="true" />
+            <element signature="e#60613#60639#1#PHP" expanded="true" />
+            <element signature="e#61369#61395#1#PHP" expanded="true" />
+            <element signature="e#62098#62124#1#PHP" expanded="true" />
+            <element signature="e#62193#62219#1#PHP" expanded="true" />
+            <element signature="e#62344#62369#1#PHP" expanded="true" />
+            <element signature="e#62515#62537#1#PHP" expanded="true" />
+            <element signature="e#63106#63180#0#PHP" expanded="true" />
+            <element signature="e#63625#63699#0#PHP" expanded="true" />
+            <element signature="e#64208#64282#0#PHP" expanded="true" />
+            <element signature="e#64791#64865#0#PHP" expanded="true" />
+            <element signature="e#65371#65445#0#PHP" expanded="true" />
+            <element signature="e#65777#65851#0#PHP" expanded="true" />
+            <element signature="e#66497#66523#1#PHP" expanded="true" />
+            <element signature="e#67346#67372#1#PHP" expanded="true" />
+            <element signature="e#68657#68715#0#PHP" expanded="true" />
+            <element signature="e#68832#68890#0#PHP" expanded="true" />
+            <element signature="e#69475#69501#1#PHP" expanded="true" />
+            <element signature="e#70162#70214#0#PHP" expanded="true" />
+            <element signature="e#70795#70821#1#PHP" expanded="true" />
+            <element signature="e#71004#71029#1#PHP" expanded="true" />
+            <element signature="e#71175#71197#1#PHP" expanded="true" />
+            <element signature="e#71859#71911#0#PHP" expanded="true" />
+            <element signature="e#72252#72277#1#PHP" expanded="true" />
+            <element signature="e#72407#72449#0#PHP" expanded="true" />
+            <element signature="e#72855#72880#1#PHP" expanded="true" />
+            <element signature="e#73184#73206#1#PHP" expanded="true" />
+            <element signature="e#74001#74046#0#PHP" expanded="true" />
+            <element signature="e#74369#74394#1#PHP" expanded="true" />
+            <element signature="e#74558#74607#0#PHP" expanded="true" />
+            <element signature="e#75040#75065#1#PHP" expanded="true" />
+            <element signature="e#75555#75600#0#PHP" expanded="true" />
+            <element signature="e#75721#75801#1#PHP" expanded="true" />
+            <element signature="e#75880#75913#1#PHP" expanded="true" />
+            <element signature="e#77334#77370#0#PHP" expanded="true" />
+            <element signature="e#77536#77579#1#PHP" expanded="true" />
+            <element signature="e#77671#77715#1#PHP" expanded="true" />
+            <element signature="e#77809#77857#1#PHP" expanded="true" />
+            <element signature="e#79868#79893#1#PHP" expanded="true" />
+            <element signature="e#79956#79986#1#PHP" expanded="true" />
+            <element signature="e#81369#81394#1#PHP" expanded="true" />
+            <element signature="e#81462#81487#1#PHP" expanded="true" />
+            <element signature="e#82128#82179#0#PHP" expanded="true" />
+            <element signature="e#82328#82379#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/reservation/reserver.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="77" column="30" lean-forward="true" selection-start-line="77" selection-start-column="30" selection-end-line="77" selection-end-column="30" />
+          <folding>
+            <element signature="e#12#30#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
