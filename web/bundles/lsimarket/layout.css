@@ -1,0 +1,30 @@
+body{
+    width: 100%;
+    margin: auto;
+    /*background-color: #8959A8;*/
+    background-color: rgba(100, 160, 200, 0.31);
+}
+
+.volet{
+    margin-top: 50px;
+}
+
+.pied{
+    margin-top: 20px;
+}
+
+#page{
+    background-color: rgb(222, 222, 222);
+    box-shadow: 0 2px 5px 5px rgba(0, 0, 0, .5);
+    /*width: 990px;*/
+    /*margin: 20px;*/
+    padding: 20px;
+}
+
+#pageLogin{
+    background-color: rgb(222, 222, 222);
+    box-shadow: 0 2px 5px 5px rgba(0, 0, 0, .5);
+    /*width: 430px;*/
+    /*margin: 20px;*/
+    padding: 20px;
+}

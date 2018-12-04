@@ -1,0 +1,81 @@
+.bg-white {
+    background: #fdfdfd!important;
+}
+.border-style {
+    box-shadow: 0 0 5px rgba(0,0,0,0.15);
+    border-radius:4px;
+    border:1px solid white;
+}
+.mb-1 {
+    margin-bottom: 10px!important;
+}
+.mb-2 {
+    margin-top: 20px!important;
+}
+.pl-1 {
+    padding-left: 10px!important;
+}
+.pr-1 {
+    padding-right: 10px!important;
+ }
+.pb-2 {
+    padding-bottom: 20px!important;
+ } 
+.pt-1 {
+    padding-top: 10px!important;
+}
+.pb-1 {
+    padding-bottom: 10px!important;
+}
+.pt-2 {
+    padding-top: 20px!important;
+}
+.text-block {
+    display: block!important;
+}
+.mt-5 {
+    margin-top: 50px!important;
+}
+.zoom {
+    transition: transform .2s; /* Animation */
+    margin: 0 auto;
+}
+.zoom:hover {
+    transform: scale(1.01); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.pos-thumb {
+    width:100%!important;
+    height:150px!important;
+    background-size:cover!important;
+    background-repeat:no-repeat!important;
+    background-position:center!important;
+}
+
+.triangle {
+    position: absolute;
+    background: transparent!important;
+    z-index: 99999999!important;
+
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.triangle.first {
+    width: 0;
+    height: 0;
+    border: 0 solid transparent;
+    border-bottom-width: 90px;
+    border-top-width: 0px;
+    border-left: 90px solid #346c92;
+}
+
+.triangle.epic {
+    background: transparent!important;
+    height: 45px;
+    line-height: 60px;
+    text-align: right;
+    width: 45px;
+}

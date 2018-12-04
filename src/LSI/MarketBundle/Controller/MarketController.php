@@ -61,13 +61,13 @@ class MarketController extends Controller
 
         $annadress = $annonces;
 
-        $date =  $this->getRechercheIndexCookie($request); //by komobe
+        $dates =  $this->getRechercheIndexCookie($request); //by komobe
 
         return $this->render('LSIMarketBundle:market:index.html.twig', array(
             'annonces' => $annonces,
             'annadress' => $annadress,
             'contactForm' => $formcontact->createView(),
-            'date' => $date
+            'dates' => $dates
         ));
 
     }
@@ -1307,13 +1307,13 @@ class MarketController extends Controller
             'annadress' => $annadress]);
 
         if(!is_null($datedebut) || !is_null($datefin)){ // Ajouté par Moro KONE
-            $date =  $this->getRechercheIndexCookie($request);
+            $dates =  $this->getRechercheIndexCookie($request);
 
             $serializer = new Serializer(array(new DateTimeNormalizer('Y-m-d')));
 
             $today = $serializer->normalize(new \DateTime());
 
-            if(strtotime($date['debut']) <= strtotime($today)){
+            if(strtotime($dates['debut']) <= strtotime($today)){
                 $response = $this->setRechercheIndexCookie($response, $today, $datefin);
             }elseif(strtotime($datedebut) <= strtotime($today)){
                 $response = $this->setRechercheIndexCookie($response, $datedebut, $datefin);
@@ -2004,8 +2004,8 @@ class MarketController extends Controller
     {
 
         $crypt = $this->getRechercheIndexCookieKey();
-        $date =['debut' =>$datedebut , 'fin' => $datefin] ;
-        $content = serialize($date);
+        $dates =['debut' =>$datedebut , 'fin' => $datefin] ;
+        $content = serialize($dates);
         $cookie = new Cookie($crypt, base64_encode($content), time() + 86400);
         //$response = new Response();
         $response->headers->setCookie($cookie);
@@ -2020,8 +2020,8 @@ class MarketController extends Controller
     {
         $crypt = $this->getRechercheIndexCookieKey();
 
-        if ($date = $request->cookies->get($crypt)) {
-            return unserialize(base64_decode($date));
+        if ($dates = $request->cookies->get($crypt)) {
+            return unserialize(base64_decode($dates));
         }
 
         return null;

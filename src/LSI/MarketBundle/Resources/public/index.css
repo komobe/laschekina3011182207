@@ -1,0 +1,26 @@
+a{
+    text-decoration: none;
+    //line-height: 10px;
+    /*-moz-text-decoration-line: none;*/
+}
+
+h2{
+    /*margin-bottom: 0px;*/
+}
+
+p{
+    margin-top: 0px;
+}
+
+i{
+    line-height: 0px;
+}
+
+a:focus{
+    text-decoration: none;
+    border: none;
+}
+
+a:hover{
+    text-decoration: none;
+}

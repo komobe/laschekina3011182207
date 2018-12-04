@@ -1,0 +1,85 @@
+body{height:100%;background:url('../images/TEMPLATE%20CONSTRUCTION%20AR.jpg') rgb(255, 255, 255);background-repeat:no-repeat;background-size:1381px 1080px;background-position:center center;font:400 13px/1.38 Helvetica;color:rgb(139, 138, 138);}
+
+.container-1 button{width:118px;height:47px;background-color:rgb(52, 108, 146);font-size:12px;}
+
+.container-2 button{width:120px;height:28px;font-size:10px;font-weight:700;text-transform:uppercase;}
+
+button{display:block;float:left;border-radius:3px;text-align:center;}
+
+._button-14:hover,._button-1:hover,._button-2:hover,._button-3:hover,._button-4:hover,div button:hover{color:rgb(124, 4, 4);}
+
+img{display:block;position:relative;float:left;z-index:2;width:280px;height:auto;margin:-534px 0 0 31.91697%;overflow:hidden;}
+
+input{display:block;float:left;width:347px;height:47px;margin-left:-1px;background-color:rgb(242, 242, 242);color:rgb(0, 0, 0);}
+
+select{display:block;position:relative;float:left;width:188px;height:32px;padding-left:10px;border:5px solid rgb(119, 119, 119);border-radius:3px;background:url('../images/select-arrows.svg') rgb(124, 4, 4);background-repeat:no-repeat;background-size:auto auto;background-position:right center;color:rgb(139, 138, 138);}
+
+.container{float:left;}
+
+.element{position:relative;float:left;clear:both;z-index:1;width:830px;height:46px;margin:-496px 0 0 530px;background-color:rgb(123, 159, 191);}
+
+.text{float:left;}
+
+.text-1 p,.text-2 p{margin-bottom:1em;}
+
+.container-1{position:relative;z-index:22;width:465px;height:47px;margin:-272px 0 0 60.83009%;}
+
+.container-2{width:536px;height:28px;margin:45px 0 0 18.82994%;}
+
+.text-1{position:relative;z-index:7;width:379px;min-height:277px;margin:192px 0 0 45px;font-size:16px;color:rgb(139, 138, 138);}
+
+.text-2{position:relative;clear:both;z-index:0;width:320px;min-height:162px;margin:-513px 0 0 50px;font-size:33px;line-height:0.18;color:rgb(52, 108, 146);}
+
+.text-3{width:431px;min-height:60px;margin:79px 0 0 32px;font-size:31px;font-weight:700;text-align:center;text-decoration:underline;color:rgb(105, 98, 98);}
+
+.text-4{position:relative;clear:both;z-index:15;width:174px;min-height:29px;margin:25px 0 0 34px;font-size:12px;text-transform:uppercase;color:rgb(139, 138, 138);}
+
+._button-1{position:relative;z-index:3;width:87px;height:23px;margin:-486px 0 0 745px;background-color:rgb(123, 159, 191);font-size:16px;color:rgb(255, 255, 255);}
+
+._button-13{position:relative;clear:both;z-index:18;width:188px;height:24px;margin-left:45px;background-color:rgb(124, 4, 4);font-size:16px;text-decoration:underline;color:rgb(139, 138, 138);}
+
+._button-13:hover{color:rgb(52, 108, 146);}
+
+._button-14{position:relative;z-index:19;width:182px;height:34px;margin:5px 0 0 23px;background-color:rgb(52, 108, 146);font-size:16px;font-weight:700;color:rgb(139, 138, 138);}
+
+._button-2{position:relative;z-index:4;width:93px;height:23px;margin:-486px 0 0 852px;background-color:rgb(123, 159, 191);font-size:16px;color:rgb(255, 255, 255);}
+
+._button-3{position:relative;z-index:5;width:87px;height:23px;margin:-486px 0 0 975px;background-color:rgb(123, 159, 191);font-size:16px;color:rgb(255, 255, 255);}
+
+._button-4{position:relative;z-index:6;width:87px;height:23px;margin:-486px 0 0 1086px;background-color:rgb(123, 159, 191);font-size:16px;color:rgb(255, 255, 255);}
+
+._button-5{position:relative;z-index:28;width:34px;height:27px;margin:-486px 0 0 1205px;background:url('../images/icon.png'), none rgb(123, 159, 191);background-repeat:repeat, repeat;background-size:30px auto, auto auto;background-position:center center, left top;background-attachment:scroll, scroll;font-size:16px;color:rgb(0, 0, 0);}
+
+._button-6{position:relative;z-index:28;width:93px;height:27px;margin:-486px 0 0 1205px;font-size:16px;color:rgb(255, 255, 255);}
+
+._button-5:hover{background-image:url('../images/icon.png'), url('../images/icon.png');background-repeat:repeat, no-repeat;background-size:30px auto, 30px 30px;background-position:center center, center center;}
+
+._button-7{position:relative;clear:both;z-index:10;width:120px;height:39px;margin-left:34px;border:4px double rgb(139, 138, 138);font-size:12px;font-weight:700;color:rgb(139, 138, 138);}
+
+._button-7:hover{background-color:rgb(52, 108, 146);box-shadow:0 2px 5px rgba(0, 0, 0, .5) inset;color:rgb(139, 138, 138);}
+
+._button-8{position:relative;z-index:9;width:120px;height:39px;margin-left:167px;border:4px double rgb(139, 138, 138);background-color:rgb(124, 4, 4);box-shadow:0 2px 5px rgba(0, 0, 0, .5) inset;font-size:12px;color:rgb(139, 138, 138);}
+
+._button-8:hover{background-color:rgb(52, 108, 146);box-shadow:0 2px 5px rgba(0, 0, 0, .5) inset;font-style:normal;font-weight:700;}
+
+._select-1{clear:both;z-index:11;margin:32px 0 0 34px;}
+
+._select-2{z-index:12;margin:32px 0 0 32px;}
+
+._select-3{clear:both;z-index:13;margin:42px 0 0 34px;}
+
+._select-4{z-index:14;margin:42px 0 0 30px;}
+
+._select-5{clear:both;z-index:16;margin-left:34px;}
+
+._select-6{z-index:17;margin:-1px 0 0 30px;}
+
+.container ._button-10,.container ._button-11{margin-left:15px;}
+
+.container ._button-12{margin-left:26px;}
+
+.container ._button-9{margin-left:-1px;}
+
+.text span{border-top-width:0;border-right-width:0;border-bottom-width:0;border-left-width:0;border-color:transparent;border-style:none;border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:0;background-color:transparent;font-family:inherit;font-style:normal;font-size:inherit;font-weight:inherit;text-transform:inherit;text-decoration:inherit;letter-spacing:inherit;word-spacing:inherit;color:inherit;opacity:1;word-break:normal;word-wrap:normal;white-space:normal;}
+
+.text strong{border-top-width:0;border-right-width:0;border-bottom-width:0;border-left-width:0;border-color:transparent;border-style:none;border-top-left-radius:0;border-top-right-radius:0;border-bottom-right-radius:0;border-bottom-left-radius:0;background-color:transparent;font-family:inherit;font-style:inherit;font-size:inherit;font-weight:inherit;text-transform:inherit;text-decoration:inherit;letter-spacing:inherit;word-spacing:inherit;color:inherit;opacity:1;word-break:normal;word-wrap:normal;white-space:normal;}

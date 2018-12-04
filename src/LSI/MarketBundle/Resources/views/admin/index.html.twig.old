@@ -1,0 +1,77 @@
+{% extends 'LSIMarketBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Bienvenu dans l'espace d'administration</h1>
+    <div class="" style="height: 100%;">
+        <nav class="navbar navbar-inverse" >
+            <div class="container-fluid">
+                <div class="navbar navbar-fixed-left">
+                    <p class="navbar-brand">ADMINISTRATION</p>
+                </div>
+                <div id="accordion">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+                        {# Gestion des EPCI #}
+                        <div class="card">
+                            <div class="card-header nav" id="headingOne">
+                                <h5 class="mb-0">
+                                    <li><a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne"
+                                           aria-expanded="false" aria-controls="collapseOne" role="button">
+                                            Gestion des EPCI
+                                        </a></li>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body nav">
+                                    <li><a href="{{ path('ls_imarket_ajout_epci') }}">Ajouter un EPCI</a></li>
+                                    <li><a href="{{ path('ls_imarket_liste_epci') }}">Consulter les EPCI</a></li>
+                                </div>
+                            </div>
+                        </div>
+                        {# Gestion des CGU #}
+                        <div class="card">
+                            <div class="card-header nav" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <li><a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
+                                           aria-expanded="false" aria-controls="collapseTwo" role="button">
+                                            Edition des CGUs
+                                        </a></li>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body nav">
+                                    {#{% if file_exists(asset(cgu.webPath)) %}#}
+                                    <li><a href="{{ path('ls_imarket_ajouter_cgu') }}" class="disabled">Ajouter les CGU</a></li>
+                                    {#{% else %}#}
+                                    {#<li><a href="{{ path('ls_imarket_ajouter_cgu') }}">Ajouter les CGU</a></li>
+                                    {% endif %}#}
+                                    <li><a href="{{ path('ls_imarket_voir_cgu') }}">Consulter les CGU</a></li>
+                                </div>
+                            </div>
+                        </div>
+                        {# Gestion des CGV #}
+                        <div class="card">
+                            <div class="card-header nav" id="headingThree">
+                                <h5 class="mb-0">
+                                    <li><a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"
+                                           aria-expanded="false" aria-controls="collapseThree" role="button">
+                                            Edition des CGVs
+                                        </a></li>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                <div class="card-body nav">
+                                    <li><a href="{{ path('ls_imarket_ajouter_cgv') }}">Ajouter les CGV</a></li>
+                                    <li><a href="{{ path('ls_imarket_voir_cgv') }}">Consulter les CGV</a></li>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p style="height: 150px;"></p>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+{% endblock body %}
