@@ -1,13 +1,13 @@
-{% extends 'LSIMarketBundle::monespace.html.twig' %}
 
-{% block title %}
+
+{# {% block title %}
     Mes reservations - {{ parent() }}
 {% endblock title %}
 
 {% block monespace %}
-    <div id="page" class="row">
+    <div id="page" class="row"> 
         <div class="">
-            <h3>Mes reservations</h3>
+            <h3>Mes reservations</h3>#}
             <table class="table table-hover">
                 <thead>
                 <tr class="success">
@@ -36,7 +36,7 @@
                             <td><strong>En attente de validation</strong></td>
                         {% endif %}
                         <td>
-                            <a class="btn btn-success" href="{{ path('ls_imarket_traitement_demandeur_reservation', {'id': reservation.id }) }}">Consulter</a>
+                            <a class="iconic iconic-visibility" href="{{ path('ls_imarket_traitement_demandeur_reservation', {'id': reservation.id }) }}"></a>
                         </td>
                     </tr>
                 {% else %}
@@ -50,6 +50,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
+{#         </div>
     </div>
-{% endblock monespace %}
+{% endblock monespace %} #}

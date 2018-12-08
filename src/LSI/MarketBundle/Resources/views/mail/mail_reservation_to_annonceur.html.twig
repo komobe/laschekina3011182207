@@ -1,0 +1,20 @@
+{#<h4>Votre annonce est maintenant visible</h4>#}
+<h1>Demande de reservation </h1>
+
+<br/>
+
+<p>
+    L'annonce <a target="_blank" href="{{ path('ls_imarket_voir_annonce', {'id': annonce.id})}}"><strong> {{ annonce.titre }}</strong></a> a fait l'objet d'une reservation. Ci-dessous les
+    details de l'annonceur.
+</p><br>
+<p>
+    Nom : {{ client.nom }}
+</p>
+
+<p>
+    Email : {{ client.email }}
+</p>
+
+<p>
+    N° Téléphone : {{ client.telephone }}
+</p>

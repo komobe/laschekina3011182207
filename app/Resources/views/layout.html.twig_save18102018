@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}CIVILINC{% endblock %}</title>
+        {% block stylesheets %}
+            {# Liens CSS de Bootstrap #}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+            
+            <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/layout.css') }}"/>
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="crossorigin=""/>
+            <link rel="icon" type="image/png" href="{{ asset('bundles/lsimarket/images/logo_civilink.png') }}">	
+            <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/lsimarket/iconic.css') }}">
+            
+            <!-- Lien pour le calendrier -->
+           
+            <!--[if lt IE 10 ]>
+            <style type="text/css">
+               .navigation-mobile{
+               display: none;
+               }
+            </style>
+            <![endif]-->   
+        {% endblock stylesheets  %}
+
+   </head>
+<body>
+
+<!--[if lt IE 9]>
+   <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<div class="navigation-mobile">
+   <div>
+      <i class="iconic iconic-close" id="mobileNav2"></i>
+   </div>
+   <ul>	
+       <li><a href="{{ path('lsi_market_homepage') }}">Accueil</a></li>
+       <li><a href="{{ path('ls_imarket_liste_annonce') }}" class="menu_blue meta-civilinc">Annonces</a></li>
+		<li><a href="#" class="menu-item-has-children menu_blue meta-civilinc">Mon espace</a>
+				<ul class="dir-right level-1 sub-menu">
+			   <li><a href="#">Espace offreur</a>
+					   <ul class="dir-left">
+						   <li><a href="{{ path('ls_imarket_mes_annonces') }}">Mes annonces</a></li>
+						   <li><a href="{{ path('ls_imarket_reservations_sur_mes_annonces') }}">Réservations sur mes annonces</a></li>
+					   </ul>
+				</li>
+			   <li><a href="#">Espace demandeur</a>
+					<ul class="dir-left">
+						   <li><a href="{{ path('ls_imarket_mes_reservations') }}">Mes réservations</a></li>
+						   <li><a href="{{ path('ls_imarket_mes_commandes') }}">Mes commandes</a></li>
+					   </ul>
+				   </li>
+				    				
+				</ul>
+			 </li>
+                         <li><a href="#">Profils</a>
+					   <ul class="dir-left">
+						   <li><a href="{{ path('lsi_market_a_propos') }}">A propos</a></li>
+						   <li><a href="{{ path('lsi_market_coordonnees_bancaires') }}">Coordonnées bancaires</a></li>
+						   
+					   </ul>
+				   </li>
+       <li><a href="#">Contact</a></li>
+       <li><a href="aide">Aide</a></li> 
+        {% if app.user %}
+           <li class="dropdown">
+               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Messagerie<span class="caret"></span></a>
+                   <ul class="dropdown-menu">
+                       <li><a href="{{ path('ls_imarket_traitement_msgrecu') }}">Messages recus</a></li>
+                       <li><a href="{{ path('ls_imarket_traitement_msgenvoye') }}">Messages envoyes</a></li>                       
+                   </ul>
+            </li>
+           <li class="dropdown">
+               <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ app.user.username }}<span class="caret"></span></a>
+                   <ul class="dropdown-menu">
+                       <li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+                       <li><a href="{{ path('ls_imarket_mon_espace') }}">Mon espace</a> </li>
+                       {% if app.user.hasRole('ROLE_MAIRIE') %}
+                           <li><a href="{{ path('ls_imarket_ajouter_annonce') }}">Créer une annonce</a> </li>
+                       {% endif %}
+                       <li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
+                       </li>
+                    </ul>
+            </li>
+
+           {% else %}
+              {#<li><a href="{{ path('fos_user_registration_register') }}">
+                  <span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>#}
+                  <li><a href="{{ path('fos_user_security_login') }}">
+                  <span class="iconic iconic-login"></span></a></li>
+              {% endif %} 
+   </ul>
+</div>
+ 
+<div class="wrap">
+
+<!-- Header  -->
+
+<header class="header-v2-mid">  
+      <div class="container">              
+      <div class="logo" data-wow-delay="200ms">
+      <a href="{{ path('lsi_market_homepage') }}"><img src="{{ asset('bundles/lsimarket/images/logo_civilink.png')}}" height="60" width="60" alt="" class="logo_layout""></a>
+    </div>  
+           <div class="navigation menu_layout">
+              <a href="#" class="navigation-button" id="mobileNav"><i class="iconic iconic-menu"></i></a>               
+              <ul>
+	         <li><a href="{{ path('lsi_market_homepage') }} " class="menu_blue meta-civilinc">Accueil</a></li>
+                 <li><a href="{{ path('ls_imarket_liste_annonce') }}" class="menu_blue meta-civilinc">Annonces</a></li>
+{% if app.user %}
+		
+<li><a href="#" class="menu-item-has-children menu_blue meta-civilinc">Mon espace</a>
+				<ul class="dir-right level-1 sub-menu">
+			   <li><a href="#">Espace offreur</a>
+					   <ul class="dir-left">
+						   <li><a href="{{ path('ls_imarket_mes_annonces') }}">Mes annonces</a></li>
+						   <li><a href="{{ path('ls_imarket_reservations_sur_mes_annonces') }}">Réservations sur mes annonces</a></li>
+					   </ul>
+				</li>
+			   <li><a href="#">Espace demandeur</a>
+					<ul class="dir-left">
+						   <li><a href="{{ path('ls_imarket_mes_reservations') }}">Mes réservations</a></li>
+						   <li><a href="{{ path('ls_imarket_mes_commandes') }}">Mes commandes</a></li>
+					   </ul>
+				   </li>
+           <li class="dropdown">
+               <a href="#">Messagerie</a>
+                   <ul class="dir-left">
+                       <li><a href="{{ path('ls_imarket_traitement_msgrecu') }}">Messages recus</a></li>
+                       <li><a href="{{ path('ls_imarket_traitement_msgenvoye') }}">Messages envoyes</a></li>                       
+                   </ul>
+            </li>
+
+                                <li><a href="#">Profils</a>
+					   <ul class="dir-left">
+						   <li><a href="{{ path('lsi_market_a_propos') }}">A propos</a></li>
+						   <li><a href="{{ path('lsi_market_coordonnees_bancaires') }}">Coordonnées bancaires</a></li>
+						   
+					   </ul>
+				   </li>
+				    				
+				</ul>
+			 </li>
+{% endif %}  	 
+                 <li><a href="#" class="menu_blue meta-civilinc">Contact</a></li>
+	         <li><a href="aide" class="menu_blue meta-civilinc">Aide</a></li>
+                 <li class="menu-item-has-children">
+                 {% if app.user %}
+                 <li class="menu-item-has-children"><a href="#" class="menu_blue meta-civilinc">{{ app.user.username }}<span class="caret"></span></a>
+                   <ul class="sub-menu">
+                       <li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+                       <li><a href="{{ path('ls_imarket_mon_espace') }}">Mon espace</a> </li>
+                       {% if app.user.hasRole('ROLE_MAIRIE') %}
+                           <li><a href="{{ path('ls_imarket_ajouter_annonce') }}">Créer une annonce</a> </li>
+                       {% endif %}
+                       <li><a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a></li>
+                    </ul>
+                 </li>
+
+                 {% else %}
+                 {#<li><a href="{{ path('fos_user_registration_register') }}">
+                  <span class="glyphicon glyphicon-user"></span> S'inscrire</a></li>#}
+                  <li><a href="{{ path('fos_user_security_login') }}"><span class="iconic iconic-login"></span></a></li>
+                 {% endif %}  
+	         
+              </ul>
+           </div>	
+           <div class="search-box" style="position: relative; bottom: 15px">
+                 {{ render(controller('LSIMarketBundle:Market:rechPrincipale')) }}  
+           </div> 
+    </div>
+</header>
+<!-- Header // -->
+
+
+
+
+<!-- Page layout // -->
+<section class="content-section"  >
+  <div class="container">
+ <br><br><br>
+
+      {# Block central #}
+         {% block body %}
+
+         {% endblock body %}
+      {# End Block central #} 
+
+  </div>
+</section>
+<!-- Page layout // -->
+
+
+
+
+
+
+
+
+
+{% block footer %}
+<!-- Footer -->
+
+<footer class="footer-sub">
+  <div class="container">
+    <div class="footer-text-1"><p>Copyright Civilinc © 2018. Tous droits réservés.</</p></div>
+    <div class="footer-text-2 text-right"><p>Réalisé par <a href="http://www.graphitys-web-design.com/">Graphitys Web Design</a></p></div>
+  </div>
+</footer>
+</div>
+{% endblock footer %}
+
+        {% block javascripts %}
+            {# Liens JS de Bootstrap #}
+            <script type="text/javascript" src="{{ asset('bundles/lsimarket/js/vendor/vendor.js') }}"></script>         
+            <script type="text/javascript" src="{{ asset('bundles/lsimarket/js/main.js') }}"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+            <script src="//code.jquery.com/jquery-3.3.1.js"></script>
+            <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+            <script src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+            <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin="">
+            </script>
+
+           <!--  Lien pour le calendrier  -->
+
+            {# <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/jquery.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/moment.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.default-settings.js') }}"></script> #}
+        {% endblock %}
+    </body>
+</html>

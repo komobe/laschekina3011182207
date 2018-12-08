@@ -1,0 +1,68 @@
+{% extends '::layout.html.twig' %}
+
+{% block body %}
+    <div id="page" class="row">
+        <div class="">
+            <h2>Créer une nouvelle annonce</h2>
+            {{ form_start(form, {'attr' : {'claas' : 'form-control'}}) }}
+            <div class="col-xs-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    {#{{ form_label(form.titre) }}#}
+                    {{ form_row(form.titre) }}
+                </div>
+                {{ form_errors(form.titre) }}
+                <div class="form-group">
+                    {#{{ form_label(form.description) }}#}
+                    {{ form_row(form.description) }}
+                </div>
+                {{ form_errors(form.description) }}
+                <div class="form-group">
+                    {#{{ form_label(form.prixDefaut) }}#}
+                    {{ form_row(form.prixDefaut) }}
+                </div>
+                {{ form_errors(form.prixDefaut) }}
+                <div class="form-group">
+                    {#{{ form_label(form.regleCond) }}#}
+                    {{ form_row(form.regleCond) }}
+                </div>
+                {{ form_errors(form.regleCond) }}
+            </div>
+            <div class="col-xs-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    {#{{ form_label(form.statut) }}#}
+                    {{ form_row(form.statut) }}
+                </div>
+                {{ form_errors(form.statut) }}
+                <div class="form-group">
+                    {#{{ form_label(form.categorie) }}#}
+                    {{ form_row(form.categorie) }}
+                </div>
+                {{ form_errors(form.categorie) }}
+
+                <div class="form-group">
+                    {{ form_widget(form.images, {'attr' : {'onchange' : 'loadFile(event)'}}) }}
+                </div>
+                {{ form_errors(form.images) }}
+
+                <div class="row">
+                    <div class="col-md-offset-1">
+                        <img id="output" src="{{ asset(img) }}"/>
+                    </div>
+                </div>
+                <br/> <br/>
+                {{ form_widget(form.save, {'label':'Créer l\'annonce','attr' : {'class' : 'btn btn-warning'}}) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+{% endblock javascripts %}

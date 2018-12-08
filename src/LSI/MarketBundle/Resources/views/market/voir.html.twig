@@ -18,10 +18,12 @@
 {% block stylesheets %}
 
     {{ parent() }}
-
-    <link rel="stylesheet" href="{{ asset('bundles/fullcalendar/css/fullcalendar/fullcalendar.min.css') }}" />
+   
     <link href="{{asset('bundles/lsimarket/js/vendor/ladda/ladda-themeless.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('bundles/lsimarket/js/vendor/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
+
+    {# lien fullcalendar #}
+     <link rel="stylesheet" href="{{ asset('bundles/fullcalendar/css/fullcalendar/fullcalendar.min.css') }}" />
 
 {% endblock stylesheets %}
 
@@ -47,10 +49,11 @@
                         <div class="col-md-4 content-table-image">
                             <div class="owlCarousel properties-slider">
                                    {% if annonce.images is not null %}
-                                        {% for images in annonce.images %}
-                                            <div class="item"><img src="{{ asset(images.webPath) }}" alt="{{ images.alt }}" class="responsive" style="width:390px ; height:350px; object-fit: cover;"/></div>
-                                        {% endfor %}
-                                    {% endif %}
+                                       
+                                     {% for list in annonce.images %}
+                                       <img src="{{ asset(list.webPath) }}" alt="{{ list.alt }}" class="responsive" style="width:500px ; height:350px;;object-fit: cover;"/>
+                                     {% endfor %}
+                                   {% endif %}
                             </div>
                         </div>
                         <div class="col-md-8 pull-right contents grid-gap-large">
@@ -102,7 +105,7 @@
                                 {% if var is defined %}
                                     {% if var is empty %}
 
-                                    	<a href="{{ path('ls_imarket_supprimer_annonce', {'id': annonce.id }) }}" class="btn btn-danger">Supprimer</a>
+                                      <a href="{{ path('ls_imarket_supprimer_annonce', {'id': annonce.id }) }}" class="btn btn-danger">Supprimer</a>
 
                                     {% endif %}
                                 {% endif %}
@@ -170,9 +173,7 @@
                         <ul class="nav nav-tabs">
 
 
-                            <li class="active"><a href="#features" data-toggle="tab">FONTIONNALITES</a></li>
-
-                            <li><a href="#disponibles" data-toggle="tab">DISPONIBILITES</a></li>
+                            <li class="active"><a href="#features" data-toggle="tab">FONTIONNALITES</a></li>                         
 
                             <li><a href="#openhouse" data-toggle="tab">MAIRIE</a></li>
 
@@ -191,28 +192,41 @@
                                     <p>Description :<br>
                                     {{ annonce.description }}</p>
 
-                                    Règles et conditions : <br>
+                                    Conditions de mise à disposition : <br>
                                     <i>{{ annonce.regleCond }}</i>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="disponibles">                               
-                               <div id="calendar">
-                                 {% include '@FullCalendar/Calendar/calendar.html.twig' %}
-                               </div>
-                           </div>                           
+                                                     
                             <div class="tab-pane fade" id="openhouse">
                                 <div class="contents">
                                     <h2>PRESENTATION DE LA MAIRIE</h2>
-									<p>
-										<h4>Description</h4>
-                                    	{{ annonce.mairie.description }}
-                                	</p>
-									<p>
-										<h4>Nos service</h4>
-                                    	{{ annonce.mairie.service }}
-                                	</p>
+                  <p>
+                    <h4>Description</h4>
+                                      {{ annonce.mairie.description }}
+                                  </p>
+                  <p>
+                    <h4>Nos service</h4>
+                                      {{ annonce.mairie.service }}
+                                  </p>
+xxxxx
+<div class="content-panel agents-portfolio">
 
+              <div class="project-list">
+        {% for habilitation in habilitation %}
+                <div class="project">
+                  <div class="data">
+                  <a href="#">
+                  <img src="{{ asset(habilitation.membre.webPath) }}" style="height:205px;width:262px;object-fit: cover;">
+                  <span class="meta-list3">
+                  <span class="status">{{ habilitation.membre.nom }} {{ habilitation.membre.prenom }}</span>
 
+                  </span>
+                  </a>
+                  </div>
+                </div>
+     {% endfor %}  
+              </div>
+            </div>
 
                                 </div>
                             </div>
@@ -234,9 +248,9 @@
                                     <h3>Les autres mairies de l'EPCI</h3>
 
                                     <p>
-                                    	{% for autreMairie in autresMairies %}
-											                   <p>{{ autreMairie.nom }}</p> 
-                                    	{% endfor %}
+                                      {% for villeEpci in villesEpci %}
+                                         <p>{{ villeEpci.nom }}</p> 
+                                      {% endfor %}
                                     </p>
 
                                     <p></p>
@@ -275,12 +289,12 @@
                 <div class="col-md-8">
                     <div class="content-box-2 agents-contact">
                         <div class="heading">
-                            <h5>Contactez {{ auth.nom }}</h5>
+                            <h5>Contactez l'administrateur : {{ auth.nom }}</h5>
                         </div>
                         {{ form_start(contactForm, {'attr' : {'class' : 'form-content pad-top-small', 'novalidate':'novalidate','id':'form-user-contact','data-parsley-validate':''}}) }}
                         <div class="row">
                             <div class="col-md-6 form-group-1">
-                                {{ form_widget(contactForm.contactFirstname, {'attr': {'placeholder': 'Nom','class':'form-control  input-lg','data-parsley-required-message':'Merci d\'inscrire votre nom'}}) }}
+                                {{ form_widget(contactForm.contactFirstname, {'attr': {'placeholder': 'Nom','class':'form-control  input-lg','data-parsley-required-message':'Merci d\'entrer votre nom'}}) }}
                                 {{ form_widget(contactForm.contactContext) }}
                                 {{ form_widget(contactForm.contactContextId) }}
                             </div>
@@ -403,7 +417,9 @@
               </div>
           </div>
       </div>
+      
 </section>
+
       {# Fin affichage des annonces du même auteur #}
 
 
@@ -467,18 +483,20 @@
 
 
 
-    {#lien JS pour le calendrier#}
+ {#lien JS pour le calendrier#}
 
-    {# <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/jquery.min.js') }}"></script> #}
-
+  <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/moment.min.js') }}"></script>
-
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
-
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.default-settings.js') }}"></script>
-    
+
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/locale/fr.js') }}"></script>
-    <script>
+
+    {#Lien pour changer la langue du calendrier fullcalendar#}
+
+    <script src='fullcalendar/fullcalendar.js'></script>
+    <script src='fullcalendar/lang/fr.js'></script>
+   <!--  <script>
         var contactUrl = "{{ path('ls_imarket_contact_email_annonce') }}";
     </script>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"
@@ -488,9 +506,9 @@
     <script src="{{asset('bundles/lsimarket/js/vendor/ladda/spin.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('bundles/lsimarket/js/vendor/ladda/ladda.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('bundles/lsimarket/js/vendor/bootstrap-toastr/toastr.min.js')}}" type="text/javascript"></script>
-    <script src="{{asset('bundles/lsimarket/js/contact.js')}}" type="text/javascript"></script>
+    <script src="{{asset('bundles/lsimarket/js/contact.js')}}" type="text/javascript"></script> -->
     {#<script src='fullcalendar/lang/fr.js'></script>#}
-	{# Lien pour le geocodage des adresses #}
+  {# Lien pour le geocodage des adresses #}
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -514,7 +532,7 @@
             }   
         }
     </script>
-	
+  
     
     <script>
         $(document).on('click', 'button#delete', function () {
@@ -536,72 +554,69 @@
         });
     </script>
 
- {% if datedebut is defined %}
-      {% if datefin is defined %}
-          {% if statut is defined %}
+   {# Intégration de fullcalendar#}
 
-              <script>
-                  $('#calendar-holder').fullCalendar({
-			height: 450,
-                      events: [
-                          {
-                              title: '{{ statut }}',
-                              start: '{{ datedebut|date('Y-m-d') }}',
-                              end: '{{ datefin|date_modify("+1 day")|date('Y-m-d') }}',
-                              color: '{{ colordispo }}'
-                          },
+    <script>
+        $('#calendar-holder').fullCalendar({
+            header: {
+                left: 'prev, next, today',
+                center: 'title',
+                right: 'month, basicWeek, basicDay'
+            },
+            height: 450,
 
-                          {% for reserve in periodreserv %}
-                              {% if reserve.reserveEtat == "V" %}
-                                  {
+            events: [
+                {% for dispo in disponibilite %}
+                {% for key, cal in dispo.calendrier %}
+                {
+                    {% if cal.statut.libelle == "Déterminé" %}
+                    title: '{{ cal.statut.libelle }} {{ key }}',
+                    start: '{{ cal.debut|date('Y-m-d') }}',
+                    end: '{{ cal.fin|date_modify("+1 day")|date('Y-m-d') }}',
+                    color: 'yellow',
+
+                    {% elseif cal.statut.libelle == "Disponible" %}
+                    title: '{{ cal.statut.libelle }} {{ key }}',
+                    start: '{{ cal.debut|date('Y-m-d') }}',
+                    end: '{{ cal.fin|date_modify("+1 day")|date('Y-m-d') }}',
+                    color: 'green',
+
+                    {% elseif cal.statut.libelle == "Indisponible" %}
+                    title: '{{ cal.statut.libelle }} {{ key }}',
+                    start: '{{ cal.debut|date('Y-m-d') }}',
+                    end: '{{ cal.fin|date_modify("+1 day")|date('Y-m-d') }}',
+                    color: 'red',
+
+                    {% else %}
+                    title: '{{ cal.statut.libelle }} {{ key }}',
+                    start: '{{ cal.debut|date('Y-m-d') }}',
+                    end: '{{ cal.fin|date_modify("+1 day")|date('Y-m-d') }}',
+                    color: 'orange',
+                    {% endif %}
+
+                },
+                {% endfor %}
+                {% endfor %}
+
+                {% for reserve in periodreserv %}
+                {% if reserve.reserveEtat == "A" %}
+                {
+                    title: 'reservé',
+                    start: '{{ reserve.debutPrestation|date('Y-m-d') }}',
+                    end: '{{ reserve.finPrestation|date('Y-m-d') }}',
+                    color: 'blue'
+                },
+                {% endif %}
+                {% endfor %}
 
 
-                                      title: 'Réservé',
-                                      start: '{{ reserve.debutPrestation|date('Y-m-d') }}',
-                                      end: '{{ reserve.finPrestation|date_modify("+1 day")|date('Y-m-d') }}',
-                                      color: 'blue',
 
+            ]
 
-                                  },
+        })
+    </script>
 
-                              {% endif %}
-                          {% endfor %}
-
-                      ]
-
-                  });
-              </script>
-
-          {% endif %}
-      {% endif %}
-
-  {% else %}
-
-      <script>
-          $('#calendar-holder').fullCalendar({
-			height: 450,
-              {% for reserve in periodreserv %}
-                  {% if reserve.reserveEtat == "V" %}
-                      events: [
-                          {
-
-                              title: 'Réservé',
-                              start: '{{ reserve.debutPrestation|date('Y-m-d') }}',
-                              end: '{{ reserve.finPrestation|date_modify("+1 day")|date('Y-m-d') }}',
-                              color: 'blue',
-
-                          },
-
-                      ]
-                  {% endif %}
-              {% endfor %}
-
-          });
-      </script>
-
-  {% endif %}
-
-	<script>
+  <script>
 
         /*function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -689,6 +704,3 @@
 
 
 {% endblock %}
-
-
-

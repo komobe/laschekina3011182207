@@ -1,0 +1,8 @@
+services:
+#    lsi_market.example:
+#        class: LSI\MarketBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    lsi_market.email.reservation_mailer:
+        class: LSI\MarketBundle\Email\EnvoyerMail
+        arguments:
+            - "@mailer"

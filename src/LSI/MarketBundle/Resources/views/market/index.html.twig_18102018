@@ -1,0 +1,747 @@
+ <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CIVILINC</title>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->   
+    <link rel="icon" type="image/png" href="{{ asset('bundles/lsimarket/images/logo_civilink.png') }}">	
+    <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/lsimarket/iconic.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/jquery-ui-1.10.3.custom.min.css') }}">
+    
+   <!--[if lt IE 10 ]>
+    <style type="text/css">
+       .navigation-mobile{
+       display: none;
+       }
+
+    </style>
+
+   <![endif]--> 
+
+    
+</head>
+<body>
+<!--[if lt IE 9]>
+   <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<div class="navigation-mobile">
+   <div>
+      <i class="iconic iconic-close" id="mobileNav2"></i>
+   </div>
+   <ul>	
+        <li class="menu-item-has-children"><a href="{{ path('lsi_market_homepage') }}">Accueil</a>   
+	</li>
+	<li class="menu-item-has-children"><a href="#a_propos">Qui sommes nous ?</a>		
+	</li>
+	<li class="menu-item-has-children"><a href="#respect">Respect des marchés publics</a>		
+	</li>
+        <li class="menu-item-has-children"><a href="#solution">Une Solution complète</a>   
+	</li>
+        <li class="menu-item-has-children"><a href="#">Aide</a>   
+	</li>
+	<li class="menu-item-has-children"><a href="#contact">Contact</a>
+	</Li>
+	<li class="menu-item-has-children">
+	{% if app.user %}
+		<a href='{{ path('ls_imarket_mon_espace') }}'" >{{ app.user.username }}</a>
+	     {% else %}
+		<a href='{{ path('fos_user_security_login') }}'" class="iconic iconic-login"> Connexion</a>
+        {% endif %}  
+	</li>
+   </ul>
+</div>
+  
+<div class="wrap">
+
+<!-- Header  -->
+  <header class="main-header header-home" style="background-image: url({{ asset('bundles/lsimarket/images/banner/banner-6.jpg') }})">
+  <img src="{{ asset('bundles/lsimarket/images/banner/banner-6.jpg') }}"  class="banner-img" alt="">
+  <div class="header-content">
+ <div class="header-V2-civilinc"> 
+ <!--        <div class="navigation-bar">-->
+        <div class="container">
+           <div class="logo wow " data-wow-delay="200ms"  style="margin-top:-10px;margin-left:-30px">
+              <a href="{{ path('lsi_market_homepage') }}"><img src="{{ asset('bundles/lsimarket/images/logo_civilink.png')}}" height="100" width="100" alt="" class="logo_layout" style="margin-top:20px;margin-left:10px" ></a>
+           </div>  
+           <div class="navigation menu_layout">
+              <a href="#" class="navigation-button" id="mobileNav"><i class="iconic iconic-menu"></i></a>               
+              <ul>
+	         <li><a href="{{ path('lsi_market_homepage') }}" class="menu_blue meta-civilinc">Accueil</a>   
+	         </li>
+	         <li><a href="#" class="scrollLink menu_blue meta-civilinc">Qui sommes nous ?</a>
+                       <ul class="dir-right level-1 sub-menu">
+			   <li style="background-color:#f6f6f6;"><a href="#a_propos">Un concept Innovant</a></li>
+                           <li style="background-color:#f6f6f6;"><a href="#histoire">Une histoire et des valeurs de service public</a></li>
+                       </ul>		
+	         </li>
+	         <li><a href="#" class="scrollLink menu_blue meta-civilinc">Notre solution</a>
+                       <ul class="dir-right level-1 sub-menu">
+			   <li style="background-color:#f6f6f6;"><a href="#respect">Respect des marchés publics</a></li>
+                           <li style="background-color:#f6f6f6;"><a href="#solution">Une solution complète</a></li>
+                       </ul>
+                 </li>
+	         <li><a href="aide" class="menu_blue meta-civilinc">Aide</a>	
+	         </li> 
+	         <li><a href="#contact" class="menu_blue meta-civilinc">Contact</a>
+	         </Li>
+                 <li>
+                 {% if app.user %}
+		    <a href='{{ path('ls_imarket_mon_espace') }}'  class="iconic iconic-user2"></a>
+		    {% else %}
+		       <a href='{{ path('fos_user_security_login') }}' class="iconic iconic-login"></a>
+
+                 {% endif %}   
+	         </li>
+              </ul>
+           </div>
+
+<form class="form-wrapper"  method="post" action="{{ path('ls_imarket_annonce_rechindex') }}" name="formrechindex">
+
+    <h4> <span class="meta-civilinc">Trouvez des biens autour de vous avec CIVILINC</span></h4> <br>
+    <input type="text" name="titre_name" id="search" class="titre"  placeholder="Quoi ?" ><br><br>
+    <input type="text" id="search" class="ville" name="ville_name" placeholder="Où ?" ><br><br>
+
+    <table class="table">
+        <tr>
+            <td class="td_title">Début</td>
+            <td class="td_datepicker">
+                <input type="text" id="date_debut" class="datepick" name="datedebut" >
+            </td>
+            <td class="td_title">Fin</td>
+            <td class="td_datepicker">
+                <input type="text" id="date_fin" class="datepick" name="datefin" >
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Rechercher" name="rechbtn" id="submit">
+
+</form>
+
+</header>
+<!-- Header // -->
+
+
+
+ <!-- Map Search -->
+ <div class="map-section ">
+  <div class="map-contents-wrap">
+  <div class="map-contents-left"> </div>
+  <div class="container">
+    <div class="map-contents">
+      <div class="title-row heading">
+      <div class="col-md-12" style="margin-top:80px">
+        <h4>Disponible <br>
+        autour <br>de vous</h4>
+        <p>Pour en savoir plus  <br>
+        Cliquer sur l'icone </p>
+        <span class=""><img src="{{ asset('bundles/lsimarket/images/icons/map-marker2.png')}}" height="63" width="44" alt=""></span>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+  <iframe style="border: 0; margin-top:100px;margin-bottom:100px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2710.207049454749!2d-1.5729033!3d47.2125309!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4805ec0fcda6c4cb%3A0xd620ca38dafa1e9a!2s2+Rue+La+Motte+Picquet%2C+44100+Nantes!5e0!3m2!1sfr!2sfr!4v1423244007186" width="100%" height="450" frameborder="0"></iframe>
+
+ 
+
+
+
+</div>
+<!-- Map Search // -->
+ 
+
+<!-- Content Section -->
+<section class="content-section">
+<div id="map"></div>
+    <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+      var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YAIzaSyBUxVTaKere45Vq_uDsnDKaE0DpmXLbsDg&callback=initMap">
+    </script>
+</div>
+</section>
+
+
+<!-- Content Section -->
+<section class="content-section">
+<div class="map-search-form">
+  <div class="container">      
+          <div class="col-md-12">
+            <div class="title-row heading pad-top-large"> 
+             <h3>Catégories</h3><br>        
+            </div>
+         </div>
+    <div class="content-box">
+      
+         
+      <div class="list-view-all row-float">
+        <div class="grid-list">
+        <div class="background">
+          <a class="image" href="#">
+          
+            <img src="{{ asset('bundles/lsimarket/images/property-list/vehicule_leges.jpg') }}" alt="Véhicules légers">
+          </a>
+          <div class="description">
+            <h3><span class="type meta-civilinc"><h5>Véhicules légers:</h5></span> 
+            Lorem ipsum dolor sit amet </h3>            
+            
+          </div> 
+          </div>       
+        </div>
+        <div class="grid-list">
+        <div class="background">
+          <a class="image" href="#">
+         
+            <img src="{{ asset('bundles/lsimarket/images/property-list/vehicules-industriels.jpg') }}" alt="Véhicules industriels">
+          </a>
+          <div class="description">
+            <h3><span class="type meta-civilinc"><h5>Véhicules industriels :</h5></span> 
+            Lorem ipsum dolor sit amet</h3>            
+            
+          </div> 
+          </div>       
+        </div>
+        <div class="grid-list">
+        <div class="background">
+          <a class="image" href="#">     
+            <img src="{{ asset('bundles/lsimarket/images/property-list/vehicules_agricoles.jpg') }}" alt="Véhicules agricoles">
+          </a>
+          <div class="description">
+            <h3><span class="type meta-civilinc"><h5>Véhicules agricoles:</h5></span> 
+            Lorem ipsum dolor sit amet</h3>            
+            
+          </div> 
+          </div>       
+        </div>
+        <div class="grid-list">
+        <div class="background">
+          <a class="image" href="#">
+            <img src="{{ asset('bundles/lsimarket/images/property-list/btp.jpg') }}" alt="Bâtiment et travaux publics">
+          </a>
+          <div class="description">
+            <h3><span class="type meta-civilinc"><h5>BTP:</h5></span> 
+            Lorem ipsum dolor sit amet</h3>            
+            
+          </div> 
+          </div>       
+        </div>
+        <div class="grid-list">
+        <div class="background">
+          <a class="image" href="#">
+            <img src="{{ asset('bundles/lsimarket/images/property-list/voirie.jpg') }}" alt="Voirie">
+          </a>
+          <div class="description">
+            <h3><span class="type meta-civilinc"><h5>Voirie:</h5></span> 
+            Lorem ipsum dolor sit amet</h3>            
+           
+          </div> 
+          </div>       
+        </div>
+        <div class="grid-list">
+        <div class="background">
+          <a class="image" href="#">
+            <img src="{{ asset('bundles/lsimarket/images/property-list/espace-de-stockage.jpg') }}" alt="Espace de Stockage">
+          </a>
+          <div class="description">
+            <h3><span class="type meta-civilinc"><h5>Espace de Stockage:</h5></span> 
+            Lorem ipsum dolor sit amet</h3>            
+            
+          </div> 
+          </div>       
+        </div>
+        <div class="grid-list">
+        <div class="background">
+          <a class="image" href="#">
+            <img src="{{ asset('bundles/lsimarket/images/property-list/paysage.jpg') }}" alt="Entretien et paysagé">
+          </a>
+          <div class="description">
+            <h3><span class="type meta-civilinc"><h5>Entretien et paysagé:</h5></span> 
+            Lorem ipsum dolor sit amet</h3>            
+            
+          </div> 
+          </div>       
+        </div>
+        <div class="grid-list">
+        <div class="background">
+          <a class="image" href="#">
+            <img src="{{ asset('bundles/lsimarket/images/property-list/mobilier_urbain.jpg') }}" alt="Mobilier urbain">
+          </a>
+          <div class="description">
+            <h3><span class="type meta-civilinc"><h5>Mobilier urbain:</h5></span> 
+            Lorem ipsum dolor sit amet</h3>            
+            
+          </div> 
+          </div>       
+        </div>
+        <div class="grid-list">
+        <div class="background">
+          <a class="image" href="#">
+            <img src="{{ asset('bundles/lsimarket/images/property-list/evenementiel.jpg') }}" alt="Espace évènementiel">
+          </a>
+          <div class="description">
+            <h3><span class="type meta-civilinc"><h5>Espace évènementiel:</h5></span> 
+            Lorem ipsum dolor sit amet</h3>            
+            
+          </div> 
+          </div>       
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- Content Section // -->
+ 
+<!-- Content Section Infos -->
+
+<div id="a_propos"></div>
+<div class="content-section">
+  <div class="container">
+  <div class="background">
+    <div class="col-md-3">
+      <div class="title-row heading pad-top-large">        
+        <h3>Quelques infos sur nous!
+        </h3>
+        <p>En savoir plus sur nous avant de vous engager</p>      
+      </div>
+      <img  src="{{ asset('bundles/lsimarket/images/qui.png') }}" height="227" width="207" alt="">
+    </div>
+    <div class="col-md-6 col-md-push-1">
+      <div class="heading pad-top-large">
+        <h4>CIVILINC</h4>
+      </div>
+      <div class="contents">  
+      <p>C"est un concept français né en 2018,  partant de l’idée simple de créer un mode de collaboration innovant au service de l’action publique, dans un contexte de restriction des financements à destination des mairies et des collectivités.</p>
+
+      <p style="Font-Weight: Bold;">Notre démarche :</p>
+      -	Proposer une plateforme de mutualisation ponctuelle de biens et services entre personnes publiques, dans un schéma collaboratif horizontal, local et durable<br>
+      -	Permettre d’accéder à une offre globale de services libres d’accès (intégrant couverture assurantielle, planning, validation, facturation, aide à la contractualisation,…)<br>
+      -	Mettre à disposition un outil simple d’utilisation, dynamique et innovant. </p>
+      <p style="Font-Weight: Bold;">Nos valeurs :</p>
+      En savoir plus ..
+ </p>
+      <div class="social-links pad-top-large">
+        <a href="#" class="iconic iconic-twitter wow fadeInDown" data-wow-duration="1700ms"></a>
+        <a href="#" class="iconic iconic-dribbble wow fadeInDown" data-wow-duration="1800ms"></a>
+        <a href="#" class="iconic iconic-facebook wow fadeInDown" data-wow-duration="1900ms"></a>
+        <a href="#" class="iconic iconic-google-plus wow fadeInDown" data-wow-duration="2100ms"></a>
+      </div>
+      </div>    
+    </div>
+    </div>
+  </div>
+</div>
+<!-- Content Section // -->
+
+<div id="respect"></div>
+<!-- Content Section Respect des marchés publics -->
+<div class="content-section">
+  <div class="container">
+  <div class="background">
+    <div class="col-md-3">
+      <div class="title-row heading pad-top-large">        
+        <h3>Respect des marchés publics
+        </h3>
+        <p>Qu'est ce que cela veut dire ?</p>     
+      </div>     
+     <img src="{{ asset('bundles/lsimarket/images/quoi.jpg') }}" height="227" width="207" alt="">
+    </div>
+    <div class="col-md-6 col-md-push-1">
+      <div class="contents">  
+
+      <p>Construit avec le concours d’avocats experts en domanialité publique, droit des marchés publics, droit de la concurrence ; le modèle CIVILINC est une solution sécurisée et responsable, spécialement dans sa dimension juridique et réglementaire.</p>
+      <p> Adossée  au code des marchés publics, notre démarche assure une conformité rigoureuse de l’ensemble du processus d’engagement et de formalisme des échanges.</p>
+      <p>Toutes les opérations de mise à disposition font l’objet de traitements automatisés permettant de garantir à nos partenaires le respect  des obligations de droit dans un schéma contractuel clair et opérationnel.</p>
+      <p>Nous assurons par ailleurs un rôle de conseil, d’accompagnement, de modération et d’alerte dans toute la dimension juridique et contractuelle de l’expérience CIVILINC.</p>
+      <p>Ainsi, nos partenaires sont accompagnés par un interlocuteur unique et dédié depuis la démarche  d’engagement de dépense jusqu’à l’édition des contrats finaux de mise à disposition. Le compte utilisateur permet par ailleurs de suivre au jour le jour l’ensemble des engagements pris et reçus, de stocker les documents nécessaires et de garantir de manière dynamique la conformité stricte du modèle.</p>
+
+     <p>En savoir plus sur les règles  de droit des marchés publics (cliquer sur le lien)</p>
+     <p>Télécharger la procédure simplifiée  d’engagement dans ma mairie (cliquer sur le lien)</p>
+
+      </div>    
+    </div>
+    </div>
+  </div>
+</div>
+<!-- Content Section // -->
+
+<div id="histoire"></div>
+<!-- Content Section Respect des marchés publics -->
+<div class="content-section">
+  <div class="container">
+  <div class="background">
+    <div class="col-md-3">
+      <div class="title-row heading pad-top-large">        
+        <h3>Une histoire et des valeurs de service public
+        </h3>
+        <p>Qu'est ce que cela veut dire ?</p>     
+      </div>     
+     <img src="{{ asset('bundles/lsimarket/images/quoi.jpg') }}" height="227" width="207" alt="">
+    </div>
+    <div class="col-md-6 col-md-push-1">
+      <div class="contents">  
+
+      <p>In his tractibus navigerum nusquam visitur flumen sed in locis plurimis aquae suapte natura calentes emergunt ad usus aptae multiplicium medelarum. verum has quoque regiones pari sorte Pompeius Iudaeis domitis et Hierosolymis captis in provinciae speciem delata iuris dictione formavit.</p>
+
+      </div>    
+    </div>
+    </div>
+  </div>
+</div>
+<!-- Content Section // -->
+
+<div id="solution"></div>
+<!-- Content Section Une solution complète -->
+<div class="content-section">
+  <div class="container">
+  <div class="background">
+    <div class="col-md-3">
+      <div class="title-row heading pad-top-large">        
+        <h3>Une solution complète
+        </h3>
+        <p>Que proposons-nous ?</p>      
+      </div>
+      <img  src="{{ asset('bundles/lsimarket/images/quoi.jpg') }}" height="227" width="207" alt="">
+    </div>
+    <div class="col-md-6 col-md-push-1">
+      <div class="contents">  
+     <p> CIVILINC crée un mode de collaboration innovant au service de l’action publique. Cette démarche repose sur la confiance et l’autonomie de l’échelon local, tirant partie de la dynamique engagée de transition numérique des territoires. </p>
+
+Le modèle repose sur la création d’un avantage économique significatif pour le preneur comme pour l’offreur du bien ou du service :
+<ul>
+<li>	En louant à tarif préférentiel un bien à une commune voisine plutôt qu’à un acteur privé,</li>
+<li>	En valorisant un bien dont la commune est propriétaire mais dont l’utilisation est ponctuelle / périodique,</li>
+<li>	En envisageant différemment l’acquisition de matériel dans le cadre d’une utilisation partagée.</li>
+</ul>
+<p>La solution a été construite avec le concours d’experts de différents domaines, dans le but de la rendre simple, souple, sécurisée :</p>
+<ul>
+<li>	Un outil simple et évolutif</li>
+<li>	Des procédures opérationnelles et transparentes</li>
+<li>	Une offre de service globale (gestion des plannings en ligne, dématérialisation des validation, déversmeent autonome des flux de facturation, …)</li>
+<li>	Une solution d’assurance intégrée</li>
+<li>	L’automatisation et l’accompagnement dans le processus d’engagement et de formalisme des échanges</li>
+</ul>
+<p>Notre ambition : vous proposer un outil sûr et fiable vous permettant d’être acteur de la création de valeur de votre municipalité.</p>
+
+      </div>    
+    </div>
+    </div>
+  </div>
+</div>
+<!-- Content Section // -->
+
+<!-- Content Section News -->
+<div class="content-section">
+  <div class="container">
+  <div class="background">
+    <div class="col-md-3">
+      <div class="title-row heading pad-top-large">        
+        <h3>News
+        </h3>
+        <p>Nous avons une information à partager</p>
+              
+      </div>
+      <img  src="{{ asset('bundles/lsimarket/images/interrior/room-1.jpg') }}" height="227" width="207" alt="">
+    </div>
+    <div class="col-md-6 col-md-push-1">
+      <div class="contents">  
+	  <div class="heading pad-top-large">
+          <h5><a href="#"></a>LA MUTUALISATION DES BIENS ET DES SERVICES</h5>
+      </div>
+      <p>CIVILINC, la nouvelle plateforme web de mutualisation de biens et services entre collectivités, fait son apparition sur le marché de l’économie collaborative et durable.</p>
+<p>Dans un contexte de difficultés financières grandissantes pour les municipalités, CIVILINC fait le pari de l’échelon local et de la mutualisation horizontale des biens et services entre elles.</p>
+<p>Affichant un avantage économique significatif pour le preneur comme l’offreur, le modèle CIVILINC propose de réinjecter les bénéfices de la chaine de valeur dans le budget public, au service de l’action collective.</p>
+<p>Adossé à un outil simple, souple et sécurisé ; CIVILINC verra son lancement commercial intervenir dès le premier trimestre 2019.
+
+      </div>    
+    </div>
+    </div>
+  </div>
+</div>
+<!-- Content Section // -->
+
+<!-- Content Section Testimonial -->
+<div class="content-section">
+  <div class="container">
+  <div class="background">
+    <div class="col-md-3">
+      <div class="title-row heading pad-top-large">        
+        <h3>NOUS TRAVAILLONS AVEC EUX
+        </h3>
+        <p>Ce qu'ils pensent de notre collaboration</p>
+              
+      </div>
+      <img  src="{{ asset('bundles/lsimarket/images/interrior/room-1.jpg') }}" height="227" width="207" alt="">
+    </div>
+    <div class="row">
+                    <div class="col-md-8">
+                    <!-- Testimonials  -->
+                        <div id="testimonials1" class="carousel slide testimonials testimonials-v1">
+                            <div class="carousel-inner">
+                                <div class="item">
+                                    <p>Crasjusto ducimus qui cupiditate non provident, similique sunt in culpaid est anditiis praesentium praesentium blanditiis praesentium non provident, similique sunt in culpaid est anditiis praesentium praesentium..</p>
+                                    <div class="testimonial-info">
+                                        <img src="{{ asset('bundles/lsimarket/images/comment-user/user-1.jpg') }}" alt="">
+                                        <span class="testimonial-author">
+                                            Jhon Do 
+                                            <em>Maire, Bagneux.</em>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="item active">
+                                    <p>Crasjusto ducimus qui cupiditate non provident, similique sunt in culpaid est anditiis praesentium praesentium blanditiis praesentium non provident, similique sunt in culpaid est anditiis praesentium praesentium..</p>
+                                    <div class="testimonial-info">
+                                        <img src="{{ asset('bundles/lsimarket/images/comment-user/user-2.jpg') }}" alt="">
+                                        <span class="testimonial-author">
+                                            Jhon Do 
+                                            <em>Maire adjoint, Montpelier</em>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="carousel-arrow">
+                                <a class="left carousel-control" href="#testimonials1" data-slide="prev">
+                                    <i class="iconc iconic-angle-left"></i>
+                                </a>
+                                <a class="right carousel-control" href="#testimonials1" data-slide="next">
+                                    <i class="iconc iconic-angle-right"></i>
+                                </a>
+                            </div>
+                        </div>                        
+                    </div>
+                    <!-- Testimonials  -->
+                    <div class="col-md-8">
+                        <div id="testimonials2" class="carousel slide testimonials testimonials-v1 testimonials-bg-dark">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <p>Crasjusto ducimus qui cupiditate non provident, similique sunt in culpaid est anditiis praesentium praesentium blanditiis praesentium non provident, similique sunt in culpaid est anditiis praesentium praesentium..</p>
+                                    <div class="testimonial-info">
+                                        <img src="{{ asset('bundles/lsimarket/images/comment-user/user-1.jpg') }}" alt="">
+                                        <span class="testimonial-author">
+                                            Jhon Do 
+                                            <em>Maire, Strasbourg.</em>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <p>Crasjusto ducimus qui cupiditate non provident, similique sunt in culpaid est anditiis praesentium praesentium blanditiis praesentium non provident, similique sunt in culpaid est anditiis praesentium praesentium..</p>
+                                    <div class="testimonial-info">
+                                        <img src="{{ asset('bundles/lsimarket/images/comment-user/user-2.jpg') }}" alt="">
+                                        <span class="testimonial-author">
+                                            Jhon Do 
+                                            <em>Maire, Have</em>
+                                        </span>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            
+                            <div class="carousel-arrow">
+                                <a class="left carousel-control" href="#testimonials2" data-slide="prev">
+                                    <i class="iconic iconic-angle-left"></i>
+                                </a>
+                                <a class="right carousel-control" href="#testimonials2" data-slide="next">
+                                    <i class="iconic iconic-angle-right"></i>
+                                </a>
+                            </div>
+                        </div>                        
+                    </div>
+					<!-- Testimonials  -->
+                    <div class="col-md-8">
+                        <div id="testimonials3" class="carousel slide testimonials testimonials-v1 testimonials-v1">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <p>Crasjusto ducimus qui cupiditate non provident, similique sunt in culpaid est anditiis praesentium praesentium blanditiis praesentium non provident, similique sunt in culpaid est anditiis praesentium praesentium..</p>
+                                    <div class="testimonial-info">
+                                        <img src="{{ asset('bundles/lsimarket/images/comment-user/user-3.jpg') }}" alt="">
+                                        <span class="testimonial-author">
+                                            Jhon Do 
+                                            <em>Maire, Strasbourg.</em>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <p>Crasjusto ducimus qui cupiditate non provident, similique sunt in culpaid est anditiis praesentium praesentium blanditiis praesentium non provident, similique sunt in culpaid est anditiis praesentium praesentium..</p>
+                                    <div class="testimonial-info">
+                                        <img src="{{ asset('bundles/lsimarket/images/comment-user/user-4.jpg') }}" alt="">
+                                        <span class="testimonial-author">
+                                            Jhon Do 
+                                            <em>Maire, Have</em>
+                                        </span>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            
+                            <div class="carousel-arrow">
+                                <a class="left carousel-control" href="#testimonials3" data-slide="prev">
+                                    <i class="iconic iconic-angle-left"></i>
+                                </a>
+                                <a class="right carousel-control" href="#testimonials3" data-slide="next">
+                                    <i class="iconic iconic-angle-right"></i>
+                                </a>
+                            </div>
+                        </div>                        
+                    </div>         
+                </div>              
+    </div>
+  </div>
+</div>
+<!-- Content Section // -->
+
+
+
+<div id="contact"></div>
+<!-- Content Section Contact -->
+<div class="content-section">
+  <div class="container">
+  <div class="background">
+    <div class="col-md-3">
+      <div class="title-row heading pad-top-large">        
+        <h3>Contact
+        </h3>
+        <p>Paris</p>      
+      </div>
+      <img  src="{{ asset('bundles/lsimarket/images/contact_girl.png') }}" height="227" width="207" alt="">
+    </div>
+    <div class="col-md-6 col-md-push-1">
+      <p>Notre servicle clientèle est disponible de 9h00 à 18h00 pour vous aider et répondre à vos questons. N'hésitez pas à nous envoyer un message.</p>
+       <form data-parsley-validate class="footer-contact">
+         <div class="form-group">
+           <input type="text" placeholder="Name" class="form-control"  required data-parsley-required-message="Merci d'inscrire votre nom" name="name">
+         </div>
+         <div class="form-group">
+           <input type="email" placeholder="Email" class="form-control" required data-parsley-required-message="Merci d'inscrire votre email" name="email">
+         </div>
+		 <div class="form-group">
+            <TEXTAREA placeholder="Message" class="form-control" required data-parsley-required-message="Merci d'inscrire votre message" name="message" rows=10 cols=70%></TEXTAREA>
+         </div>
+         <div class="form-group">
+           <button class="pull-right btn btn-ghost hvr-shutter-out-vertical">Envoyer</button>
+         </div>
+         <div class="form-messges hideen"></div>
+       </form>   
+    </div>
+    </div>
+  </div>
+</div>
+<!-- Content Section // -->
+<!-- Footer 2 -->
+<footer class="footer-sub">
+  <div class="container">
+    <div class="footer-text-1"><p>Copyright Civilinc © 2018. Tous droits réservés.</</p></div>
+    <div class="footer-text-2 text-right"><p>Réalisé par <a href="http://www.graphitys-web-design.com/">Graphitys Web Design</a></p></div>
+  </div>
+</footer>
+</div>
+{% block javascripts %}
+
+<script type="text/javascript" src="{{ asset('bundles/lsimarket/js/vendor/vendor.js') }}"></script>         
+<script type="text/javascript" src="{{ asset('bundles/lsimarket/js/main.js') }}"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ asset('bundles/lsimarket/js/vendor/modernizr.js') }}"></script> 
+<script type="text/javascript" src="{{ asset('bundles/lsimarket/js/jquery-ui-1.10.3.custom.js') }}"></script> 
+<script type="text/javascript" src="{{ asset('bundles/lsimarket/js/jquery.ui.datepicker-fr.js') }}"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;callback=initialize"> </script>
+
+<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker3.min.css">
+
+{#<script>
+  $(document).ready(function() { 
+  $( "#date_debut" ).datepicker({ 
+    defaultDate: "+1w", 
+    numberOfMonths: 1, 
+    changeMonth: true, 
+    changeYear: true, 
+    yearRange: '-1:+1', 
+    maxDate: '+1Y',
+    onClose: function( selectedDate ) { 
+    $( "#date_fin" ).datepicker( "option", "minDate", selectedDate ); 
+    } 
+  }); 
+  $( "#date_fin" ).datepicker({ 
+    defaultDate: "+1w", 
+    numberOfMonths: 1, 
+    changeMonth: true, 
+    changeYear: true, 
+    maxDate: '+2Y',
+    onClose: function( selectedDate ) { 
+    $( "#date_debut" ).datepicker( "option", "maxDate", selectedDate ); 
+    } 
+  });     
+});  
+</script>#}
+
+{#Changer le format de la date#}
+
+<script>
+    $(document).ready(function() {
+        $("#date_debut").datepicker({
+            format: 'yyyy-mm-dd'
+        });
+        $("#date_debut").on("change", function () {
+            var fromdate = $(this).val();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#date_fin").datepicker({
+            format: 'yyyy-mm-dd'
+        });
+        $("#date_fin").on("change", function () {
+            var fromdate = $(this).val();
+        });
+    });
+</script>
+
+{% endblock %}

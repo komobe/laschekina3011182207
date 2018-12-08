@@ -1,0 +1,228 @@
+# Les routes de FOSUserBundle
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+
+# Page d'accueil
+lsi_market_homepage:
+    path:     /
+    defaults:
+        _controller: LSIMarketBundle:Market:index
+
+# -------------------------------- ROUTES RELATIVES LA CREATION, MODIFICATION, VISUALISATION, DUPLICATION D'ANNONCES --
+
+ls_imarket_liste_annonce:
+    path: /reservations
+    defaults:
+        _controller: LSIMarketBundle:Market:listeReservation
+
+# Pour creer une annonce
+ls_imarket_ajouter_annonce:
+    path: /ajouter
+    defaults:
+        _controller: LSIMarketBundle:Market:ajouter
+
+# Pour consulter une annonce
+ls_imarket_voir_annonce:
+    path: /annonce/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:voir
+    requirements:
+        id: \d+
+
+# Pour modifier une annonce
+ls_imarket_modifier_annonce:
+    path: /modifier/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:modifier
+    requirements:
+        id: \d+
+
+#Pour creer une annonce  a partir d'une existante.
+ls_imarket_dupliquer_annonce:
+    path: /dupliquer/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:dupliquer
+    requirements:
+        id: \d+
+
+# --------------------------------- FIN DES ROUTES RELATIVES A L'ANNONCE -----------------------------------------------
+
+#---------------------------------- ROUTES RELATIVES AUX RESERVATIONS --------------------------------------------------
+
+# Creer une reservation
+ls_imarket_reserver_annonce:
+    path: /reserver/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:reserver
+    requirements:
+        id: \d+
+
+# Pour acceder aux reservations effectuees
+ls_imarket_reservation:
+    path: /mesreservations
+    defaults:
+        _controller: LSIMarketBundle:Market:reservation
+
+#----------------------------------------------- FIN ROUTES RESERVATIONS -----------------------------------------------
+
+#--------------------------------------------- ROUTES RELATIVES AUX ESPACES DE GESTION ---------------------------------
+# Pour acceder a l'espace utilisateur
+ls_imarket_mon_espace:
+    path: /monespace
+    defaults:
+        _controller: LSIMarketBundle:Market:monEspace
+
+# Pour accéder aux annonces de la mairie
+ls_imarket_mes_annonces:
+    path: /monespace/mes-annonces
+    defaults:
+        _controller: LSIMarketBundle:Market:mesAnnonces
+
+ls_imarket_annonce_reservee:
+    path: /annoncereservee
+    defaults:
+        _controller: LSIMarketBundle:Market:annonceReserver
+
+ls_imarket_annonce_commandee:
+    path: /annoncecommande
+    defaults:
+        _controller: LSIMarketBundle:Market:annonceCommandee
+
+ls_imarket_mes_commandes:
+   path: /mescommandes
+   defaults:
+       _controller: LSIMarketBundle:Market:mesCommandes
+
+#+++++++++++++++++++++++++++++++++++++++++ ESPACE ADMINISTRE +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ls_imarket_administre_index:
+    path: /monespace/index
+    defaults:
+        _controller: LSIMarketBundle:Espace:administreIndex
+
+
+#---------------------------------------------- FIN ROUTES ESPACES DE GESTION ------------------------------------------
+# Route pour la barre de recherche principale
+ls_imarket_recherche_barre:
+    path: /recherche
+    defaults:
+        _controller: LSIMarketBundle:Market:recherchebarre
+
+# Route pour la barre de recherche principale de la page index.html.twig
+ls_imarket_recherche_index:
+    path: /recherche
+    defaults:
+        _controller: LSIMarketBundle:Market:rechprincipla
+
+#------------------------------------------------ CODE -----------------------------------------------------------------
+ls_imarket_engagement:
+    path: /nosengagements
+    defaults:
+        _controller: LSIMarketBundle:Code:nosEngagements
+
+#------------------------------------------------ ADMINISTRATION -------------------------------------------------------
+#********************************* SUPER ADMIN **********************************************
+ls_imarket_superadmin:
+    path: /superadmin
+    defaults:
+        _controller: LSIMarketBundle:Admin:superAdmin
+
+ls_imarket_admin_registration:
+    path: /superadmin/registration
+    defaults:
+        _controller: LSIMarketBundle:Admin:addAdmin
+
+#*********************************** ADMIN ********************************************************
+ls_imarket_accueil:
+   path: /monsespace/admin
+   defaults:
+       _controller: LSIMarketBundle:Admin:indexAdmin
+
+
+#***************************************** MODULE EPCI ********************************
+# Pour récupérer les infos de l'EPCI
+ls_imarket_mon_epci:
+    path: /monepci #/{cp}
+    defaults:
+        _controller: LSIMarketBundle:Market:monEpci
+#    requirements:
+#        cp: \d+
+
+# Pour ajouter un epci
+ls_imarket_ajout_epci:
+    path: /monespace/admin/ajoutepci
+    defaults:
+        _controller: LSIMarketBundle:Admin:ajouterEpci
+
+# Pour lister les EPCI
+ls_imarket_liste_epci:
+    path: /monespace/admin/listeepci
+    defaults:
+        _controller: LSIMarketBundle:Admin:listeEpci
+
+# Pour consulter un EPCI
+ls_imarket_voir_epci:
+    path: /monespace/admin/voirepci/{id}
+    defaults:
+        _controller: LSIMarketBundle:Admin:voirEpci
+    requirements:
+        id: \d+
+
+# Pour modifier un EPCI
+ls_imarket_modifier_epci:
+    path: /monespace/admin/modifierepci/{id}
+    defaults:
+        _controller: LSIMarketBundle:Admin:modifierEpci
+    requirements:
+        id: \d+
+
+#************************************************ MODULE CGU - V *******************************************************
+#/////////////////////////////////////////////// CGU ////////////////////////////////////
+ls_imarket_ajouter_cgu:
+    path: /monespace/admin/ajouter-cgu
+    defaults:
+        _controller: LSIMarketBundle:Admin:ajouterCgu
+
+ls_imarket_voir_cgu:
+    path: /monespace/admin/voir-cgu
+    defaults:
+        _controller: LSIMarketBundle:Admin:voirCgu
+
+ls_imarket_modifier_cgu:
+    path: /monespace/admin/modifier-cgu
+    defaults:
+        _controller: LSIMarketBundle:Admin:modifierCgu
+
+
+#//////////////////////////////////////////////// CGV /////////////////////////////////////////
+ls_imarket_ajouter_cgv:
+    path: /monespace/admin/ajouter-cgv
+    defaults:
+        _controller: LSIMarketBundle:Admin:ajouterCgv
+
+ls_imarket_voir_cgv:
+    path: /monespace/admin/voir-cgv
+    defaults:
+        _controller: LSIMarketBundle:Admin:voirCgv
+
+ls_imarket_modifier_cgv:
+    path: /monespace/admin/modifier-cgv
+    defaults:
+        _controller: LSIMarketBundle:Admin:modifierCgv
+

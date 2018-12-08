@@ -126,4 +126,26 @@ class UserRepository extends \Doctrine\ORM\EntityRepository {
             ;
         return $qb->getQuery()->getResult();
     }
+
+    // Récupère le liste des mairies
+    public function findAllMairie(){
+    	$qb = $this->createQueryBuilder('u')
+    		->join('u.mairie', 'm')
+    		->addSelect('m')
+    		;
+    	$qb->where('u.mairie = m.id');
+
+    	return $qb->getQuery()->getResult();
+    }
+
+    // Récupère la liste des administrés
+    public function findAllAdministre(){
+    	$qb = $this->createQueryBuilder('u')
+    		->join('u.administre', 'a')
+    		->addSelect('a')
+    		;
+    	$qb->where('u.administre = a.id');
+
+    	return $qb->getQuery()->getResult();
+    }
 }

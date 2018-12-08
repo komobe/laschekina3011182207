@@ -1,17 +1,17 @@
-{% extends 'LSIMarketBundle::monespace.html.twig' %}
+{# {% extends 'layout.html.twig' %} #}
 
 {# Variables :
     annonceR : accessible à partir de ligne 27 uniquement à l'intérieur de la bouble for 
 #}
 
-{% block title %}
+{# {% block title %}
     Reservation sur mes annonces - {{ parent() }}
 {% endblock title %}
 
-{% block monespace %}
+{% block body %}
     <div id="page" class="row">
         <div class="">
-            <h3>Reservation sur mes annonces</h3>
+            <h3>Reservation sur mes annonces</h3> #}
             <table class="table table-hover">
                 <thead>
                 <tr class="success">
@@ -53,6 +53,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
+        {# </div>
     </div>
-{% endblock monespace %}
+{% endblock body %} #}

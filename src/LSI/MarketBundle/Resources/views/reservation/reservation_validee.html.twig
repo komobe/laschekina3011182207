@@ -1,0 +1,36 @@
+<table class="table table-hover">
+    <thead>
+    <tr class="success">
+        <th>Numero</th>
+        <th>Titre de l'annonce</th>
+        <th>Debut de la prestation</th>
+        <th>Fin de la prestation</th>
+        <th>Etat de la reservation</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for key, reservation in reservationValidee %}
+        <tr>
+            <td>{{ key + 1 }}</td>
+            <td>{{ reservation.annonce.titre }}</td>
+            <td><strong>{{ reservation.debutPrestation|date('d/m/Y') }}</strong></td>
+            <td><strong>{{ reservation.finPrestation|date('d/m/Y') }}</strong></td>
+            {% if reservation.reserveEtat == 'V' %}
+                <td><strong>Réservation validée</strong></td>
+            {% endif %}
+            <td>
+                <a href="{{ path('ls_imarket_voir_reservation', {'id': reservation.id}) }}" class="btn btn-success" style="font-weight: bold">Consulter</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr class="alert alert-info">
+            <td colspan="6">
+                <strong>
+                    <center>Vous n'avez validé aucune reservation sur vos annonces!</center>
+                </strong>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

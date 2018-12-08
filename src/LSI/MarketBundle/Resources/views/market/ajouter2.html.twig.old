@@ -1,0 +1,140 @@
+{% extends '::layout.html.twig' %}
+
+{% block title %}
+    Ajout d'une annonce1
+{% endblock %}
+
+{% block body %}
+    <div id="page" class="row">
+        <div class="">
+            <h2>Ajout d'une annonce</h2>
+            <h3> Gestions des disponibilités </h3>
+            {{ form_start(form, {'attr' : {'claas' : 'form-control', 'novalidate':'novalidate'}}) }}
+            <div class="col-xs-6 col-md-6 col-lg-4">
+                <div class="form-group" >
+                    {{ form_row(form.pulicMairie) }}
+                </div>
+                {{ form_errors(form.pulicMairie) }}
+                <div class="form-group" id="tarifEpci" style="display:none";>
+                    {{ form_row(form.tarifEpci, {'attr': {'placeholder': 'Définir leur tarif' }}) }}
+                </div>
+                {{ form_errors(form.tarifEpci) }}
+                <div class="form-group" id="tarifNonEpci" style="display:none"; >
+                    {{ form_row(form.tarifNonEpci, {'attr': {'placeholder': 'Définir leur tarif' }}) }}
+                </div>
+                {{ form_errors(form.tarifNonEpci) }}
+                <div class="form-group">
+                    {{ form_row(form.pulicAdministre) }}
+                </div>
+                {{ form_errors(form.pulicAdministre) }}
+                <div class="form-group" id="tarifAdminisEpci" style="display:none"; >
+                    {{ form_row(form.tarifAdminisEpci,{ 'attr': {'placeholder': 'Définir leur tarif' }}) }}
+                </div>
+                {{ form_errors(form.tarifAdminisEpci) }}
+                <div class="form-group" id="tarifNonAdminisEpci" style="display:none"; >
+                    {{ form_row(form.tarifNonAdminisEpci, {'attr': {'placeholder': 'Définir leur tarif' }}) }}
+                </div>
+                {{ form_errors(form.tarifNonAdminisEpci) }}
+                <div class="form-group" id="tarifNonAdminis" style="display:none";>
+                    {{ form_row(form.tarifNonAdminis , {'attr': {'placeholder': 'Définir leur tarif' }}) }}
+                </div>
+                {{ form_errors(form.tarifNonAdminis) }}
+            </div>
+            <div class="col-xs-6 col-md-6 col-lg-6">
+                <div class="form-group" id="" data-prototype="" >
+                    {{ form_widget(form.calendrier) }}
+                    <input type="button" id="add_code" value="autres plages" class="btn btn-warning pull-right"/>
+                </div>
+                {{ form_errors(form.calendrier) }}
+                <div class="form-group">
+                    {{ form_widget(form.save, { 'label': 'Ajouter l\'annonce', 'attr' : {'class' : 'btn btn-success',}}) }}
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+            // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+            var $container = $('div#lsi_marketbundle_annonce_calendrier');
+
+            // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+            var index = $container.find(':input').length;
+
+            // On ajoute un nouveau champ à chaque click sur le bouton
+            $('#add_code').click(function (e) {
+                addCalendrier($container);
+                e.preventDefault(); // Pour éviter qu'un # apparaissent dans l'URL
+                return false;
+            });
+
+            // On ajoute automatiquement le 1er champ sans le bouton de suppression
+            if ( index == 0 ){
+                addCalendrier($container);
+            }else{
+                // S'il existe déjà des champs de codes
+                $container.children('div').each(function () {
+                    addDeleteLink($(this));
+                });
+            }
+
+            // Fonction pour ajouter un formulaire de code postal
+            function addCalendrier($container) {
+                var template;
+
+                if (index == 0){
+                    template = $container.attr('data-prototype')
+                        .replace(/__name__label__/g, '')
+                        .replace(/__name__/g, index)
+                    ;
+                }else{
+                    template = $container.attr('data-prototype')
+                        .replace(/__name__label__/g, 'Plage '+ (index +1))
+                        .replace(/__name__/g, index)
+                    ;
+                }
+
+                // On crée un objet jquery qui contiendra le template
+                var $prototype = $(template);
+
+                // On ajoute au prototype un lien pour pouvoir supprimer le code postal
+                if(index == 0){
+
+                }else{
+                    addDeleteLink($prototype);
+                }
+
+                // On ajoute le prototype modifié à la fin de la balise <div>
+                $container.append($prototype);
+
+                // On incrémente l'index
+                index++;
+            }
+            // La fonction pour supprimer un code postal
+            function addDeleteLink($prototype) {
+                // Création du bouton
+                var $deleteButton = $('<input type="button" value="Supprimer" class="btn btn-danger"/>');
+
+                // Ajout du bouton
+                $prototype.append($deleteButton);
+
+                // Ajout d'un listener sur le clic du lien pour supprimer la catégorie
+                $deleteButton.click(function(e) {
+                    $prototype.remove();
+                    if (index > 0){
+                        index --;}
+                    e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+
+                    return false;
+
+                });
+            }
+        })
+    </script>
+{% endblock javascripts %}

@@ -1,0 +1,435 @@
+# Les routes de FOSUserBundle
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /mon-espace/coordonnees
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /mon-espace/profile
+
+
+# Page d'accueil
+lsi_market_homepage:
+    path:     /
+    defaults:
+        _controller: LSIMarketBundle:Market:index
+
+#--------------------------------- GESTION DES ESPACES -----------------------------------------------
+lsi_market_coordonnees_bancaires:
+    path: /mon-espace/coordonnees-bancaires
+    defaults:
+        _controller: LSIMarketBundle:Profile:coordonneesBancaires
+
+lsi_market_a_propos:
+    path: /mon-espace/a-propos
+    defaults:
+        _controller: LSIMarketBundle:Profile:aPropos
+
+
+
+# -------------------------------- ROUTES RELATIVES LA CREATION, MODIFICATION, VISUALISATION, DUPLICATION D'ANNONCES --
+
+ls_imarket_liste_annonce:
+    path: /offres
+    defaults:
+        _controller: LSIMarketBundle:Market:listeOffres
+
+# Pour creer une annonce
+ls_imarket_ajouter_annonce:
+    path: /ajouter
+    defaults:
+        _controller: LSIMarketBundle:Market:ajouter
+
+# Création d'annonce phase 2
+ls_imarket_ajouter_annonce2:
+    path: /ajouter/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:ajouter2
+    requirements:
+        id: \d+
+
+# Pour consulter une annonce
+ls_imarket_voir_annonce:
+    path: /annonce/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:voir
+    requirements:
+        id: \d+
+
+# Pour consulter les disponibilités
+ls_imarket_plage_annonce:
+    path: /plage/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:disponibilite
+    requirements:
+        id: \d+
+
+# Pour modifier une annonce
+ls_imarket_modifier_annonce:
+    path: /modifier/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:modifier
+    requirements:
+        id: \d+
+
+# Pour supprimer une annonce
+ls_imarket_supprimer_annonce:
+    path: /supprimer/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:supprimer
+    requirements:
+        id: \d+
+
+#Pour creer une annonce  a partir d'une existante.
+ls_imarket_dupliquer_annonce:
+    path: /dupliquer/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:dupliquer
+    requirements:
+        id: \d+
+
+#Pour la gestion des tarifs
+ls_imarket_tarif_annonce:
+    path: /tarif/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:gestiondestarif
+    requirements:
+        id: \d+
+
+# --------------------------------- FIN DES ROUTES RELATIVES A L'ANNONCE -----------------------------------------------
+
+#---------------------------------- ROUTES RELATIVES AUX RESERVATIONS --------------------------------------------------
+
+# Creer une reservation
+ls_imarket_reserver_annonce:
+    path: /reserver/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:reserver
+    requirements:
+        id: \d+
+
+ls_imarket_annonce_reservee:
+    path: /annoncereservee
+    defaults:
+        _controller: LSIMarketBundle:Market:annonceReserver
+
+# Pour acceder aux reservations effectuees
+ls_imarket_mes_reservations:
+    path: /mon-espace/mes-reservations
+    defaults:
+        _controller: LSIMarketBundle:Market:mesReservations
+
+ls_imarket_voir_reservation:
+    path: /annonce_reservee/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:voirReservation
+
+# Route pour la methode valider une réservation
+ls_imarket_valider_reservation:
+    path: /valider_reservation/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:valid
+
+
+# Route pour la methode refuser une réservation
+ls_imarket_refuser_reservation:
+    path: /refuser_reservation/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:refuser
+
+# Traitement de réservation par le demandeur
+
+ls_imarket_traitement_demandeur_reservation:
+    path: /reservation_demandeur/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:reservationdemandeur
+
+
+#----------------------------------------------- FIN ROUTES RESERVATIONS -----------------------------------------------
+
+#--------------------------------------------- ROUTES RELATIVES AUX ESPACES DE GESTION ---------------------------------
+# Pour acceder a l'espace utilisateur
+ls_imarket_mon_espace:
+    path: /monespace
+    defaults:
+        _controller: LSIMarketBundle:Market:monEspace
+
+# Pour accéder aux annonces de la mairie
+ls_imarket_mes_annonces:
+    path: /offreur/mes-annonces
+    defaults:
+        _controller: LSIMarketBundle:Market:mesAnnonces
+
+ls_imarket_reservations_sur_mes_annonces:
+    path: /offreur/reservations-sur-mes-annonces
+    defaults:
+        _controller: LSIMarketBundle:Market:reservationsSurMesAnnonces
+
+ls_imarket_commandes_sur_mes_annonces:
+    path: /mairie/commandes-sur-mes-annonces
+    defaults:
+        _controller: LSIMarketBundle:Market:commandesSurMesAnnonces
+
+ls_imarket_mes_commandes:
+   path: /mairie/mes-commandes
+   defaults:
+       _controller: LSIMarketBundle:Market:mesCommandes
+
+#+++++++++++++++++++++++++++++++++++++++++ ESPACE ADMINISTRE +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ls_imarket_administre_index:
+    path: /monespace/index
+    defaults:
+        _controller: LSIMarketBundle:Espace:administreIndex
+
+
+#---------------------------------------------- FIN ROUTES ESPACES DE GESTION ------------------------------------------
+
+#------------------------------------------------ CODE -----------------------------------------------------------------
+ls_imarket_engagement:
+    path: /nosengagements
+    defaults:
+        _controller: LSIMarketBundle:Code:nosEngagements
+
+#Pour afficher les conditions générales d'utilisations
+ls_imarket_condition_generale:
+    path: /conditions-generales
+    defaults:
+        _controller: LSIMarketBundle:Market:conditions
+
+#Pour afficher la page histoire et valeurs
+ls_imarket_une_histoire_et_des_valeurs:
+    path: /histoire
+    defaults:
+        _controller: LSIMarketBundle:Market:histoire
+
+#Pour afficher la page solution complète
+ls_imarket_une_solution_complete:
+    path: /solution
+        _controller:
+
+#Pour afficher la page Aide
+ls_imarket_aide:
+    path: /aide
+    defaults:
+        _controller: LSIMarketBundle:Market:aide
+
+
+#Pour afficher la page Contact
+ls_imarket_contact:
+    path: /contact
+    defaults:
+        _controller: LSIMarketBundle:Market:contact
+
+
+#Pour afficher la page Marché publics
+ls_imarket_marche_public:
+    path: /marche-publics
+    defaults:
+        _controller: LSIMarketBundle:Market:marchePublics
+
+
+#Pour afficher la page qui sommes nous
+ls_imarket_qui_sommes_nous:
+    path: /qui-sommes-nous
+    defaults:
+        _controller: LSIMarketBundle:Market:quiSommesNous
+
+
+#Pour afficher la page un concept innovant
+ls_imarket_un_concept_innovant:
+    path: /concept-innovant
+    defaults:
+        _controller: LSIMarketBundle:Market:conceptInnovant
+
+
+#------------------------------------------------ ADMINISTRATION -------------------------------------------------------
+#********************************* SUPER ADMIN **********************************************
+ls_imarket_superadmin:
+    path: /superadmin
+    defaults:
+        _controller: LSIMarketBundle:Admin:superAdmin
+
+ls_imarket_liste_admin:
+    path: /superadmin/liste-admin
+    defaults:
+        _controller: LSIMarketBundle:Admin:listeAdmin
+
+ls_imarket_admin_registration:
+    path: /superadmin/registration
+    defaults:
+        _controller: LSIMarketBundle:Admin:addAdmin
+
+#*********************************** ADMIN ********************************************************
+ls_imarket_accueil:
+   path: /monsespace/admin
+   defaults:
+       _controller: LSIMarketBundle:Admin:indexAdmin
+
+
+#***************************************** MODULE EPCI ********************************
+# Pour récupérer les infos de l'EPCI
+ls_imarket_mon_epci:
+    path: /monepci #/{cp}
+    defaults:
+        _controller: LSIMarketBundle:Market:monEpci
+#    requirements:
+#        cp: \d+
+
+# Pour ajouter un epci
+ls_imarket_ajout_epci:
+    path: /monespace/admin/ajoutepci
+    defaults:
+        _controller: LSIMarketBundle:Admin:ajouterEpci
+
+# Pour lister les EPCI
+ls_imarket_liste_epci:
+    path: /monespace/admin/listeepci
+    defaults:
+        _controller: LSIMarketBundle:Admin:listeEpci
+
+# Pour consulter un EPCI
+ls_imarket_voir_epci:
+    path: /monespace/admin/voirepci/{id}
+    defaults:
+        _controller: LSIMarketBundle:Admin:voirEpci
+    requirements:
+        id: \d+
+
+# Pour modifier un EPCI
+ls_imarket_modifier_epci:
+    path: /monespace/admin/modifierepci/{id}
+    defaults:
+        _controller: LSIMarketBundle:Admin:modifierEpci
+    requirements:
+        id: \d+
+
+#************************************************ MODULE CGU - V *******************************************************
+#/////////////////////////////////////////////// CGU ////////////////////////////////////
+ls_imarket_ajouter_cgu:
+    path: /monespace/admin/ajouter-cgu
+    defaults:
+        _controller: LSIMarketBundle:Admin:ajouterCgu
+
+ls_imarket_voir_cgu:
+    path: /monespace/admin/voir-cgu
+    defaults:
+        _controller: LSIMarketBundle:Admin:voirCgu
+
+ls_imarket_modifier_cgu:
+    path: /monespace/admin/modifier-cgu
+    defaults:
+        _controller: LSIMarketBundle:Admin:modifierCgu
+
+
+#//////////////////////////////////////////////// CGV /////////////////////////////////////////
+ls_imarket_ajouter_cgv:
+    path: /monespace/admin/ajouter-cgv
+    defaults:
+        _controller: LSIMarketBundle:Admin:ajouterCgv
+
+ls_imarket_voir_cgv:
+    path: /monespace/admin/voir-cgv
+    defaults:
+        _controller: LSIMarketBundle:Admin:voirCgv
+
+ls_imarket_modifier_cgv:
+    path: /monespace/admin/modifier-cgv
+    defaults:
+        _controller: LSIMarketBundle:Admin:modifierCgv
+
+#-----------------------------------------------------
+# Traitement de l'annulation d'une réservation validée par offreur
+
+ls_imarket_traitement_demandeur_annulerreserv:
+    path: /reservation_annule/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:annulerReservation
+
+# Modifier une réservation
+
+ls_imarket_traitement_demandeur_modifierreserv:
+    path: /reservation_modifier/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:modifierReservation
+
+#Traitement de la messagerie
+
+ls_imarket_traitement_msgrecu:
+    path: /messages/recus
+    defaults:
+        _controller: LSIMarketBundle:Market:msgRecu
+
+ls_imarket_traitement_messagerie:
+    path: /messages/envoye/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:msgEnvoyerM
+    requirements:
+        id: \d+
+
+ls_imarket_traitement_messageriea:
+    path: /messages/envoye/administre/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:msgEnvoyerA
+    requirements:
+        id: \d+
+
+ls_imarket_traitement_reponsemsg:
+    path: /message/reponse/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:reponsemsg
+    requirements:
+        id: \d+
+
+#Route pour consulter les messages ecrits par les utilisateurs
+
+ls_imarket_traitement_msgenvoye:
+    path: /message/msgenvoye
+    defaults:
+        _controller: LSIMarketBundle:Market:msgenvoye
+
+#Fin traitement de la messagerie
+#-----------------------------------------------------------
+
+#---------------------------------- Pour la recherche ------------------------------------------------------------------
+# Route pour la barre de recherche principale
+
+ls_imarket_annonce_rechprincipal:
+    path: /recherche
+    defaults:
+        _controller: LSIMarketBundle:Market:rechPrincipale
+
+# Route pour les resultats de la recherche
+
+ls_imarket_annonce_resultsearch:
+    path: /resultat
+    defaults:
+        _controller: LSIMarketBundle:Market:resultatRech
+
+
+# Route pour le menu de recherche dans la page index
+
+ls_imarket_annonce_rechindex:
+    path: /resultatpageindex
+    defaults:
+        _controller: LSIMarketBundle:Market:rechindex
+
+# Route pour la recherche avancée
+
+ls_imarket_annonce_rechavancee:
+    path: /resultat/rechercheavancee
+    defaults:
+        _controller: LSIMarketBundle:Market:rechavancee
+
+#------------------------------------------- Fin ----------------------------------------------------------------------
+

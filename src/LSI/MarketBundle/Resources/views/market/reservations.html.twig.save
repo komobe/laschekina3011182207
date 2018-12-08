@@ -1,0 +1,46 @@
+{% extends '::layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/index.css') }}">
+{% endblock stylesheets %}
+
+{%  block body %}
+    <div class="row">
+        <div class="row">
+            <div class="col-lg-offset-2 col-sm-10">
+                {% for annonce in annonces %}
+                <div class="col-md-4">
+                    <a href="{{ path('ls_imarket_voir_annonce', {'id': annonce.id}) }}">
+                        {% if annonce.images is not null %}
+                            <img src="{{ asset(annonce.images.webPath) }}" alt="{{ annonce.images.alt }}" />
+                        {% endif %}
+                        <h2>{{ annonce.titre }}</h2>
+                        <p>{{ annonce.description }}</p>
+                        <i><h6>Règles et conditions : </h6>{{ annonce.regleCond }}</i>
+                    </a><br/>
+                    <p class="label label-info">Prix : {{ annonce.prixDefaut }} &euro;</p><br/>
+
+                    {% if not app.user %}
+                        <center><a href="{{ path('fos_user_security_login') }}" class="btn btn-success">Reserver</a></center>
+                    {% elseif app.user.hasRole('ROLE_MAIRIE') %}
+
+                        {% if app.user.mairie.id == annonce.mairie.id %}
+                            <center><a href="{{ path('ls_imarket_modifier_annonce', {'id' :annonce.id})}}"
+                                       class="btn btn-warning">Modifier</a></center>
+                        {% else %}
+                            <center><a href="{{ path('ls_imarket_dupliquer_annonce', {'id' :annonce.id})}}"
+                                       class="btn btn-info">Créer à partir</a>
+                            <a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                               class="btn btn-success">Reserver</a></center>
+                        {% endif %}
+                    {% else %}
+                        <center><a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                                   class="btn btn-success">Reserver</a></center>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+{%  endblock body %}

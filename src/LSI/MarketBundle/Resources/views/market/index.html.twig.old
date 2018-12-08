@@ -1,0 +1,113 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <title>publicsspace</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/standardize.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/publicsspace-grid.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/publicsspace.css') }}">
+</head>
+<body class="body page-publicsspace clearfix">
+<div class="text text-1">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur anim id est laborum
+        Lorem ipsum dolor sit amet,&nbsp;</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur anim id est laborum Lorem ipsum dolor sit amet,</p>
+</div>
+<div class="text text-2">
+    <p><span>BIENVENUE&nbsp;</span></p>
+    <p><span>
+SUR NOTRE
+</span></p>
+    <p><span>MARKET PLACE</span></p>
+</div>
+<div class="row">
+    <nav class="navbar">
+        <img class="image" src="{{ asset('bundles/lsimarket/images/LOGO-MY-PUBLICS-SPACE.png') }}">
+        <div class="element"></div>
+        <ul class="nav navbar-nav">
+            <button onclick="window.location.href='{{ path('lsi_market_homepage') }}'" class="menu _button-1">Accueil
+            </button>
+            <button onClick="window.location.href='{{ path('ls_imarket_liste_annonce') }}'" class="menu _button-2">
+                Réservation
+            </button>
+            <button onClick="#" class="menu _button-3">Location</button>
+            <button onClick="#" class="menu _button-4">Contact</button>
+
+
+            {% if app.user %}
+                <button onClick="window.location.href='{{ path('ls_imarket_mon_espace') }}'" class="menu _button-6">
+                    Bonjour {{ app.user.username }}
+                </button>
+
+            {% else %}
+                <button onclick="window.location.href='{{ path('fos_user_security_login') }}'"
+                        class="_button-5"></button>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<div class="container container-1 clearfix">
+       {#Reserver pour la barre de recherche principale#}
+    <form class="navbar-form navbar-left" method="post" action="{{ path('ls_imarket_recherche_barre') }}">
+        <input class="form-control" placeholder="Recherche par le titre ou description..."
+               type="text" name="recherche" required="required"
+        style="position: relative; height: 50px; width: 330px; right: 80px; top: 50px">
+        <button type="submit" class="btn btn-default" name="rechbtn"
+        style="position: relative; left: 250px; height: 50px">Recherche</button>
+    </form>
+
+</div>
+<div class="row">
+    <div class="col-md-offset-1">
+        {{ form_start(formaff) }}
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_row(formaff.Categorie) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_row(formaff.Ville) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_row(formaff.Budget) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_row(formaff.Periode) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                {{ form_row(formaff.Prix) }}
+            </div>
+        </div>
+        <div>
+            {{ form_row(formaff.recherche) }}
+        </div>
+        {{ form_end(formaff) }}</div>
+</div>
+<div class="container container-2 clearfix">
+    <button onClick="#" class="engagements _button-9">
+        <p>Nos&nbsp;</p>
+        <p>engagementS</p>
+    </button>
+    <button onClick="#" class="engagements _button-10">
+        <p>NOTRE&nbsp;</p>
+        <p>DEMARCHE</p>
+    </button>
+    <button onClick="#" class="engagements _button-11">
+        <p>RESPECT DU&nbsp;</p>
+        <p>MARCHE PUBLICS</p>
+    </button>
+    <button onClick="#" class="engagements _button-12">
+        <p>NOUS VOUS&nbsp;</p>
+        <p>ACCOMPAGNONS</p>
+    </button>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>

@@ -32,4 +32,14 @@ class VilleRepository extends \Doctrine\ORM\EntityRepository {
 
         //return $qb->getQuery()->getResult();
     }
+
+    // Récupère la liste des villes d'un EPCI
+    public function findVillesEpci($idEpci){
+        $qb = $this->createQueryBuilder('v')
+            ;
+        $qb->where('v.epci = :idEpci')
+            ->setParameter('idEpci', $idEpci)
+            ;
+        return $qb->getQuery()->getResult();
+    }
 }

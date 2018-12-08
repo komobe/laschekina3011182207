@@ -60,7 +60,17 @@ class AdminController extends Controller  {
     //Accueil admin
     public function indexAdminAction(){
         $this->denyAccessUnlessGranted('ROLE_ADMIN', 'Vous n\'avez pas accès à cette page' );
-        return $this->render('LSIMarketBundle:admin:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        // Liste des mairies
+        $lesMairies = $em->getRepository('LSIMarketBundle:User')->findAllMairie();
+        //dump($lesMairies);
+        // Liste des administres
+        $lesAdministres = $em->getRepository('LSIMarketBundle:User')->findAllAdministre();
+        //dump($lesAdministres);
+        return $this->render('LSIMarketBundle:admin:index.html.twig', array(
+            'lesMairies' => $lesMairies,
+            'lesAdministres' => $lesAdministres,
+        ));
     }
 
     // Ajoute un EPCI ... Ok

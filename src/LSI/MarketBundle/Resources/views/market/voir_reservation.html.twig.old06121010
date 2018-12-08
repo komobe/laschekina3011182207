@@ -1,0 +1,334 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    details reservation
+{% endblock %}
+
+{% block body %}
+<section class="content-section">
+  <div class="container">
+
+    <div class="title-row heading">
+      <div class="col-md-12">
+         {% if listanreserv is defined %}
+           {% for listanreserv in listanreserv %}
+             <h2>{{ listanreserv.annonce.titre }}</h2>
+           {% endfor %}
+         {% endif %}
+      </div>
+    </div>
+    <!-- Properties  Details -->
+    <div class="row pad-top-large">
+    <div class="col-sm-12 content-table">
+       <div class="content-back row-float">
+          <div class="col-md-6 content-table-image">
+             <div class="owlCarousel properties-slider">
+                {% if listanreserv is defined %}
+                   {% for listanreserv in listanreserv %}           
+                      {% for list in listanreserv.annonce.images %}
+                        <img src="{{ asset(list.webPath) }}" alt="{{ list.alt }}" style="width:100% ; height: auto;"/>
+                   {% endfor %}
+            </div>
+         </div>     
+         <div class="col-md-6 pull-right contents grid-gap-large">                   
+             <p>Description : {{ listanreserv.annonce.description }}</p>
+             <p>Prix fixé: {{ listanreserv.annonce.prixDefaut }} / jour</p>
+             <p>Nombre de jours réservés : </p>
+             <p>Prix total de la réservation : </p>
+             <p>Catégorie : {{ listanreserv.annonce.categorie.name }}</p>
+             <p>Demandeur : {{ listanreserv.user.nom }}</p>
+             <p>Contact : {{ listanreserv.user.telephone }}</p><br><br>
+                    
+                    <div>
+                        {% if listanreserv.reserveEtat == "V" or listanreserv.reserveEtat == "R"  %}
+                            <span>
+                                <button type="submit" class="btn btn-success" value="valider" name="btn-valider" id="valider" disabled>Valider</button>
+                            </span>
+                            <span>
+                                <button type="submit" class="btn btn-success" value="refuser" name="btn-refuser" disabled>Refuser</button>
+                            </span>
+                        {% else %}
+                            <span>
+                                <button type="submit" class="btn btn-success" value="valider" name="btn-valider" id="valider">Valider</button>
+                            </span>
+                            <span>
+                                 <button type="submit" class="btn btn-success" value="refuser" name="btn-refuser" id="refuser">Refuser</button>
+                            </span>
+                            <span>
+                                {#<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Ecrire un message</button>#}
+                                <a href="{{ path('ls_imarket_traitement_messagerie', {'id': listanreserv.id}) }}" class="btn btn-success">Ecrire un message</a>
+                            </span>
+                        {% endif %}
+                    </div>
+     </div>
+     </div>
+     <!-- Properties  Details -->
+     <!-- Properties description -->
+     <div class="row pad-top-large">
+       <div class="container">
+         <div class="properties-descriptions tabs-vertical" role="tabpanel">
+           <ul class="nav nav-tabs">
+             <li class="active"><a href="#features" data-toggle="tab">FONTIONNALITES</a></li>
+             <li><a href="#openhouse" data-toggle="tab">MAIRIE</a></li>
+             <li><a href="#video" data-toggle="tab">VIDEO</a></li>
+             <li><a href="#map" data-toggle="tab">MAP</a></li>
+             <li><a href="#community" data-toggle="tab">OPCI</a></li>
+           </ul>
+           <div class="tab-content">             
+             <div class="tab-pane fade in active" id="features">               
+               <div class="contents">
+                <h2>Votre description complète de l'article</h2>
+                 <p> {{ listanreserv.annonce.description }}</p>
+               </div>               
+             </div>
+             <div class="tab-pane fade" id="openhouse">               
+              <div class="contents">
+                <h2>Lorem Ipsum</h2>
+                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition.</p>
+                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin </p>
+               </div>      
+             </div>
+             <div class="tab-pane fade" id="video">               
+              <div class="contents">
+              <h3>Regarder la vidéo</h3>
+              <div class="video-embed">
+                 <iframe width="560" height="315" src="https://www.youtube.com/watch?v=Tu-XNVI_mV0"></iframe>
+              </div>
+                
+               </div>      
+             </div>
+             <div class="tab-pane fade" id="map" style="width: 900px; height: 450px">
+                {#Afficher la google map#}
+             </div>
+             <div class="tab-pane fade" id="community">               
+              <div class="contents">
+                 <h3>Plus d'informations sur les mairies</h3>
+                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition.</p>
+                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin </p>
+               </div>      
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+     <!-- Properties description // -->
+    <!-- Contact To Agent -->
+    <div class="title-row heading pad-top-large">
+      <div class="col-md-12">
+        <h2>BESOIN D'UNE INFORMATION</h2>
+        <p>Vous pouvez contacter cet agent avant toute opération</p>
+      </div>
+    </div>
+    <div class="row pad-top-small layout-flex">
+      <div class="col-md-4">
+        <div class="content-box-2">
+          <figure class="image-box">
+            <img src="{{ asset('bundles/lsimarket/images/properties-details/agents-1.jpg')}}" height="278" width="330" alt="">
+          </figure>
+          <div class="contents">
+            <h3 class="heading-style-1">XXXXX</h3>
+            <p>here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly. </p>
+            <p class="text-right"><a href="#" class="btn btn-large btn-primary">En savoir plus</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="content-box-2 agents-contact">
+          <div class="heading">
+            <h5>Contactez {{ listanreserv.user.nom }} par email</h5>
+          </div>
+          <form class="form-content pad-top-small" data-parsley-validate>
+            <div class="row">
+              <div class="col-md-6 form-group-1">
+                <input type="text" class="form-control input-lg" placeholder="Nom" required data-parsley-required-message="Please insert your name" name="name">
+              </div>
+              <div class="col-md-6 form-group-1">
+                <input type="text" class="form-control input-lg" placeholder="E-mail" required data-parsley-required-message="Please insert your Email" name="email">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group-1">
+                <input type="text" class="form-control input-lg" placeholder="Téléphone" required data-parsley-required-message="Please insert your contact no" data-parsley-min="10" name="contact">
+              </div>
+              <div class="col-md-6 form-group-1">
+                <input type="text" class="form-control input-lg" placeholder="Ville" required name="location">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group-1 col-md-12">
+                <textarea class="form-control" placeholder="Merci de noter votre question puis de valider le formulaire." rows="3"  required data-parsley-minlength="20" data-parsley-minlength-message = "Come on! You need to enter at least a 20 character comment.."  data-parsley-validation-threshold="10" data-parsley-maxlength="100" name="message"></textarea>
+              </div>
+            </div>
+            <div class="row pad-top-small">
+              <div class="col-md-12">
+                <button class="btn btn-primary btn-large pull-right">Envoyer</button>
+              </div>
+              <div class="text-success col-xs-12 hidden form-messges text-center">
+              <p>Nous vous enverrons une réponse dès que possible.</p>
+            </div>
+            </div>
+
+          </form>
+          <div class="info-box-1">
+            <h5><span>Ou appler un agent</span></h5>
+            <p><span class="large-text-1"><span class="iconic-phone-square"></span>+33 01 45 87 45</span></p>
+          </div>
+        </div>
+      </div>
+    </div>   
+    <!-- Contact To Agent // -->
+    
+  </div>
+</section>
+<!-- Page layout // -->
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+
+{# Lien pour le geocodage des adresses #}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    {{ parent() }}
+    {% if listanreserv is defined %}
+        {% for listanreserv in listanreserv %}
+            <script>
+                $(document).on('click', 'button#valider', function () {
+                    that = $(this);
+                    if(confirm('Voulez vous valider cette reservation ?')){
+                        $.ajax({
+                            url: "{{ path('ls_imarket_valider_reservation', {'id': listanreserv.id}) }}",
+                            type: 'GET',
+                            /*dataType: "json",*/
+                            data: {
+                                "btn-valider": "valider"
+                            },
+                            async: true,
+                            success: function () {
+                                // alert('La réservation a été validée !');
+                                //Désactive le bouton
+                                $("#valider").prop('disabled', true);
+                                $("#refuser").prop('disabled', true);
+                                window.location.href = "{{ path('ls_imarket_reservations_sur_mes_annonces') }}";
+                            }
+
+                        });
+                    }
+
+                });
+
+                {# Traitement pour refuser une réservation #}
+
+                $(document).on('click', 'button#refuser', function () {
+                    that = $(this);
+                    if (confirm('Voulez vous refuser la réservation ?')) {
+                        $.ajax({
+                            url: "{{ path('ls_imarket_refuser_reservation', {'id': listanreserv.id}) }}",
+                            type: "GET",
+                            data: {
+                                "btn-refuser": "refuser"
+                            },
+                            async: true,
+                            success: function () {
+                                // alert('La réservation a été refusée !');
+                                $("#valider").prop('disabled', true);
+                                $("#refuser").prop('disabled', true);
+                                /* Redirection vers la page de consultation des annonces*/
+                                window.location.href = "{{ path('ls_imarket_reservations_sur_mes_annonces') }}";
+                            }
+                        })
+                    }
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+
+<script>
+
+        /*function initMap() {
+         var map = new google.maps.Map(document.getElementById('map'), {
+         center: new google.maps.LatLng(48.864716, 2.349014),
+         zoom: 12
+         });
+         var infoWindow = new google.maps.InfoWindow;
+
+         }*/
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: new google.maps.LatLng(48.864716, 2.349014),
+                zoom: 12
+            });
+
+            // Traitement pour geocoder les adresses d'annonces et afficher l'annonce sur la map
+            {% for listanreserv in listanreserv %}
+                var location = " {{ listanreserv.annonce.adresse.codePostal }} ";
+                axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+                    params:{
+                        address: location,
+                        key:'AIzaSyCZZVKfAjhdfo0VN0mk5IOq6ml3y1Ccuss'
+                    }
+                }).then(function(response) {
+
+                    var coordinates = response.data.results[0].geometry.location;
+                    console.log(coordinates);
+                    {% for annonceimage in listanreserv.annonce.images %}
+
+                        var contentString =
+                            '<div>'+
+                            '<img src="{{ asset(annonceimage.webPath) }}" alt="{{ annonceimage.alt }}" style="float:left; width: 100px; height: 90px;object-fit: cover;margin-right:5px">'+
+                            '<h5 style="color:#204d74; position: relative; botton: 15px;">{{ listanreserv.annonce.titre }}</h5>'+
+                            '<h5 >{{ listanreserv.annonce.description|truncate(50) }}</h5>'+
+                            '<h5 style="color: red">Prix : {{ listanreserv.annonce.prixDefaut }} {{ listanreserv.annonce.typeforfait }}</h5>'+
+                            '</div>'+
+                            '<div id="output"></div>'
+
+                        ;
+
+                    {% endfor %}
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+
+
+                    var marker = new google.maps.Marker({
+                        position: coordinates,
+                        map: map,
+                        title: 'Cliquez pour voir l\'annonce',
+                        animation: google.maps.Animation.BOUNCE,
+                        icon: {
+                         url: '../../../web/bundles/lsimarket/images/logo_civilinc.png',
+                         scaledSize: new google.maps.Size(30, 30),
+			
+                         }
+
+                    });
+
+
+                    marker.addListener('mouseover', function() {
+
+                        infowindow.open(map, marker);
+
+                    });
+                    marker.addListener('mouseout', function() {
+                        infowindow.close(map, marker);
+                    });
+                    marker.addListener('click', function() {
+                        infowindow.open(map, marker);
+                        window.location.href = '{{ path("ls_imarket_voir_annonce", {"id": listanreserv.annonce.id}) }}';
+                    });
+			
+                })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            {% endfor %}
+
+        }
+
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZZVKfAjhdfo0VN0mk5IOq6ml3y1Ccuss&callback=initMap">
+    </script>
+{% endblock %}

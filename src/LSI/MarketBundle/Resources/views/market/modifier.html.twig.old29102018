@@ -1,0 +1,215 @@
+﻿{% extends '::layout.html.twig' %}
+
+{% block body %}
+<!-- Page layout -->
+<section class="content-section">
+  <div class="container">
+
+    <div class="title-row heading">
+      <div class="col-md-8">
+        <section class="content-section"> 
+	<div class="container">
+		
+      <div class="row-float contents pad-top-large">
+<div>&nbsp;
+  <div class="comment-respond">
+            <h2>Modifier l'annonce</h2>
+            <h3>Informations Générales </h3>
+            {{ form_start(form, {'attr' : {'claas' : 'form-control', 'novalidate':'novalidate'}}) }}
+            <div class="col-xs-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    {{ form_row(form.titre) }}
+                </div>
+                {{ form_errors(form.titre) }}
+                <div class="form-group">
+                    {{ form_row(form.nature, {'attr': {'placeholder': 'nature de l\'annonce'}}) }}
+                </div>
+                {{ form_errors(form.nature) }}
+                <div class="form-group">
+                    {{ form_row(form.fonction, {'attr': {'placeholder': 'fonction de l\'annonce'}}) }}
+                </div>
+                {{ form_errors(form.fonction) }}
+                <div class="form-group">
+                    {{ form_row(form.description) }}
+                </div>
+                {{ form_errors(form.description) }}
+                <div class="form-group">
+                    {{ form_row(form.typeforfait) }}
+                </div>
+                {{ form_errors(form.typeforfait) }}
+                <div class="form-group">
+                    {{ form_row(form.prixDefaut) }}
+                </div>
+                {{ form_errors(form.prixDefaut) }}
+                <div class="form-group">
+                    {{ form_row(form.regleCond) }}
+                </div>
+                {{ form_errors(form.regleCond) }}
+                <div class="form-group">
+                    {{ form_row(form.categorie) }}
+                </div>
+                {{ form_errors(form.categorie) }}
+            </div>
+            <div class="col-xs-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    {{ form_row(form.typeAnnul) }}
+                </div>
+                {{ form_errors(form.typeAnnul)}}
+                <div class="form-group">
+                    {{ form_row(form.adresse.pays, {'attr': {'placeholder': 'Donner le pays'}}) }}
+                </div>
+                {{ form_errors(form.adresse.pays) }}
+                <div class="form-group">
+                    {{ form_row(form.adresse.ville,  {'attr': {'placeholder': 'Donner la ville'}}) }}
+                </div>
+                {{ form_errors(form.adresse.ville) }}
+                <div class="form-group">
+                    {{ form_row(form.adresse.rue, {'attr': {'placeholder': 'Donner la rue'}}) }}
+                </div>
+                {{ form_errors(form.adresse.rue) }}
+                <div class="form-group">
+                    {{ form_row(form.adresse.codePostal,  {'attr': {'placeholder': 'Donner le Code postal'}}) }}
+                </div>
+                {{ form_errors(form.adresse.codePostal) }}
+                <div class="form-group">
+                    {{ form_row(form.adresse.departement,  {'attr': {'placeholder': 'Departement'}}) }}
+                </div>
+                {{ form_errors(form.adresse.departement) }}
+                {#<ul class="form-group">
+                    {% for listimage in form.images %}
+                        <li>
+                            {{ form_widget(listimage) }}
+                            {{ form_errors(listimage) }}
+                        </li>
+                    {% endfor %}
+                </ul>#}
+                <div class="form-group" id="" data-prototype="">
+                    {{ form_widget(form.images) }}
+                        <h6 style="font-weight: bold; font-family: Arial, Helvetica, sans-serif">Liste des images de l'annonce</h6>
+                            {% for listimg in listimg %}
+                               {% for list in listimg.images %}
+                                    {#<ul>
+                                        <li style="list-style: none; position: relative; right: 40px">#}
+                                            <img
+                                                src="{{ asset(list.webPath) }}"
+                                                alt="{{ list.alt }}"
+                                                style="width: 80px;"
+                                            />
+                                       {# </li>
+                                    </ul>#}
+                               {% endfor %}
+                            {% endfor %}
+                    <input type="button" id="add_code" value="autres images" class="btn btn-warning pull-right"/>
+                </div>
+                {{ form_errors(form.images) }}
+
+                <br/> <br/>
+            {{ form_widget(form.save, {'label':'Modifier l\'annonce','attr' : {'class' : 'btn btn-warning', 'id': 'btn-save'}}) }}
+            {{ form_end(form) }}
+        </div>
+        </div>
+    </div>
+    </div>
+	</div>
+  </section>      
+      </div>
+    </div>
+    <div class="row-float contents pad-top-large">
+      
+    </div>
+  </div>
+</section>
+<!-- Page layout // -->
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+   {# <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>#}
+    <script>
+        $(document).ready(function () {
+            // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+            var $container = $('div#lsi_marketbundle_annonce_images');
+
+            // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+            var index = $container.find(':input').length;
+
+            // On ajoute un nouveau champ à chaque click sur le bouton
+            $('#add_code').click(function (e) {
+                addImage($container);
+                e.preventDefault(); // Pour éviter qu'un # apparaissent dans l'URL
+                return false;
+            });
+
+            // On ajoute automatiquement le 1er champ sans le bouton de suppression
+            if ( index == 0 ){
+                addImage($container);
+            }else{
+                // S'il existe déjà des champs de codes
+                $container.children('div').each(function () {
+                    addDeleteLink($(this));
+                });
+            }
+
+            // Fonction pour ajouter un formulaire de code postal
+            function addImage($container) {
+                var template;
+
+                if (index == 0){
+                    template = $container.attr('data-prototype')
+                        .replace(/__name__label__/g, 'Image 1')
+                        .replace(/__name__/g, index)
+                    ;
+                }else{
+                    template = $container.attr('data-prototype')
+                        .replace(/__name__label__/g, 'Image '+ (index +1))
+                        .replace(/__name__/g, index)
+                    ;
+                }
+
+                // On crée un objet jquery qui contiendra le template
+                var $prototype = $(template);
+
+                // On ajoute au prototype un lien pour pouvoir supprimer le code postal
+                if(index == 0){
+
+                }else{
+                    addDeleteLink($prototype);
+                    if (index > 0){
+                        index --;}
+                }
+
+                // On ajoute le prototype modifié à la fin de la balise <div>
+                $container.append($prototype);
+
+                // On incrémente l'index
+                index++;
+            }
+
+            // La fonction pour supprimer un code postal
+            function addDeleteLink($prototype) {
+                // Création du bouton
+                var $deleteButton = $('<input type="button" value="Supprimer" class="btn btn-danger"/>');
+
+                // Ajout du bouton
+                $prototype.append($deleteButton);
+
+                // Ajout d'un listener sur le clic du lien pour supprimer la catégorie
+                $deleteButton.click(function(e) {
+                    $prototype.remove();
+                    if (index > 0){
+                        index --;}
+                    e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+
+                    return false;
+
+                });
+            }
+        })
+    </script>
+{% endblock javascripts %}

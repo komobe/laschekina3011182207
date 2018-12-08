@@ -1,0 +1,79 @@
+{% extends '::layout.html.twig' %}
+
+{% block body %}
+    <div id="page" class="row">
+        <div class="">
+            <h2>Modifier l'annonce</h2>
+            <h3>Informations Générales </h3>
+            {{ form_start(form, {'attr' : {'claas' : 'form-control', 'novalidate':'novalidate'}}) }}
+            <div class="col-xs-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    {{ form_row(form.titre) }}
+                </div>
+                {{ form_errors(form.titre) }}
+                <div class="form-group">
+                    {{ form_row(form.description) }}
+                </div>
+                {{ form_errors(form.description) }}
+                <div class="form-group">
+                    {{ form_row(form.prixDefaut) }}
+                </div>
+                {{ form_errors(form.prixDefaut) }}
+                <div class="form-group">
+                    {{ form_row(form.regleCond) }}
+                </div>
+                {{ form_errors(form.regleCond) }}
+                <div class="form-group">
+                    {{ form_row(form.categorie) }}
+                </div>
+                {{ form_errors(form.categorie) }}
+                <div class="form-group">
+                    {{ form_row(form.typeAnnul) }}
+                </div>
+                {{ form_errors(form.typeAnnul)}}
+            </div>
+            <div class="col-xs-6 col-md-6 col-lg-6">
+            <div class="form-group">
+                    {{ form_row(form.adresse.pays, {'attr': {'placeholder': 'Donner le pays'}}) }}
+                </div>
+                {{ form_errors(form.adresse.pays) }}
+                <div class="form-group">
+                    {{ form_row(form.adresse.ville,  {'attr': {'placeholder': 'Donner la ville'}}) }}
+                </div>
+                {{ form_errors(form.adresse.ville) }}
+                <div class="form-group">
+                    {{ form_row(form.adresse.rue, {'attr': {'placeholder': 'Donner la rue'}}) }}
+                </div>
+                {{ form_errors(form.adresse.rue) }}
+                <div class="form-group">
+                    {{ form_row(form.adresse.codePostal,  {'attr': {'placeholder': 'Donner le Code postal'}}) }}
+                </div>
+                {{ form_errors(form.adresse.codePostal) }}
+                <div class="form-group">
+                    {{ form_widget(form.images, {'attr' : {'onchange' : 'loadFile(event)'}}) }}
+                </div>
+                {{ form_errors(form.images) }}
+                <div class="row">
+                    <div class="col-md-offset-1">
+                    {# {% for images in form.images %}
+                        <img id="output" src="{{ asset(images.webPath) }}"/>
+                    {% endfor %} #}
+                    </div>
+                </div>
+                <br/> <br/>
+            {{ form_widget(form.save, {'label':'Modifier l\'annonce','attr' : {'class' : 'btn btn-warning'}}) }}
+            {{ form_end(form) }}
+        </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
+{% endblock javascripts %}

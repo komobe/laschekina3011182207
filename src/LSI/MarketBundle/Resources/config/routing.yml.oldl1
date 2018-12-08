@@ -1,0 +1,110 @@
+# Les routes de FOSUserBundle
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+# Page d'accueil
+lsi_market_homepage:
+    path:     /
+    defaults:
+     _controller: LSIMarketBundle:Market:index
+
+# -------------------------------- ROUTES RELATIVES LA CREATION, MODIFICATION, VISUALISATION, DUPLICATION D'ANNONCES --
+
+ls_imarket_liste_annonce:
+    path: /reservations
+    defaults:
+        _controller: LSIMarketBundle:Market:listeReservation
+
+# Pour creer une annonce
+ls_imarket_ajouter_annonce:
+    path: /ajouter
+    defaults:
+        _controller: LSIMarketBundle:Market:ajouter
+
+# Pour consulter une annonce
+ls_imarket_voir_annonce:
+    path: /annonce/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:voir
+    requirements:
+        id: \d+
+
+# Pour modifier une annonce
+ls_imarket_modifier_annonce:
+    path: /modifier/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:modifier
+    requirements:
+        id: \d+
+
+#Pour creer une annonce  a partir d'une existante.
+ls_imarket_dupliquer_annonce:
+    path: /dupliquer/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:dupliquer
+    requirements:
+        id: \d+
+
+# --------------------------------- FIN DES ROUTES RELATIVES A L'ANNONCE -----------------------------------------------
+
+#---------------------------------- ROUTES RELATIVES AUX RESERVATIONS --------------------------------------------------
+
+# Creer une reservation
+ls_imarket_reserver_annonce:
+    path: /reserver/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:reserver
+    requirements:
+        id: \d+
+
+# Pour acceder aux reservations effectuees
+ls_imarket_reservation:
+    path: /mesreservations
+    defaults:
+        _controller: LSIMarketBundle:Market:reservation
+
+#----------------------------------------------- FIN ROUTES RESERVATIONS -----------------------------------------------
+
+#--------------------------------------------- ROUTES RELATIVES AUX ESPACES DE GESTION ---------------------------------
+# Pour acceder a l'espace mairie
+ls_imarket_mon_espace:
+    path: /monespace
+    defaults:
+        _controller: LSIMarketBundle:Market:monEspace
+
+# Pour accéder aux annonces de la mairie
+ls_imarket_mes_annonces:
+    path: /mesannonces
+    defaults:
+        _controller: LSIMarketBundle:Market:mesAnnonces
+
+ls_imarket_annonce_reservee:
+    path: /annoncereservee
+    defaults:
+        _controller: LSIMarketBundle:Market:annonceReserver
+
+ls_imarket_annonce_commandee:
+    path: /annoncecommande
+    defaults:
+        _controller: LSIMarketBundle:Market:annonceCommandee
+
+ls_imarket_mes_commandes:
+   path: /mescommandes
+   defaults:
+       _controller: LSIMarketBundle:Market:mesCommandes
+
+#---------------------------------------------- FIN ROUTES ESPACES DE GESTION ------------------------------------------
+# Route pour la barre de recherche principale
+ls_imarket_recherche_barre:
+    path: /recherche
+    defaults:
+        _controller: LSIMarketBundle:Market:recherchebarre
+
+# Route pour la barre de recherche principale de la page index.html.twig
+ls_imarket_recherche_index:
+    path: /recherche
+    defaults:
+        _controller: LSIMarketBundle:Market:rechprincipla
+
+
+

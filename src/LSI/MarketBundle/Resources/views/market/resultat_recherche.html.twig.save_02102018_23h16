@@ -1,0 +1,45 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10">
+                   <table>
+                       {% set columns = 4 %}
+                       {% for listeannonce in listeannonce %}
+                           {% if loop.first or loop.index0 is divisibleby(columns) %}
+                           <tr>
+                               {% endif %}
+
+                               <td style="">
+                                   {% for listimg in listeannonce.images %}
+                                       <img src="{{ asset(listimg.webPath) }}" alt="{{ listimg.alt }}" style="margin: 25px; height: 350px; width: 250px"/>
+                                   {% endfor %}
+                                   <ul style="list-style-type: none; text-align: center">
+                                       <li><strong>Titre : </strong> {{ listeannonce.titre }}</li>
+                                       <li><strong>Categorie : </strong> {{ listeannonce.categorie.name }}</li>
+                                       <li><strong>Prix defaut : </strong> <span style="background-color: #5eb5e0; color: red">{{ listeannonce.prixDefaut }}</span></li>
+                                       <li><strong>Adresse : </strong> {{ listeannonce.adresse.pays }}</li>
+                                       <li><strong>Adresse : </strong> {{ listeannonce.adresse.ville }}</li>
+                                       <li><strong>Adresse : </strong> {{ listeannonce.adresse.rue }}</li>
+                                       <li><strong>Adresse : </strong> {{ listeannonce.adresse.codePostal }}</li>
+                                   </ul>
+
+                               </td>
+
+                               {% if loop.last and loop.index is not divisibleby(columns) %}
+                                   {% for n in range(low=columns - (loop.index % columns), high=1, step=-1) %}
+                                       <td>&nbsp;</td>
+                                   {% endfor %}
+                               {% endif %}
+                               {% if loop.last or loop.index is divisibleby(columns) %}
+                           </tr>
+                           {% endif %}
+                       {% endfor %}
+                   </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

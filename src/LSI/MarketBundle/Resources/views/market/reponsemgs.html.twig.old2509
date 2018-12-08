@@ -1,0 +1,21 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+{% endblock %}
+
+<style>
+    body{
+        background-color: lightslategray;
+    }
+</style>
+
+<h2 style="text-align: center; position: relative; top: 20px; font-weight: bold; font-family: Arial, Helvetica, sans-serif  ">REPONDRE A L'OFFREUR</h2>
+<div class="row" id="repmsgrecu">
+    <div class="col-lg-6 well"  style="width: 500px; position: relative; left: 450px; top: 120px">
+        {{ form_start(formrepmsg, {'method': 'POST'}) }}
+        {{ form_label(formrepmsg.reponse, 'Reponse') }}
+        {{ form_widget(formrepmsg.reponse) }}
+        <br>
+        <button type="submit" class="btn btn-success" value="repondre" name="btn-repondre" id="repondre">Repondre</button>
+        {{ form_end(formrepmsg) }}
+    </div>
+</div>

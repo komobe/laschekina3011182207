@@ -75,7 +75,7 @@ class AnnonceRepository extends EntityRepository {
             ->setParameter('titre', '%'.$mot.'%')
             ->setParameter('description', '%'.$mot.'%');
 
-        $result = $qb->getQuery()->getResult();
+        $result = $qb->getQuery()->setMaxResults(10)->getResult();
         return $result;
     }
 
@@ -237,7 +237,7 @@ class AnnonceRepository extends EntityRepository {
                     ->setParameter('debut', $debut)
                     ->andWhere('c.fin = :fin')
                     ->setParameter('fin', $fin);
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->setMaxResults(10)->getResult();
 
     }
 

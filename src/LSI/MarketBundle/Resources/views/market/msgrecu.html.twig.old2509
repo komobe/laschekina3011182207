@@ -1,0 +1,106 @@
+{% extends 'LSIMarketBundle::monespace.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+   {# <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">#}
+{% endblock %}
+
+{% block monespace %}
+    <div id="page" class="row">
+        <div class="">
+            <h3>Messages reçus</h3>
+            <table id="message" class="table table-hover">
+                <thead>
+                <tr class="success">
+                    <th>Numero</th>
+                    <th>Auteur</th>
+                    <th>Sujet</th>
+                    <th>Contenu</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key, msg in msgrecus %}
+                 {% if (msg.dest) is same as(app.user.username) %}
+                    <tr>
+
+                        <td>{{ key + 1 }}</td>
+                        <td>Auteur</td>
+                        <td><strong>{{ msg.sujet  }}</strong></td>
+                        <td><strong>{{ msg.contenu }}</strong></td>
+                        <td><strong>{{ msg.dateAjout|date('Y-m-d H:i:s') }}</strong></td>
+                        <td>
+                            {#Lien pour repondre aux messages#}
+                           {# <a href="{{ path('ls_imarket_traitement_messagerie', { 'id': msg.id }) }}" class="btn btn-success" style="font-weight: bold">Repondre</a>#}
+                            {#<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-success" style="font-weight: bold">Repondre</button>#}
+                            <a  href="{{ path('ls_imarket_traitement_reponsemsg', {'id': msg.id}) }}" class="btn btn-success btn-sm" style="font-weight: bold">Repondre</a>
+                        </td>
+                    </tr>
+                     {#Affichage d'une fenêtre de reponse aux messages #}
+                     {#<div class="modal fade" id="myModal" role="dialog">
+                         <div class="modal-dialog">
+                             <div class="modal-content">
+                                 <div class="modal-header">
+                                     <h4 class="modal-title">Messages</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                     {{ render(controller('LSIMarketBundle:Market:reponsemsg', {'id': msg.id})) }}
+                                 </div>
+                                 <div class="modal-footer">
+                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>#}
+                 {% endif %}
+                {% else %}
+                    <p>Vous n'avez aucun message !</p>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock monespace %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {# Liens JS de Bootstrap #}
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#message').DataTable({
+                    language: {
+                        processing:     "Traitement en cours...",
+                        search:         "Rechercher&nbsp;:",
+                        lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                        info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                        infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                        infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                        infoPostFix:    "",
+                        loadingRecords: "Chargement en cours...",
+                        zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                        emptyTable:     "Aucune donnée disponible dans le tableau",
+                        paginate: {
+                            first:      "Premier",
+                            previous:   "Pr&eacute;c&eacute;dent",
+                            next:       "Suivant",
+                            last:       "Dernier"
+                        },
+                        aria: {
+                            sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                            sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                        }
+                    }
+                }
+            );
+        } );
+    </script>
+{% endblock %}

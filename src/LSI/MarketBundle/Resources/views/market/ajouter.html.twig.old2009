@@ -1,0 +1,69 @@
+{% extends '::layout.html.twig' %}
+
+{% block title %}
+    Ajout d'une annonce
+{% endblock %}
+
+{% block body %}
+
+    <div id="page" class="row">
+        <div class="">
+            <h2>Ajout d'une annonce</h2>
+            {{ form_start(form, {'attr' : {'claas' : 'form-control', 'novalidate':'novalidate'}}) }}
+            <div class="col-xs-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    {#{{ form_label(form.titre) }}#}
+                    {{ form_row(form.titre, {'attr': {'placeholder': 'Titre de l\'anonnce'}}) }}
+                </div>
+                {{ form_errors(form.titre) }}
+                <div class="form-group">
+                    {#{{ form_label(form.description) }}#}
+                    {{ form_row(form.description, {'attr': {'placeholder': 'Texte descriptif sur l\'annonce'}}) }}
+                </div>
+                {{ form_errors(form.description) }}
+                <div class="form-group">
+                    {#{{ form_label(form.prixDefaut) }}#}
+                    {{ form_row(form.prixDefaut, {'attr': {'placeholder': 'Prix TTC de la location'}}) }}
+                </div>
+                {{ form_errors(form.prixDefaut) }}
+                <div class="form-group">
+                    {#{{ form_label(form.regleCond) }}#}
+                    {{ form_row(form.regleCond, {'attr': {'placeholder': 'Règle ou conditions de la location'}}) }}
+                </div>
+                {{ form_errors(form.regleCond) }}
+            </div>
+            <div class="col-xs-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                    {#{{ form_label(form.statut) }}#}
+                    {{ form_row(form.statut) }}
+                </div>
+                {{ form_errors(form.statut) }}
+                <div class="form-group">
+                    {#{{ form_label(form.categorie) }}#}
+                    {{ form_row(form.categorie) }}
+                </div>
+                {{ form_errors(form.categorie) }}
+                <div class="form-group">
+                    {#{{ form_label(form.images) }}#}
+                    {{ form_widget(form.images) }}
+                </div>
+                {{ form_errors(form.images) }}
+                <div class="form-group">
+                    {{ form_widget(form.save, { 'label': 'Ajouter l\'annonce', 'attr' : {'class' : 'btn btn-success',}}) }}
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#Pour ajouter des infobulles, ne fonctionne pas comme attendus#}
+    <script>
+        $(document).ready(function(){
+            $('#lsi_marketbundle_annonce_titre').tooltip({'trigger':'hover focus','title': 'Entrez le titre de l\'annonce'});
+        })
+    </script>
+{% endblock javascripts %}

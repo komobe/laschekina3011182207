@@ -1,20 +1,15 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}
-    details reservation
+    Détails reservation
 {% endblock %}
 
 {% block body %}
 <section class="content-section">
   <div class="container">
-
     <div class="title-row heading">
       <div class="col-md-12">
-         {% if listanreserv is defined %}
-           {% for listanreserv in listanreserv %}
-             <h2>{{ listanreserv.annonce.titre }}</h2>
-           {% endfor %}
-         {% endif %}
+         <h2>{{ reservation.annonce.titre }}</h2>
       </div>
     </div>
     <!-- Properties  Details -->
@@ -23,24 +18,22 @@
        <div class="content-back row-float">
           <div class="col-md-6 content-table-image">
              <div class="owlCarousel properties-slider">
-                {% if listanreserv is defined %}
-                   {% for listanreserv in listanreserv %}           
-                      {% for list in listanreserv.annonce.images %}
-                        <img src="{{ asset(list.webPath) }}" alt="{{ list.alt }}" style="width:100% ; height: auto;"/>
-                   {% endfor %}
+                  {% for img in reservation.annonce.images %}
+                    <img src="{{ asset(img.webPath) }}" alt="{{ img.alt }}" style="width:100% ; height: auto;"/>
+                  {% endfor %}
             </div>
          </div>     
          <div class="col-md-6 pull-right contents grid-gap-large">                   
-             <p>Description : {{ listanreserv.annonce.description }}</p>
-             <p>Prix fixé: {{ listanreserv.annonce.prixDefaut }} / jour</p>
-             <p>Nombre de jours réservés : </p>
-             <p>Prix total de la réservation : </p>
-             <p>Catégorie : {{ listanreserv.annonce.categorie.name }}</p>
-             <p>Demandeur : {{ listanreserv.user.nom }}</p>
-             <p>Contact : {{ listanreserv.user.telephone }}</p><br><br>
+             <p>Description : {{ reservation.annonce.description }}</p>
+             <p>Prix fixé: {{ reservation.annonce.prixDefaut }} / jour</p>
+             <p>Nombre de jours réservés : {{ duree }}</p>
+             <p>Prix total de la réservation : {{ prixHt }}</p>
+             <p>Catégorie : {{ reservation.annonce.categorie.name }}</p>
+             <p>Demandeur : {{ reservation.user.nom }}</p>
+             <p>Contact : {{ reservation.user.telephone }}</p><br><br>
                     
                     <div>
-                        {% if listanreserv.reserveEtat == "V" or listanreserv.reserveEtat == "R"  %}
+                        {% if reservation.reserveEtat == "V" or reservation.reserveEtat == "R"  %}
                             <span>
                                 <button type="submit" class="btn btn-success" value="valider" name="btn-valider" id="valider" disabled>Valider</button>
                             </span>
@@ -56,7 +49,7 @@
                             </span>
                             <span>
                                 {#<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Ecrire un message</button>#}
-                                <a href="{{ path('ls_imarket_traitement_messagerie', {'id': listanreserv.id}) }}" class="btn btn-success">Ecrire un message</a>
+                                <a href="{{ path('ls_imarket_traitement_messagerie', {'id': reservation.id}) }}" class="btn btn-success">Ecrire un message</a>
                             </span>
                         {% endif %}
                     </div>
@@ -72,20 +65,26 @@
              <li><a href="#openhouse" data-toggle="tab">MAIRIE</a></li>
              <li><a href="#video" data-toggle="tab">VIDEO</a></li>
              <li><a href="#map" data-toggle="tab">MAP</a></li>
-             <li><a href="#community" data-toggle="tab">OPCI</a></li>
+             <li><a href="#community" data-toggle="tab">EPCI</a></li>
            </ul>
            <div class="tab-content">             
              <div class="tab-pane fade in active" id="features">               
                <div class="contents">
                 <h2>Votre description complète de l'article</h2>
-                 <p> {{ listanreserv.annonce.description }}</p>
+                 <p> {{ reservation.annonce.description }}</p>
                </div>               
              </div>
              <div class="tab-pane fade" id="openhouse">               
               <div class="contents">
-                <h2>Lorem Ipsum</h2>
-                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition.</p>
-                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin </p>
+                <h2>PRESENTATION DE LA MAIRIE</h2>
+                 <p>
+                  <h4>Description</h4>
+                  {{ reservation.annonce.mairie.description }}
+                 </p>
+                 <p>
+                  <h4>Nos service</h4>
+                  {{ reservation.annonce.mairie.service }}
+                 </p>
                </div>      
              </div>
              <div class="tab-pane fade" id="video">               
@@ -103,8 +102,11 @@
              <div class="tab-pane fade" id="community">               
               <div class="contents">
                  <h3>Plus d'informations sur les mairies</h3>
-                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition.</p>
-                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin </p>
+                  <p>
+                    {% for villeEpci in villesEpci %}
+                      <p>{{ villeEpci.nom }}</p> 
+                    {% endfor %}
+                  </p> 
                </div>      
              </div>
            </div>
@@ -135,7 +137,7 @@
       <div class="col-md-8">
         <div class="content-box-2 agents-contact">
           <div class="heading">
-            <h5>Contactez {{ listanreserv.user.nom }} par email</h5>
+            <h5>Contactez {{ reservation.user.nom }} par email</h5>
           </div>
           <form class="form-content pad-top-small" data-parsley-validate>
             <div class="row">
@@ -181,8 +183,8 @@
   </div>
 </section>
 <!-- Page layout // -->
-        {% endfor %}
-    {% endif %}
+        {#{% endfor %}
+    {% endif %}#}
 {% endblock %}
 {% block javascripts %}
 
@@ -190,14 +192,14 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     {{ parent() }}
-    {% if listanreserv is defined %}
-        {% for listanreserv in listanreserv %}
+    {#{% if listanreserv is defined %}
+        {% for listanreserv in listanreserv %}#}
             <script>
                 $(document).on('click', 'button#valider', function () {
                     that = $(this);
                     if(confirm('Voulez vous valider cette reservation ?')){
                         $.ajax({
-                            url: "{{ path('ls_imarket_valider_reservation', {'id': listanreserv.id}) }}",
+                            url: "{{ path('ls_imarket_valider_reservation', {'id': reservation.id}) }}",
                             type: 'GET',
                             /*dataType: "json",*/
                             data: {
@@ -223,7 +225,7 @@
                     that = $(this);
                     if (confirm('Voulez vous refuser la réservation ?')) {
                         $.ajax({
-                            url: "{{ path('ls_imarket_refuser_reservation', {'id': listanreserv.id}) }}",
+                            url: "{{ path('ls_imarket_refuser_reservation', {'id': reservation.id}) }}",
                             type: "GET",
                             data: {
                                 "btn-refuser": "refuser"
@@ -240,8 +242,8 @@
                     }
                 })
             </script>
-        {% endfor %}
-    {% endif %}
+        {#{% endfor %}
+    {% endif %}#}
 
 <script>
 
@@ -260,8 +262,8 @@
             });
 
             // Traitement pour geocoder les adresses d'annonces et afficher l'annonce sur la map
-            {% for listanreserv in listanreserv %}
-                var location = " {{ listanreserv.annonce.adresse.codePostal }} ";
+            {#{% for listanreserv in listanreserv %}#}
+                var location = " {{ reservation.annonce.adresse.codePostal }} ";
                 axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
                     params:{
                         address: location,
@@ -271,14 +273,14 @@
 
                     var coordinates = response.data.results[0].geometry.location;
                     console.log(coordinates);
-                    {% for annonceimage in listanreserv.annonce.images %}
+                    {% for annonceimage in reservation.annonce.images %}
 
                         var contentString =
                             '<div>'+
                             '<img src="{{ asset(annonceimage.webPath) }}" alt="{{ annonceimage.alt }}" style="float:left; width: 100px; height: 90px;object-fit: cover;margin-right:5px">'+
-                            '<h5 style="color:#204d74; position: relative; botton: 15px;">{{ listanreserv.annonce.titre }}</h5>'+
-                            '<h5 >{{ listanreserv.annonce.description|truncate(50) }}</h5>'+
-                            '<h5 style="color: red">Prix : {{ listanreserv.annonce.prixDefaut }} {{ listanreserv.annonce.typeforfait }}</h5>'+
+                            '<h5 style="color:#204d74; position: relative; botton: 15px;">{{ reservation.annonce.titre }}</h5>'+
+                            '<h5 >{{ reservation.annonce.description|truncate(50) }}</h5>'+
+                            '<h5 style="color: red">Prix : {{ reservation.annonce.prixDefaut }} {{ reservation.annonce.typeforfait }}</h5>'+
                             '</div>'+
                             '<div id="output"></div>'
 
@@ -315,14 +317,14 @@
                     });
                     marker.addListener('click', function() {
                         infowindow.open(map, marker);
-                        window.location.href = '{{ path("ls_imarket_voir_annonce", {"id": listanreserv.annonce.id}) }}';
+                        window.location.href = '{{ path("ls_imarket_voir_annonce", {"id": reservation.annonce.id}) }}';
                     });
 			
                 })
                     .catch(function(error) {
                         console.log(error);
                     });
-            {% endfor %}
+            {#{% endfor %}#}
 
         }
 

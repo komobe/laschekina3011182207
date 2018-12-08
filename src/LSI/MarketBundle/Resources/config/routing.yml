@@ -128,52 +128,67 @@ ls_imarket_tarif_annonce:
 ls_imarket_reserver_annonce:
     path: /reserver/{id}
     defaults:
-        _controller: LSIMarketBundle:Market:reserver
+        _controller: LSIMarketBundle:Reservation:reserver
     requirements:
         id: \d+
 
 ls_imarket_annonce_reservee:
-    path: /annoncereservee
+    path: /annonce-reservee
     defaults:
-        _controller: LSIMarketBundle:Market:annonceReserver
+        _controller: LSIMarketBundle:Reservation:annonceReserver
 
 # Pour acceder aux reservations effectuees
 ls_imarket_mes_reservations:
     path: /mon-espace/mes-reservations
     defaults:
-        _controller: LSIMarketBundle:Market:mesReservations
+        _controller: LSIMarketBundle:Reservation:mesReservations
 
 ls_imarket_voir_reservation:
-    path: /annonce_reservee/{id}
+    path: /voir-reservation/{id}
     defaults:
-        _controller: LSIMarketBundle:Market:voirReservation
+        _controller: LSIMarketBundle:Reservation:voirReservation
 
 # Route pour la methode valider une réservation
 ls_imarket_valider_reservation:
-    path: /valider_reservation/{id}
+    path: /valider-reservation/{id}
     defaults:
-        _controller: LSIMarketBundle:Market:valid
+        _controller: LSIMarketBundle:Reservation:validerReservation
 
 
 # Route pour la methode refuser une réservation
 ls_imarket_refuser_reservation:
-    path: /refuser_reservation/{id}
+    path: /refuser-reservation/{id}
     defaults:
-        _controller: LSIMarketBundle:Market:refuser
+        _controller: LSIMarketBundle:Reservation:refuserReservation
 
 # Traitement de réservation par le demandeur
 
 ls_imarket_traitement_demandeur_reservation:
-    path: /reservation_demandeur/{id}
+    path: /reservation-demandeur/{id}
     defaults:
-        _controller: LSIMarketBundle:Market:reservationdemandeur
+        _controller: LSIMarketBundle:Reservation:reservationdemandeur
 
 ls_imarket_montant_reservation:
     path: /reservation
     defaults:
-        _controller: LSIMarketBundle:Market:montantReservation
-    requirements:
-      id: \id+
+        _controller: LSIMarketBundle:Reservation:montantReservation
+
+ls_imarket_reservations_sur_mes_annonces:
+    path: /offreur/reservations-sur-mes-annonces
+    defaults:
+        _controller: LSIMarketBundle:Reservation:reservationsSurMesAnnonces
+
+# Traitement de l'annulation d'une réservation validée par offreur
+ls_imarket_traitement_demandeur_annulerreserv:
+    path: /annule-reservation/{id}
+    defaults:
+        _controller: LSIMarketBundle:Reservation:annulerReservation
+
+# Modifier une réservation
+ls_imarket_traitement_demandeur_modifierreserv:
+    path: /modifier-reservation/{id}
+    defaults:
+        _controller: LSIMarketBundle:Reservation:modifierReservation
 
 #----------------------------------------------- FIN ROUTES RESERVATIONS -----------------------------------------------
 
@@ -195,10 +210,7 @@ ls_imarket_mes_annonces:
     defaults:
         _controller: LSIMarketBundle:Market:mesAnnonces
 
-ls_imarket_reservations_sur_mes_annonces:
-    path: /offreur/reservations-sur-mes-annonces
-    defaults:
-        _controller: LSIMarketBundle:Market:reservationsSurMesAnnonces
+
 
 ls_imarket_commandes_sur_mes_annonces:
     path: /mairie/commandes-sur-mes-annonces
@@ -373,19 +385,7 @@ ls_imarket_modifier_cgv:
         _controller: LSIMarketBundle:Admin:modifierCgv
 
 #-----------------------------------------------------
-# Traitement de l'annulation d'une réservation validée par offreur
 
-ls_imarket_traitement_demandeur_annulerreserv:
-    path: /reservation_annule/{id}
-    defaults:
-        _controller: LSIMarketBundle:Market:annulerReservation
-
-# Modifier une réservation
-
-ls_imarket_traitement_demandeur_modifierreserv:
-    path: /reservation_modifier/{id}
-    defaults:
-        _controller: LSIMarketBundle:Market:modifierReservation
 
 #Traitement de la messagerie
 
@@ -471,3 +471,10 @@ ls_imarket_contact_email_annonce:
 
 #--------------------------------------------------Fin-------------------------------------------------------------
 
+
+# Route pour la mise à jour de la disponibilité de l'annonce
+
+ls_imarket_maj_disp_annonce:
+    path: /annonce/maj/disponibilite/{id}
+    defaults:
+        _controller: LSIMarketBundle:Market:majDisponibilite

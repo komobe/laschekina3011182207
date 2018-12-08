@@ -1,0 +1,57 @@
+
+  {#<div id="" class="row">
+        <div>#}
+            {#<div class="row">
+                <div class="col-lg-3">
+                    <h2>Mes annonces</h2>
+                </div>
+                <div class="col-lg-offset-6 col-lg-3">
+                    <a href="{{ path('ls_imarket_ajouter_annonce') }}" class="btn btn-info">Ajouter une annonce</a>
+                </div>
+            </div>#}
+            <table id="" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                <tr class="success">
+                    <th>Titre de l'annonce</th>
+                    <th>Date de publication</th>
+                    <th>Etat</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for annonce in annonce %}
+                    <tr>
+                        <td>
+                            {{ annonce.titre }}
+                        </td>
+                        <td>
+                            {{ annonce.dateCreation|date('d/m/Y') }}
+                        </td>
+                        <td>
+                            {% if annonce.annonceEtat == 'A' %}
+                                Publiée
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('ls_imarket_voir_annonce', {'id': annonce.id})}}" class="iconic iconic-visibility"></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr class="alert alert-info">
+                        <td colspan="3">
+                            <center><strong>Vous n'avez ajouté aucune annonce !</strong></center>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr class="info">
+                    <th>Titre de l'annonce</th>
+                    <th>Date de publication</th>
+                    <th>Etat</th>
+                    <th>Action</th>
+                </tr>
+                </tfoot>
+            </table>
+        {#</div>
+    </div>#}

@@ -35,23 +35,21 @@
 					<div class="col-md-6 content-table-image">
 						<div class="owlCarousel properties-slider">
 							           
-								{% if listreservation is defined %}
-									{% for reservation in listreservation %}
-										{% for listancreserve in reservation.annonce.images %}
-										    <div class="item"><img src="{{ asset(listancreserve.webPath) }}" alt="{{ listancreserve.alt }}" style="width:100% ; height: auto;"/></div>
-										{% endfor %}
-
-							                   
+							{% if listreservation is defined %}
+								{% for reservation in listreservation %}
+									{% for listancreserve in reservation.annonce.images %}
+									    <div class="item"><img src="{{ asset(listancreserve.webPath) }}" alt="{{ listancreserve.alt }}" style="width:100% ; height: auto;"/></div>
+									{% endfor %}         
 						</div>
 					</div>     
 					<div class="col-md-6 pull-right contents grid-gap-large">
 					    <div class="heading pad-top-large">
-						  <h4>EPCI : {{ reservation.annonce.mairie.epci.nom }} </h4>
+						  <h4>EPCI : {{ reservation.annonce.adresse.ville.epci.nom }} </h4>
 					    </div>
-                                                Description : <i>{{ reservation.annonce.description }}</i>
-                                                     <div class="pad-top-small">
-                                                        <p>Prix proposé : <span class="btn btn-primary btn-danger">{{ reservation.annonce.prixDefaut }}</span> € / {{ reservation.annonce.typeforfait }}</p>
-                                                     </div>
+                            Description : <i>{{ reservation.annonce.description }}</i>
+                                 <div class="pad-top-small">
+                                    <p>Prix proposé : <span class="btn btn-primary btn-danger">{{ reservation.annonce.prixDefaut }}</span> € / {{ reservation.annonce.typeforfait }}</p>
+                                 </div>
 						Categorie : {{ reservation.annonce.categorie.name }}
 							<p> {% if reservation.reserveEtat == "A" %}
 								Etat : <span class="btn btn-primary btn-info">En attente de validation</span>
@@ -132,7 +130,7 @@
 		    <div class="container">
 				<div class="properties-descriptions tabs-vertical" role="tabpanel">
 					<ul class="nav nav-tabs">
-                                                <li class="active"><a href="#disponibles" data-toggle="tab">DISPONIBILITES</a></li>
+                        <li class="active"><a href="#disponibles" data-toggle="tab">DISPONIBILITES</a></li>
 						<li><a href="#features" data-toggle="tab">FONTIONNALITES</a></li>
 						<li><a href="#openhouse" data-toggle="tab">MAIRIE</a></li>
 						<li><a href="#video" data-toggle="tab">VIDEO</a></li>
@@ -140,18 +138,18 @@
 						<li><a href="#community" data-toggle="tab">EPCI</a></li>
 					</ul>
 					<div class="tab-content">
-                                           <div class="tab-pane fade in active" id="disponibles">                               
-                                              <div id="calendar-holder">
-                                                 {% include '@FullCalendar/Calendar/calendar.html.twig' %}
-                                              </div>
-                                           </div>					 
+	                   <div class="tab-pane fade in active" id="disponibles">                               
+	                      <div id="calendar-holder">
+	                         {% include '@FullCalendar/Calendar/calendar.html.twig' %}
+	                      </div>
+	                   </div>					 
 						<div class="tab-pane fade" id="features">               
 							<div class="contents">
 								<h2>Plus d'information sur l'article</h2>
-                                                                {% for listreservation in listreservation %}
+                                {% for listreservation in listreservation %}
 								<p>{{ listreservation.annonce.description }}</p>
-                                                                 {% endfor %}
-							 </div>            
+                             	{% endfor %}
+							</div>            
 						</div>
 						<div class="tab-pane fade" id="openhouse">               
 							<div class="contents">
@@ -183,70 +181,7 @@
 			</div>
 		</div>
 		<!-- Properties description // -->
-		<!-- Contact To Agent -->
-		<div class="title-row heading pad-top-large">
-			<div class="col-md-12">
-				<h2>Agent responsable</h2>
-				<p>Vous pouvez contacter cet agent avant toute opération</p>
-			</div>
-		</div>
-		<div class="row pad-top-small layout-flex">
-			<div class="col-md-4">
-				<div class="content-box-2">
-					<figure class="image-box">
-						<img src="{{ asset('bundles/lsimarket/images/properties-details/agents-1.jpg')}}" height="278" width="330" alt="">
-					</figure>
-					<div class="contents">
-						<h3 class="heading-style-1">{% for listreservation in listreservation %}{{ usermairie }}{% endfor %}</h3>
-						<p>here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly. </p>
-						<p class="text-right"><a href="#" class="btn btn-large btn-primary">En savoir plus</a></p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-8">
-				<div class="content-box-2 agents-contact">
-					<div class="heading">
-						<h5>Contactez par email {% for listreservation in listreservation %}{{ usermairie }}{% endfor %}</h5>
-					</div>
-					<form class="form-content pad-top-small" data-parsley-validate>
-						<div class="row">
-							<div class="col-md-6 form-group-1">
-								<input type="text" class="form-control input-lg" placeholder="Nom" required data-parsley-required-message="Please insert your name" name="name">
-							</div>
-							<div class="col-md-6 form-group-1">
-								<input type="text" class="form-control input-lg" placeholder="E-mail" required data-parsley-required-message="Please insert your Email" name="email">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-group-1">
-								<input type="text" class="form-control input-lg" placeholder="Téléphone" required data-parsley-required-message="Please insert your contact no" data-parsley-min="10" name="contact">
-							</div>
-							<div class="col-md-6 form-group-1">
-								<input type="text" class="form-control input-lg" placeholder="Ville" required name="location">
-							</div>
-						</div>
-						<div class="row">
-							<div class="form-group-1 col-md-12">
-								<textarea class="form-control" placeholder="Merci de noter votre question puis de valider le formulaire." rows="3"  required data-parsley-minlength="20" data-parsley-minlength-message = "Come on! You need to enter at least a 20 character comment.."  data-parsley-validation-threshold="10" data-parsley-maxlength="100" name="message"></textarea>
-							</div>
-						</div>
-						<div class="row pad-top-small">
-							<div class="col-md-12">
-								<button class="btn btn-primary btn-large pull-right">Envoyer</button>
-							</div>
-							<div class="text-success col-xs-12 hidden form-messges text-center">
-								<p>Nous vous enverrons une réponse dès que possible.</p>
-							</div>
-						</div>
-					</form>
-					<div class="info-box-1">
-						<h5><span>Ou appeler notre support au </span></h5>
-						<p><span class="large-text-1"><span class="iconic-phone-square"></span>+33 1 34 54 56 67</span></p>
-					</div>
-				</div>
-			</div>
-		</div>   
-		<!-- Contact To Agent // -->
+		
     
 	</div>
 </section>
@@ -288,9 +223,9 @@
                                 /* Redirection vers la page de consultation des annonces*/
                                 window.location.href = "{{ path('ls_imarket_annonce_reservee') }}";
                             }
-                        })
+                        });
                     }
-                })
+                });
             </script>
         {% endfor %}
     {% endif %}
@@ -309,55 +244,41 @@
                                 title: '{{ statut }}',
                                 start: '{{ datedebut|date('Y-m-d') }}',
                                 end: '{{ datefin|date_modify("+1 day")|date('Y-m-d') }}',
-                                color: '{{ colordispo }}'
+                                color: '{{ colordispo }}',
                             },
 
                             {% for reserve in listreservation %}
                             {% if reserve.reserveEtat == "V" %}
 	                            {
-
-
 	                                title: 'Réservé',
 	                                start: '{{ reserve.debutPrestation|date('Y-m-d') }}',
 	                                end: '{{ reserve.finPrestation|date_modify("+1 day")|date('Y-m-d') }}',
 	                                color: 'blue',
-
-
 	                            },
-
                             {% endif %}
                             {% endfor %}
-
-                        ]
-
+                        ];
                     });
                 </script>
-
             {% endif %}
         {% endif %}
-
     {% else %}
 
         <script>
             $('#calendar-holder').fullCalendar({
                 {% for reserve in listreservation %}
-                {% if reserve.reserveEtat == "V" %}
-                events: [
-                    {
-
-                        title: 'Réservé',
-                        start: '{{ reserve.debutPrestation|date('Y-m-d') }}',
-                        end: '{{ reserve.finPrestation|date_modify("+1 day")|date('Y-m-d') }}',
-                        color: 'blue',
-
-                    },
-
-                ]
-                {% endif %}
+	                {% if reserve.reserveEtat == "V" %}
+		                events: [
+		                    {
+		                        title: 'Réservé',
+		                        start: '{{ reserve.debutPrestation|date('Y-m-d') }}',
+		                        end: '{{ reserve.finPrestation|date_modify("+1 day")|date('Y-m-d') }}',
+		                        color: 'blue',
+		                    },
+		                ];
+	                {% endif %}
                 {% endfor %}
-
             });
         </script>
-
     {% endif %}
 {% endblock %}

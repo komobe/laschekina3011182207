@@ -1,0 +1,202 @@
+{% extends '::layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/fullcalendar/css/fullcalendar/fullcalendar.min.css') }}" />
+{% endblock stylesheets %}
+{% block body %}
+    <p><h1>Gestion de mise à jour de la disponibilité de l'annonce</h1></p>
+    <br><br><br>
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="calendar">
+                {% include '@FullCalendar/Calendar/calendar.html.twig' %}
+            </div>
+        </div>
+    </div>
+    <br><br><br>
+    <div id="page" class="row">
+        <div class="">          
+            {{ form_start(form, {'attr' : {'claas' : 'form-control', 'novalidate':'novalidate'}}) }}
+            <div class="col-xs-6 col-md-6 col-lg-6" display="flex" flex-direction="row">
+                <div class="form-group" id="" data-prototype="">
+                    {{ form_widget(form.calendrier) }}
+                    <input type="button" id="add_code" value="autres plages" class="btn btn-warning pull-right"/>
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.save, { 'label': 'Ajouter', 'attr' : {'class' : 'btn btn-success',}}) }}
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <!-- <div id="fullCalModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                <h4 id="modalTitle" class="modal-title"></h4>
+            </div>
+            <div id="modalBody" class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary"><a id="eventUrl" target="_blank">Event Page</a></button>
+            </div>
+        </div>
+    </div>
+</div> -->
+    
+
+{% endblock %}
+{% block javascripts %}
+
+    {#lien JS pour le calendrier#}
+
+    <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/jquery.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/moment.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.default-settings.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/locale/fr.js') }}"></script>
+
+    {#Lien pour changer la langue du calendrier fullcalendar#}
+
+    <script src='fullcalendar/fullcalendar.js'></script>
+    <script src='fullcalendar/lang/fr.js'></script>
+
+    {#Integration du calendrier#}
+
+    <script>
+        $('#calendar-holder').fullCalendar({
+            header: {
+                left: 'prev, next, today',
+                center: 'title',
+                right: 'month, basicWeek, basicDay'
+            },
+            height: 450,
+            events: [
+                {% for dispo in disponibilite %}
+                {% for key, cal in dispo.calendrier %}
+                {
+                    {% if cal.statut.libelle == "Déterminé" %}
+                    title: '{{ cal.statut.libelle }} {{ key }}',
+                    start: '{{ cal.debut|date('Y-m-d') }}',
+                    end: '{{ cal.fin|date_modify("+1 day")|date('Y-m-d') }}',
+                    color: 'blue',
+
+                    {% elseif cal.statut.libelle == "Disponible" %}
+                    title: '{{ cal.statut.libelle }} {{ key }}',
+                    start: '{{ cal.debut|date('Y-m-d') }}',
+                    end: '{{ cal.fin|date_modify("+1 day")|date('Y-m-d') }}',
+                    color: 'green',
+
+                    {% elseif cal.statut.libelle == "Indisponible" %}
+                    title: '{{ cal.statut.libelle }} {{ key }}',
+                    start: '{{ cal.debut|date('Y-m-d') }}',
+                    end: '{{ cal.fin|date_modify("+1 day")|date('Y-m-d') }}',
+                    color: 'red',
+
+                    {% else %}
+                    title: '{{ cal.statut.libelle }} {{ key }}',
+                    start: '{{ cal.debut|date('Y-m-d') }}',
+                    end: '{{ cal.fin|date_modify("+1 day")|date('Y-m-d') }}',
+                    color: 'orange',
+                    {% endif %}
+
+                },
+                {% endfor %}
+                {% endfor %}
+
+
+            ]
+
+
+
+        })
+    </script>
+
+
+        <!-- Traitement du formulaire de mise à jour 
+ -->
+
+ <script>
+        $(document).ready(function () {
+            // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+            var $container = $('div#lsi_marketbundle_annonce_calendrier');
+
+            // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+            var index = $container.find(':input').length;
+
+            // On ajoute un nouveau champ à chaque click sur le bouton
+            $('#add_code').click(function (e) {
+                addCalendrier($container);
+                e.preventDefault(); // Pour éviter qu'un # apparaissent dans l'URL
+                return false;
+            });
+
+            // On ajoute automatiquement le 1er champ sans le bouton de suppression
+            if ( index == 0 ){
+                addCalendrier($container);
+            }else{
+                // S'il existe déjà des champs de codes
+                $container.children('div').each(function () {
+                    addDeleteLink($(this));
+                });
+            }
+
+            // Fonction pour ajouter un formulaire de code postal
+            function addCalendrier($container) {
+                var template;
+
+                if (index == 0){
+                    template = $container.attr('data-prototype')
+                        .replace(/__name__label__/g, '')
+                        .replace(/__name__/g, index)
+                    ;
+                }else{
+                    template = $container.attr('data-prototype')
+                        .replace(/__name__label__/g, 'Plage '+ (index +1))
+                        .replace(/__name__/g, index)
+                    ;
+                }
+
+                // On crée un objet jquery qui contiendra le template
+                var $prototype = $(template);
+
+                // On ajoute au prototype un lien pour pouvoir supprimer le code postal
+                if(index == 0){
+
+                }else{
+                    addDeleteLink($prototype);
+                }
+
+                // On ajoute le prototype modifié à la fin de la balise <div>
+                $container.append($prototype);
+
+                // On incrémente l'index
+                index++;
+            }
+            // La fonction pour supprimer un code postal
+            function addDeleteLink($prototype) {
+                // Création du bouton
+                var $deleteButton = $('<input type="button" value="Supprimer" class="btn btn-danger"/>');
+
+                // Ajout du bouton
+                $prototype.append($deleteButton);
+
+                // Ajout d'un listener sur le clic du lien pour supprimer la catégorie
+                $deleteButton.click(function(e) {
+                    $prototype.remove();
+                    e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+
+                    return false;
+
+                });
+            }
+        });
+    </script>
+              
+{% endblock %}

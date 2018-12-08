@@ -1,5 +1,14 @@
 {% extends 'LSIMarketBundle::layout.html.twig' %}
 
+{#
+  Variables : 
+    lesMairies : liste toutes les mairies inscrites. (il faudra l'utiliser dans une boucle for)
+    lesAdministres : liste tous les administres inscrits. (il faudra l'utiliser dans une boucle for)
+    Par exple: pour afficher le nom de le mairie {% for laMairie in lesMairies %} {{ laMairie.nom }} {% endfor %}
+#}
+
+
+
 {% block body %}
     <h1>Bienvenu dans l'espace d'administration</h1>
     <div class="" style="height: 100%;">
@@ -10,7 +19,7 @@
                 </div>
                 <div id="accordion">
                     <ul class="nav nav-pills nav-stacked">
-                        <li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+                        <li><a href="{{ path('fos_user_profile_show') }}">PROFIL</a></li>
                         {# Gestion des EPCI #}
                         <div class="card">
                             <div class="card-header nav" id="headingOne">
@@ -67,11 +76,175 @@
                             </div>
                         </div>
 
-                        <p style="height: 150px;"></p>
+                        <p style="height: 10px;"></p>
 
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
+
+</br><div class="headline v3 text-center"><h4>Gestion des Administrés</h4></div></br>  
+
+<!-- Information des adminitrés membres -->
+     <div class="row pad-top-large">
+       <div class="container">
+         <div class="properties-descriptions tabs-vertical" role="tabpanel">
+           <ul class="nav nav-tabs">
+             <li class="active"><a href="#compte" data-toggle="tab">TABLEAU DE BORD</a></li>
+             {% for Administre in lesAdministres %}
+             <li><a href="#{{ Administre.nom|replace({' ':'-'})|replace({'\'':'-'}) }}" data-toggle="tab">{{ Administre.nom }}</a></li>
+             {% endfor %}
+           </ul>
+           <div class="tab-content">
+             <div class="tab-pane fade in active" id="compte">               
+               <div class="contents">
+                  <article class="section__wrapper">
+                      <!-- TDB Administrés-->
+                         Récapitulatif des évènements, annonces et échanges 
+                      <!-- FIN TDB -->
+                  </article>
+               </div>
+            </div>  
+             {% for Administre in lesAdministres %}
+             <div class="tab-pane fade in" id="{{ Administre.nom|replace({' ':'-'})|replace({'\'':'-'}) }}">               
+               <div class="contents">
+                   <article class="section__wrapper">        
+                      <!-- Menu - membres Mairie-->
+                         <p><h2>Options pour la mairie de {{ Administre.nom }}</h2></p>                      
+                      <!-- Fin Menu - membres-->
+                   </article>
+               </div>      
+             </div>
+             {% endfor %}
+           </div>
+         </div>
+       </div>
+     </div>
+<!-- Fin information des administrés membres // -->      
+  
+</br></br><div class="headline v3 text-center"><h4>Gestion des Mairies</h4></div></br>
+
+<!-- Information des mairies membres -->
+     <div class="row pad-top-large">
+       <div class="container">
+         <div class="properties-descriptions tabs-vertical" role="tabpanel">
+           <ul class="nav nav-tabs">
+             <li class="active"><a href="#tdb_mairie" data-toggle="tab">TABLEAU DE BORD</a></li>
+             {% for laMairie in lesMairies %}
+             <li><a href="#{{ laMairie.nom|replace({' ':'-'})|replace({'\'':'-'}) }}" data-toggle="tab">{{ laMairie.nom }} </a></li>
+             {% endfor %}
+           </ul>
+           <div class="tab-content">
+             <div class="tab-pane fade in active" id="tdb_mairie">               
+               <div class="contents">
+                  <article class="section__wrapper">
+                      <!-- TDB Mairies -->
+                         Informations sur les demandes, les annonces les litiges, ...
+                      <!-- FIN TDB -->
+                  </article>
+               </div>
+            </div>   
+                           
+            <!-- Menu - Info -->
+             {% for laMairie in lesMairies %}
+             <div class="tab-pane fade in" id="{{ laMairie.nom|replace({' ':'-'})|replace({'\'':'-'}) }}">               
+               <div class="contents">
+                   <article class="section__wrapper">        
+                      <!-- Menu - membres Mairie-->
+                     <p><h2>Options pour la mairie de {{ laMairie.nom }}</h2></p>
+                      <div class="col-md-12">                         
+                             <h3>Engagement simplifiée</h3>
+                              <table style="width:100%">
+                                  <tr> 
+                                     <td style="width:85%;padding:5px 0; border:solid 1px #ffffff;">     
+                                          <span class="cadre_w">Estimation du budget achat</span>
+                                          <p>Budget: <br>
+                                          Documents associés:<br>
+                                          politique de gestion du budget</p><br>
+                                      </td>
+                                      <td style="width:5%">
+                                          <img src="{{ asset('bundles/lsimarket/images/ok.png') }}" height="20" width="20" style="margin-left:10px">
+                                      </td>
+                                      <td style="width:5%">
+                                          <img src="{{ asset('bundles/lsimarket/images/pause.png') }}" height="20" width="20" style="margin-left:10px">
+                                      </td>
+                                      <td style="width:5%">
+                                          <img src="{{ asset('bundles/lsimarket/images/ko.png') }}" height="20" width="20" style="margin-left:10px">
+                                      </td>
+                                   </tr>
+                                   <tr>                                                                                                                       
+                                       <td style="width:85%;padding:5px 0; border:solid 1px #ffffff;">  
+                                           <span class="cadre_w">Décision de l’Assemblée délibérante</span>
+                                           <p>Documents associés:<br>
+                                           politique de gestion du budget</p><br>
+                                       </td>
+                                       <td style="width:5%">
+                                           <img src="{{ asset('bundles/lsimarket/images/ok.png') }}" height="20" width="20" style="margin-left:10px">
+                                       </td>
+                                       <td style="width:5%">
+                                           <img src="{{ asset('bundles/lsimarket/images/pause.png') }}" height="20" width="20" style="margin-left:10px">
+                                       </td>
+                                       <td style="width:5%">
+                                            <img src="{{ asset('bundles/lsimarket/images/ko.png') }}" height="20" width="20" style="margin-left:10px">
+                                       </td>
+                                    </tr>
+ 
+                                     <tr>                                                                                                                       
+                                        <td style="width:85%;padding:5px 0; border:solid 1px #ffffff;">  
+                                             <span class="cadre_w">Modification du budget Achats dans la rubrique budget</span>
+                                             <p>Documents associés:<br>
+                                             Nouvelle politique de gestion du budget</p><br>
+                                        </td>
+                                        <td style="width:5%">
+                                             <img src="{{ asset('bundles/lsimarket/images/ok.png') }}" height="20" width="20" style="margin-left:10px">
+                                        </td>
+                                        <td style="width:5%">
+                                             <img src="{{ asset('bundles/lsimarket/images/pause.png') }}" height="20" width="20" style="margin-left:10px">
+                                        </td>
+                                        <td style="width:5%">
+                                             <img src="{{ asset('bundles/lsimarket/images/ko.png') }}" height="20" width="20" style="margin-left:10px">
+                                        </td>                         
+                                     </tr> 
+                                    <tr>                                                                                                                       
+                                        <td style="width:85%;padding:5px 0; border:solid 1px #ffffff;">  
+                                             <span class="cadre_w">Modification des tarifs préférentiels</span>
+                                             <p>Message justificatif:<br>
+                                             Nouvelle politique de gestion du budget</p><br>
+                                        </td>
+                                        <td style="width:5%">
+                                             <img src="{{ asset('bundles/lsimarket/images/ok.png') }}" height="20" width="20" style="margin-left:10px">
+                                        </td>
+                                        <td style="width:5%">
+                                             <img src="{{ asset('bundles/lsimarket/images/pause.png') }}" height="20" width="20" style="margin-left:10px">
+                                        </td>
+                                        <td style="width:5%">
+                                             <img src="{{ asset('bundles/lsimarket/images/ko.png') }}" height="20" width="20" style="margin-left:10px">
+                                        </td>                         
+                                     </tr>                                                                                                                               
+                                  </table> 
+
+
+
+                                                                                                                     
+                               </div>
+
+                                            
+                                                                                        
+
+
+                      <!-- Fin Menu - membres-->
+                   </article>
+
+               </div>      
+             </div>
+{% endfor %}
+         </div>  
+         </div>
+       </div>
+     </div>
+<!-- Fin information des mairies membres // -->        
+
+
+
 {% endblock body %}

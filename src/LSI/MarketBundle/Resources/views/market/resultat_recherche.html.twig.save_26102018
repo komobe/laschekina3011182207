@@ -1,0 +1,122 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+<section class="content-section">
+  <div class="container">
+    <div class="title-row heading">
+      <div class="col-md-12">
+        <h2>Matériels disponibles autour de moi </h2>        
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:50px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10">
+                   <table>
+                       {% set columns = 2 %}
+                       {% if listeannonce is defined %}
+                           {% for listeannonce in listeannonce %}
+                               {% if loop.first or loop.index0 is divisibleby(columns) %}
+                                   <tr>
+                               {% endif %}
+
+                               <td style="">
+
+ <div class="grid-box" style="width:295px">
+          <div  style="margin-left:0px">
+{% if app.user != null and app.user.mairie.epci.nom == listeannonce.mairie.epci.nom %}
+          <span class="box-type" style="top:-20px"><span class="text">EPCI</span></span>
+{% else %}
+            <div style="height:100px;"><br></div>
+          {% endif %} 
+          </div>
+          <div class="description">
+
+               <h6><span class="type img_search">
+                                   {% for listimg in listeannonce.images %}
+                                       <a href="{{ path('ls_imarket_voir_annonce', {'id': listeannonce.id}) }}"><img src="{{ asset(listimg.webPath) }}" alt="{{ listimg.alt }}" style="width:225px;height:150px;object-fit:cover;"/>
+                                    {% endfor %}
+
+                                   <br><br>
+                                   <h6>
+
+                                       <p><h4><span class="type img_search">{{ listeannonce.titre }}</span></h4></p></a>
+                                       <p>{{ listeannonce.description|truncate(70) }}</p>
+                                       <p>Categorie :  {{ listeannonce.categorie.name }}</p>
+                                       <p>Prix  : <span class="price">{{ listeannonce.prixDefaut }} € / jour</span> </p>
+
+                                       <p>Ville : {{ listeannonce.adresse.ville }}</p>
+
+                                       <p>Déposé par : </p>
+                                   </h6>
+</div>
+</div>
+
+                               </td>
+
+                               {% if loop.last and loop.index is not divisibleby(columns) %}
+                                   {% for n in range(low=columns - (loop.index % columns), high=1, step=-1) %}
+                                       <td>&nbsp;</td>
+                                   {% endfor %}
+                               {% endif %}
+                               {% if loop.last or loop.index is divisibleby(columns) %}
+                                   </tr><tr><td>&nbsp;</td></tr>
+                               {% endif %}
+                           {% endfor %}
+                       {% endif %}
+                   </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="title-row heading">
+      <div class="col-md-12">
+        <aside class="sidebar" id="map" style="height: 480px; width: 100%;"> </aside>     
+      </div>
+    </div>
+  </div>
+</section>
+
+   
+
+{% endblock %}
+{% block javascripts %}
+ <script>
+
+        function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: new google.maps.LatLng(48.864716, 2.349014),
+          zoom: 12
+        });
+        var infoWindow = new google.maps.InfoWindow;
+        }
+            // Appelons la fonction geocode
+            geocode();
+        function geocode() {
+            var location = '22 Main st Boston MA';
+            axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+                params:{
+                    address:location,
+                    key:'AIzaSyCZZVKfAjhdfo0VN0mk5IOq6ml3y1Ccuss'
+                }
+            })
+            .then(function(response) {
+              console.log(response);
+            })
+            .catch(function(error) {
+              console.log(error);
+            })
+        }
+
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZZVKfAjhdfo0VN0mk5IOq6ml3y1Ccuss&callback=initMap">
+    </script>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    details reservation
+{% endblock %}
+
+{% block body %}
+    {% if listanreserv is defined %}
+        {% for listanreserv in listanreserv %}
+            <div class="row">
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-6" style="text-align: center">
+                    {% for list in listanreserv.annonce.images %}
+                        <img src="{{ asset(list.webPath) }}" alt="{{ list.alt }}"
+                             style="width: 500px; height: 500px"/>
+                    {% endfor %}
+                    <h3>Titre : {{ listanreserv.annonce.titre }}</h3>
+                    <h3>Prix : {{ listanreserv.annonce.prixDefaut }}</h3>
+                    <h3>Categorie : {{ listanreserv.annonce.categorie.name }}</h3>
+                    <h3>Demandeur : {{ listanreserv.user.nom }}</h3>
+                    <h3>Contact : {{ listanreserv.user.telephone }}</h3>
+                    
+                    <div>
+                        {% if listanreserv.reserveEtat == "V" or listanreserv.reserveEtat == "R"  %}
+                            <span>
+                                <button type="submit" class="btn btn-success" value="valider" name="btn-valider" id="valider" disabled>Valider</button>
+                            </span>
+                            <span>
+                                <button type="submit" class="btn btn-success" value="refuser" name="btn-refuser" disabled>Refuser</button>
+                            </span>
+                        {% else %}
+                            <span>
+                                    <button type="submit" class="btn btn-success" value="valider" name="btn-valider" id="valider">Valider</button>
+                                    </span>
+                            <span>
+                                        <button type="submit" class="btn btn-success" value="refuser" name="btn-refuser" id="refuser"
+                                        >Refuser</button>
+                            </span>
+                            <span>
+                                {#<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Ecrire un message</button>#}
+                                <a href="{{ path('ls_imarket_traitement_messagerie', {'id': listanreserv.id}) }}" class="btn btn-success">Ecrire un message</a>
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% if listanreserv is defined %}
+        {% for listanreserv in listanreserv %}
+            <script>
+                $(document).on('click', 'button#valider', function () {
+                    that = $(this);
+                    if(confirm('Voulez vous valider cette reservation ?')){
+                        $.ajax({
+                            url: "{{ path('ls_imarket_valider_reservation', {'id': listanreserv.id}) }}",
+                            type: 'GET',
+                            /*dataType: "json",*/
+                            data: {
+                                "btn-valider": "valider"
+                            },
+                            async: true,
+                            success: function () {
+                                // alert('La réservation a été validée !');
+                                //Désactive le bouton
+                                $("#valider").prop('disabled', true);
+                                $("#refuser").prop('disabled', true);
+                                window.location.href = "{{ path('ls_imarket_reservations_sur_mes_annonces') }}";
+                            }
+
+                        });
+                    }
+
+                });
+
+                {# Traitement pour refuser une réservation #}
+
+                $(document).on('click', 'button#refuser', function () {
+                    that = $(this);
+                    if (confirm('Voulez vous refuser la réservation ?')) {
+                        $.ajax({
+                            url: "{{ path('ls_imarket_refuser_reservation', {'id': listanreserv.id}) }}",
+                            type: "GET",
+                            data: {
+                                "btn-refuser": "refuser"
+                            },
+                            async: true,
+                            success: function () {
+                                // alert('La réservation a été refusée !');
+                                $("#valider").prop('disabled', true);
+                                $("#refuser").prop('disabled', true);
+                                /* Redirection vers la page de consultation des annonces*/
+                                window.location.href = "{{ path('ls_imarket_reservations_sur_mes_annonces') }}";
+                            }
+                        })
+                    }
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

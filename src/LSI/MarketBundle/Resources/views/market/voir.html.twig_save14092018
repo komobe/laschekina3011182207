@@ -1,0 +1,51 @@
+{% extends '::layout.html.twig' %}
+
+{% block title %}
+    Details de l'annonce
+{% endblock title %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-offset-2 col-md-10">
+            <h2>xxx{{ annonce.titre }}</h2>
+            <hr>
+            <div class="row">
+                {% if annonce.images is not null %}
+                    <img src="{{ asset(annonce.images.webPath) }}" alt="{{ annonce.images.alt }}"/>
+                {% endif %}
+            </div>
+            <div class="row">
+                <i>Par
+                    {% for auth in auteur %}
+                        {{ auth.nom }},
+                    {% endfor %}
+                    le {{ annonce.dateCreation|date('d/m/Y') }}</i>
+            </div>
+            <div class="row">
+                <p>{{ annonce.description }}</p>
+                <i>{{ annonce.regleCond }}</i>
+                <p class="label label-info">{{ annonce.prixDefaut }} &euro;</p>
+            </div>
+            <div class="row">
+                {% if not app.user %}
+                    <a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                       class="btn btn-success">Reserver</a>
+                {% elseif app.user.hasRole('ROLE_MAIRIE') %}
+
+                    {% if app.user.mairie.id == annonce.mairie.id %}
+                        <a href="{{ path('ls_imarket_modifier_annonce', {'id' :annonce.id}) }}"
+                           class="btn btn-warning">Modifier</a>
+                    {% else %}
+                        <center><a href="{{ path('ls_imarket_dupliquer_annonce', {'id' :annonce.id}) }}"
+                                   class="btn btn-info">Créer à partir</a>
+                            <a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                               class="btn btn-success">Reserver</a></center>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                       class="btn btn-success">Reserver</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock body %}

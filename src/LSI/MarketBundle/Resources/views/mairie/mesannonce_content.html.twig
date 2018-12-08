@@ -1,15 +1,15 @@
-
-  {#<div id="" class="row">
-        <div>#}
-            {#<div class="row">
+{# <body>
+    <div id="page" class="row">
+        <div>
+            <div class="row">
                 <div class="col-lg-3">
                     <h2>Mes annonces</h2>
                 </div>
                 <div class="col-lg-offset-6 col-lg-3">
                     <a href="{{ path('ls_imarket_ajouter_annonce') }}" class="btn btn-info">Ajouter une annonce</a>
                 </div>
-            </div>#}
-            <table id="" class="table table-striped table-bordered" style="width:100%">
+            </div> #}
+            <table id="annonce" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                 <tr class="success">
                     <th>Titre de l'annonce</th>
@@ -34,6 +34,9 @@
                         </td>
                         <td>
                             <a href="{{ path('ls_imarket_voir_annonce', {'id': annonce.id})}}" class="iconic iconic-visibility"></a>
+                            <span>||</span>
+                            <!-- bouton pour afficher la page de mis ?jour -->
+                            <a href="{{ path('ls_imarket_maj_disp_annonce', {'id': annonce.id})}}">Maj disponibilité</a>
                         </td>
                     </tr>
                 {% else %}
@@ -53,5 +56,11 @@
                 </tr>
                 </tfoot>
             </table>
-        {#</div>
-    </div>#}
+            <div class="col-lg-offset-9 col-lg-3">
+                <a href="{{ path('ls_imarket_ajouter_annonce') }}" class="btn btn-info">Ajouter une annonce</a>
+            </div>
+        {# </div>
+    </div>
+
+
+</body> #}

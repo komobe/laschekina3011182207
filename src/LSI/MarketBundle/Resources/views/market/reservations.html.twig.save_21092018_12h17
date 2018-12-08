@@ -1,0 +1,231 @@
+{% extends '::layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/jquery-ui-1.10.3.custom.min.css') }}">
+{% endblock stylesheets %}
+
+{%  block body %}
+<section class="content-section">
+  <div class="container">
+
+    <div class="title-row heading">
+      <div class="col-md-12">
+        <h2>Articles disponibles</h2>        
+      </div>
+    </div>
+    <div class="page-layout two-column sidebar-right">
+      <main id="main" class="main">
+
+	
+    <div class="row-float pad-top-large">
+      <div class="grid-box-all row">
+	  {% for annonce in annonces %}
+        <div class="grid-box">
+          <div class="image">
+          <span class="box-type"><span class="text">EPCI</span></span>
+            <img src="images/property/home-1.jpg" alt="" height="234" width="360">
+          </div>
+          <div class="description">
+            <h6><span class="type img_search"><a href="{{ path('ls_imarket_voir_annonce', {'id': annonce.id}) }}">
+                        {% if annonce.images is not null %}
+                            {# <img src="{{ asset(annonce.images.webPath) }}" alt="{{ annonce.images.alt }}" /> #}
+                           {% for images in annonce.images %}
+                            <img src="{{ asset(images.webPath) }}" alt="{{ images.alt }}"
+                            class="responsive" style="width: 260px; height: auto;"/>
+                            {% endfor %} 
+                        {% endif %}
+                        <h4>{{ annonce.titre }}</h4></span> 
+                        <p>{{ annonce.description }}</p></h6>
+            <p class="meta-list"><span class="meta"><i><h6>Règles et conditions :</h6> {{ annonce.regleCond }}</i></span> 
+            <p><span class="price">Prix : {{ annonce.prixDefaut }} &euro;</span></p>
+            <a class="link-arrow iconic iconic-arrow-forward" href="{{ path('ls_imarket_voir_annonce', {'id': annonce.id}) }}"></a>
+			{% if not app.user %}
+                        <center><a href="{{ path('fos_user_security_login') }}" class="btn btn-success">Reserver</a></center>
+                    {% elseif app.user.hasRole('ROLE_MAIRIE') %}
+
+                        {% if app.user.mairie.id == annonce.mairie.id %}
+                            <center><a href="{{ path('ls_imarket_modifier_annonce', {'id' :annonce.id})}}"
+                                       class="btn btn-warning">Modifier</a></center>
+                        {% else %}
+                            <center><a href="{{ path('ls_imarket_dupliquer_annonce', {'id' :annonce.id})}}"
+                                       class="btn btn-info">Créer à partir</a>
+                            <a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                               class="btn btn-success">Reserver</a></center>
+                        {% endif %}
+                    {% else %}
+                        <center><a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                                   class="btn btn-success">Reserver</a></center>
+                    {% endif %}
+          </div>
+        </div>
+       {% endfor %}
+      <div class="row-float text-center">       
+        <ul class="pagination">
+          <li>
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">«</span>
+            </a>
+          </li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li>
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">»</span>
+            </a>
+          </li>
+        </ul>      
+      </div>
+    </div>
+    </main>
+    <!-- Sidebar  -->
+    <aside class="sidebar" id="sidebar"> 
+      <!-- Search  --> 
+      <iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2710.207049454749!2d-1.5729033!3d47.2125309!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4805ec0fcda6c4cb%3A0xd620ca38dafa1e9a!2s2+Rue+La+Motte+Picquet%2C+44100+Nantes!5e0!3m2!1sfr!2sfr!4v1423244007186" width="100%" height="1000px" frameborder="0"></iframe>
+ 
+        
+
+    </aside>
+    <!-- Sidebar //  -->
+    </div>
+  </div>
+</section>
+
+
+<!-- Map Search -->
+<div class="map-section">
+
+<div class="map-search-form">
+  <div class="container_avance">
+    <h2>Recherche avancée</h2>
+
+    <div class="form-content form-cotent-map map-search-control">
+      <form class="form-1" id="form-1">
+          <div class="row pad-top-large">
+            <div class="col-md-3">
+            <div class="form-group has-feedback">
+              <select class="form-control">
+                <option value="">Catégorie</option>
+              </select>          
+            </div>
+            </div>
+            <div class="col-md-3">
+            <div class="form-group has-feedback">
+              <select class="form-control">
+                <option value="">Pays</option>
+              </select>          
+            </div>
+            </div>
+            <div class="col-md-3">
+            <div class="form-group has-feedback">
+              <select class="form-control">
+                <option value="">Département</option>
+              </select>          
+            </div>
+            </div>
+            <div class="col-md-3">
+            <div class="form-group has-feedback">
+              <select class="form-control">
+                <option value="">Ville</option>
+              </select>          
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <p>Sélectionner votre prix</p>
+            </div>
+            <div class="col-md-8">
+              <p>Sélectionner une période</p>
+            </div>
+            <div class="col-md-2">
+            <div class="form-group has-feedback">
+              <select class="form-control">
+                <option value="">Mini</option>
+              </select>          
+            </div>
+            </div>
+            <div class="col-md-2">
+            <div class="form-group has-feedback">
+              <select class="form-control">
+                <option value="">Max</option>
+              </select>          
+            </div>
+            </div>
+            <div class="col-md-5">
+            <div  class="no-slider">
+            <span class="info"> 
+            <table class="table_reservation">
+               <tr>
+                   <td class="td_title">Début</td>
+                   <td class="td_datepicker">
+                      <input type="text" id="date_debut" class="datepick"> 
+                   </td>
+                   <td class="td_title">Fin</td>
+                   <td class="td_datepicker">
+                      <input type="text" id="date_fin" class="datepick">  
+                   </td>  
+                </tr>
+            </table>            
+            </span>
+            </div>             
+            <div id="slider-tooltip1" class="slider-tooltip">           
+            </div>
+            </div>
+            <div class="col-md-3">
+              <select class="form-control">
+                <option value="">Distance</option>
+              </select>
+            </div>
+            </div>
+          <div class="row-float pad-top-small">
+            <button class="btn btn-dark btn-large pull-right hvr-shutter-out-vertical" style="margin-bottom:20px">Rechercher</button>
+          </div>
+          
+      </form>
+      
+    </div>
+ 
+    </div>
+</div>
+<!-- Map Search // -->
+
+<!-- Page layout // -->
+{%  endblock body %}
+{% block javascripts %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="{{ asset('bundles/lsimarket/js/jquery-ui-1.10.3.custom.js') }}"></script> 
+<script type="text/javascript" src="{{ asset('bundles/lsimarket/js/jquery.ui.datepicker-fr.js') }}"></script>
+
+<script> 
+  $(document).ready(function() { 
+  $( "#date_debut" ).datepicker({ 
+    defaultDate: "+1w", 
+    numberOfMonths: 1, 
+    changeMonth: true, 
+    changeYear: true, 
+    yearRange: '-1:+1', 
+    maxDate: '+1Y', 
+    onClose: function( selectedDate ) { 
+    $( "#date_fin" ).datepicker( "option", "minDate", selectedDate ); 
+    } 
+  }); 
+  $( "#date_fin" ).datepicker({ 
+    defaultDate: "+1w", 
+    numberOfMonths: 1, 
+    changeMonth: true, 
+    changeYear: true, 
+    maxDate: '+2Y', 
+    onClose: function( selectedDate ) { 
+    $( "#date_debut" ).datepicker( "option", "maxDate", selectedDate ); 
+    } 
+  });     
+});  
+</script>
+
+{% endblock %}

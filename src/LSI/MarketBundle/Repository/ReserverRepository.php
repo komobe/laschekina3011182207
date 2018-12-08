@@ -197,4 +197,50 @@ class ReserverRepository extends  EntityRepository {
         return $req->getQuery()->getResult();
     }
 
+    // Reservation : PRENEUR
+    // Récupère les reservations non encore validées
+    public function findReservationAttente($userId){
+        $qb = $this->createQueryBuilder('r')
+            ->join('r.annonce', 'a')
+            ->addSelect('a');
+
+        $qb->where('r.user = :userId')
+            ->setParameter('userId', $userId)
+            ->andWhere('r.reserveEtat = :etat')
+            ->setParameter('etat', 'A')
+            ->andWhere('r.annonce = a.id');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    // Récupère les reservations validées
+    public function findReservationValidee($userId){
+        $qb = $this->createQueryBuilder('r')
+            ->join('r.annonce', 'a')
+            ->addSelect('a');
+
+        $qb->where('r.user = :userId')
+            ->setParameter('userId', $userId)
+            ->andWhere('r.reserveEtat = :etat')
+            ->setParameter('etat', 'V')
+            ->andWhere('r.annonce = a.id');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    // Récupère les reservations refusées
+    public function findReservationRefusee($userId) {
+        $qb = $this->createQueryBuilder('r')
+            ->join('r.annonce', 'a')
+            ->addSelect('a');
+
+        $qb->where('r.user = :userId')
+            ->setParameter('userId', $userId)
+            ->andWhere('r.reserveEtat = :etat')
+            ->setParameter('etat', 'R')
+            ->andWhere('r.annonce = a.id');
+
+        return $qb->getQuery()->getResult();
+    }
+
 }

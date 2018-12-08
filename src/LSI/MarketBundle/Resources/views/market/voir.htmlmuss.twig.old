@@ -1,0 +1,249 @@
+{% extends '::layout.html.twig' %}
+
+{% block title %}
+    Details de l'annonce
+{% endblock title %}
+
+{% block body %}
+    <!-- Page layout -->
+<section class="content-section">
+  <div class="container">
+
+    <div class="title-row heading">
+      <div class="col-md-12">
+        <h1>Description de l'Objet</h1>
+        <p>{{ annonce.titre }}</p>
+      </div>
+    </div>
+    <!-- Properties  Details -->
+    <div class="row pad-top-large">
+    <div class="col-sm-12 content-table">
+       <div class="content-back row-float">
+          <div class="col-md-6 content-table-image">
+             <div class="owlCarousel properties-slider">
+                            
+                   {% if annonce.images is not null %}
+                      {# <img src="{{ asset(annonce.images.webPath) }}" height="577" width="570" alt="{{ annonce.images.alt }}"/> #}
+                      {% for images in annonce.images %}
+                         <div class="item"><img src="{{ asset(images.webPath) }}" alt="{{ images.alt }}" class="responsive" style="width:100% ; height: auto;"/></div>  
+                      {% endfor %}
+                   {% endif %}
+                                    
+            </div>
+         </div>     
+         <div class="col-md-6 pull-right contents grid-gap-large">
+           <div class="heading pad-top-large">
+              <h4>Non de l'EPCI</h4>
+           </div>
+           <div class="pad-top-small"> Le prix proposé pour cette location est : 
+              <span class="btn btn-primary btn-danger">{{ annonce.prixDefaut }} &euro;</span>
+           </div>
+           <div class="pad-top-small meta-list">
+              <span class="meta">Mise en ligne par
+                 {% for auth in auteur %}
+                     {{ auth.nom }},
+                 {% endfor %}
+                 le {{ annonce.dateCreation|date('d/m/Y') }}
+                    
+	  </span>
+          </div>
+          <p>{{ annonce.description }}</p>
+          <i> <a href="{{ path('ls_imarket_plage_annonce' , { 'id' :annonce.id})}}">consulter la disponibilité<a/> </i></p>  
+          <p><i>{{ annonce.regleCond }}</i>
+          <br><br>
+          {% if not app.user %}
+                    <a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                       class="btn btn-success">Reserver</a>
+                {% elseif app.user.hasRole('ROLE_MAIRIE') %}
+
+                    {% if app.user.mairie.id == annonce.mairie.id %}
+                        <a href="{{ path('ls_imarket_modifier_annonce', {'id' :annonce.id}) }}"
+                           class="btn btn-warning">Modifier</a>
+                            {% if var is empty %}
+                                <button type="submit" id="delete" class="btn btn-danger" value="delete" name="btn-delete" >Supprimer</button>
+                                {% else %}
+                                    <button type="submit" id="delete" class="btn btn-danger" value="delete" name="btn-delete" disabled>Supprimer</button>
+                            {% endif %}
+
+                        {#<a href="{{ path('ls_imarket_supprimer_annonce', {'id': annonce.id }) }}" class="btn btn-danger">Supprimer</a>#}
+                    {% else %}
+                        <center><a href="{{ path('ls_imarket_dupliquer_annonce', {'id' :annonce.id}) }}"
+                                   class="btn btn-info">Créer à partir</a>
+                            <a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                               class="btn btn-success">Reserver</a>
+                          {# <a href="{{ path('ls_imarket_traitement_messagerie', {'id' :annonce.id}) }}"
+                           class="btn btn-warning">Envoyer un message</a> #}
+                        </center>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                       class="btn btn-success">Reserver</a>
+                    <a href="{{ path('ls_imarket_traitement_messagerie', {'id' :annonce.id}) }}"
+                         class="btn btn-warning">Envoyer un message</a>
+                {% endif %}		  
+          <div class="meta pad-top-large pad-bottom-small">
+            <span class="meta-list2">
+            <br><br>
+              <span class="meta"><span class="iconic iconic-heart"></span>1129 likes</span>
+               <span class="meta"><span class="iconic iconic-mode-comment"></span>78 comments</span>
+            </span>
+          </div>
+        </div>        
+       </div>
+     </div>
+     </div>
+     <!-- Properties  Details -->
+     <!-- Properties description -->
+     <div class="row pad-top-large">
+       <div class="container">
+         <div class="properties-descriptions tabs-vertical" role="tabpanel">
+           <ul class="nav nav-tabs">
+             <li class="active"><a href="#features" data-toggle="tab">FONTIONNALITES</a></li>
+             <li><a href="#openhouse" data-toggle="tab">MAIRIE</a></li>
+             <li><a href="#video" data-toggle="tab">VIDEO</a></li>
+             <li><a href="#map" data-toggle="tab">MAP</a></li>
+             <li><a href="#community" data-toggle="tab">OPCI</a></li>
+           </ul>
+           <div class="tab-content">
+             
+             <div class="tab-pane fade in active" id="features">               
+               <div class="contents">
+                <h2>Plus d'information sur l'article</h2>
+                 <p>{{ annonce.description }}</p>
+               </div>               
+             </div>
+             <div class="tab-pane fade" id="openhouse">               
+              <div class="contents">
+                <h2>Lorem Ipsum</h2>
+                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition.</p>
+                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin </p>
+               </div>      
+             </div>
+             <div class="tab-pane fade" id="video">               
+              <div class="contents">
+              <h3>Regarder la vidéo</h3>
+              <div class="video-embed">
+                 <iframe width="560" height="315" src="https://www.youtube.com/watch?v=Tu-XNVI_mV0"></iframe>
+              </div>
+                
+               </div>      
+             </div>
+             <div class="tab-pane fade" id="map">
+               <iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2710.207049454749!2d-1.5729033!3d47.2125309!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4805ec0fcda6c4cb%3A0xd620ca38dafa1e9a!2s2+Rue+La+Motte+Picquet%2C+44100+Nantes!5e0!3m2!1sfr!2sfr!4v1423244007186" width="100%" height="400" frameborder="0"></iframe>
+             </div>
+             <div class="tab-pane fade" id="community">               
+              <div class="contents">
+                 <h3>Plus d'informations sur les mairies</h3>
+                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition.</p>
+                 <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin </p>
+               </div>      
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+     <!-- Properties description // -->
+    <!-- Contact To Agent -->
+    <div class="title-row heading pad-top-large">
+      <div class="col-md-12">
+        <h2>Agent responsable</h2>
+        <p>Vous pouvez contacter cet agent avant toute opération</p>
+      </div>
+    </div>
+    <div class="row pad-top-small layout-flex">
+      <div class="col-md-4">
+        <div class="content-box-2">
+          <figure class="image-box">
+            <img src="{{ asset('bundles/lsimarket/images/properties-details/agents-1.jpg')}}" height="278" width="330" alt="">
+          </figure>
+          <div class="contents">
+            <h3 class="heading-style-1">{% for auth in auteur %}
+                          {{ auth.nom }}
+                        {% endfor %}</h3>
+            <p>here are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly. </p>
+            <p class="text-right"><a href="#" class="btn btn-large btn-primary">En savoir plus</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="content-box-2 agents-contact">
+          <div class="heading">
+            <h5>Contactez {% for auth in auteur %}
+                          {{ auth.nom }}
+                        {% endfor %}</h5>
+          </div>
+          <form class="form-content pad-top-small" data-parsley-validate>
+            <div class="row">
+              <div class="col-md-6 form-group-1">
+                <input type="text" class="form-control input-lg" placeholder="Nom" required data-parsley-required-message="Please insert your name" name="name">
+              </div>
+              <div class="col-md-6 form-group-1">
+                <input type="text" class="form-control input-lg" placeholder="E-mail" required data-parsley-required-message="Please insert your Email" name="email">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 form-group-1">
+                <input type="text" class="form-control input-lg" placeholder="Téléphone" required data-parsley-required-message="Please insert your contact no" data-parsley-min="10" name="contact">
+              </div>
+              <div class="col-md-6 form-group-1">
+                <input type="text" class="form-control input-lg" placeholder="Ville" required name="location">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group-1 col-md-12">
+                <textarea class="form-control" placeholder="Merci de noter votre question puis de valider le formulaire." rows="3"  required data-parsley-minlength="20" data-parsley-minlength-message = "Come on! You need to enter at least a 20 character comment.."  data-parsley-validation-threshold="10" data-parsley-maxlength="100" name="message"></textarea>
+              </div>
+            </div>
+            <div class="row pad-top-small">
+              <div class="col-md-12">
+                <button class="btn btn-primary btn-large pull-right">Envoyer</button>
+              </div>
+              <div class="text-success col-xs-12 hidden form-messges text-center">
+              <p>Nous vous enverrons une réponse dès que possible.</p>
+            </div>
+            </div>
+
+          </form>
+          <div class="info-box-1">
+            <h5><span>Ou appler un agent</span></h5>
+            <p><span class="large-text-1"><span class="iconic-phone-square"></span>+33 01 45 87 45</span></p>
+          </div>
+        </div>
+      </div>
+    </div>   
+    <!-- Contact To Agent // -->
+    
+  </div>
+</section>
+<!-- Page layout // -->
+
+{% endblock body %}
+
+{% block javascripts %}
+            {# Liens JS #}
+           <script type="text/javascript" src="{{ asset('bundles/lsimarket/js/vendor/vendor.js') }}"></script>
+           <script type="text/javascript" src="{{ asset('bundles/lsimarket/js/main.js') }}"></script>
+
+    <script>
+
+        $(document).on('click', 'button#delete', function () {
+            that = $(this);
+            if (confirm('Voulez vous supprimer l\'annonce ?')) {
+                $.ajax({
+                    url: "{{ path('ls_imarket_supprimer_annonce', {'id': annonce.id }) }}",
+                    type: "GET",
+                    data: {
+                        "btn-delete": "delete"
+                    },
+                    async: true,
+                    success: function () {
+                        /* Redirection vers la page de consultation des annonces*/
+                        window.location.href = "{{ path('ls_imarket_mes_annonces') }}";
+                    }
+                })
+            }
+        })
+
+    </script>
+{% endblock %}
+

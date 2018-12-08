@@ -1,0 +1,421 @@
+{% extends '::layout.html.twig' %}
+
+{# Varables accessibles: 
+    annonce : accessible à partir de la ligne 28 uniquement à l'intérieur de la bouble for
+    mairiename : accessible à partir de la ligne 58 uniquement à l'intérieur de la bouble for
+#}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/lsimarket/css/jquery-ui-1.10.3.custom.min.css') }}">
+{% endblock stylesheets %}
+
+{%  block body %}
+<section class="content-section">
+    <div class="container">
+
+        <div class="title-row heading">
+            <div class="col-md-12">
+                <h2>Matériels disponibles autour de moi </h2>
+            </div>
+        </div>
+        <div class="page-layout two-column sidebar-right">
+            <main id="main" class="main">
+
+
+                <div class="row-float pad-top-large">
+                    <div class="grid-box-all row">
+                        {% for annonce in annonces %}
+
+                            <div class="grid-box">
+                                {% if app.user != null and app.user.mairie.epci.nom == annonce.mairie.epci.nom %}
+                                    <span class="box-type">
+              {# {% if app.user %}
+                {{ dump(app.user) }} #}
+                                        <span class="text">EPCI</span>
+
+                                        {# {% endif %}  #}
+            </span>
+                                {% else %}
+                                    <div style="height:100px;"><br></div>
+                                {% endif %}
+
+                                <div class="description">
+                                    <h6><span class="type img_search">
+                        {% if annonce.images is not null %}
+                                            {# <img src="{{ asset(annonce.images.webPath) }}" alt="{{ annonce.images.alt }}" /> #}
+                                            {% set break = false %}
+                                            {% for images in annonce.images if not break %}
+                                            <a href="{{ path('ls_imarket_voir_annonce', {'id': annonce.id}) }}"><img src="{{ asset(images.webPath) }}" alt="{{ images.alt }}"
+                                                                                                                     class="responsive" style="width: 260px; height: 150px;object-fit: cover;"/>
+                                                {% set break = true %}
+                                                {% endfor %}
+                                                {% endif %}
+                                                <h4>{{ annonce.titre }}</h4></span></a>
+                                        <p>{{ annonce.description|truncate(70) }}</p>
+                                        <p>EPCI : {{ annonce.mairie.epci.nom }}</p>
+                                        {% if mairiename is defined %}
+                                            {% for name in mairiename %}
+                                                {% if name.mairie.id == annonce.mairie.id %}
+                                                    <p>Mairie : {{ name.nom }} </p>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </h6>
+
+                                    <span class="meta" style="font-weight:bold;"><h6><i >Règles et conditions :</i> {{ annonce.regleCond|truncate(50) }}</h6></span>
+                                    <p><span class="price">Prix : {{ annonce.prixDefaut }} {{ annonce.typeforfait }}</span></p>
+                                    <a class="link-arrow iconic iconic-arrow-forward" href="{{ path('ls_imarket_voir_annonce', {'id': annonce.id}) }}">
+                                        {% if not app.user %}
+                                            <center><a href="{{ path('fos_user_security_login') }}" class="btn btn-success">Reserver</a></center>
+                                        {% elseif app.user.hasRole('ROLE_MAIRIE') %}
+
+                                            {% if app.user.mairie.id == annonce.mairie.id %}
+                                                <center><a href="{{ path('ls_imarket_modifier_annonce', {'id' :annonce.id})}}"
+                                                           class="btn btn-warning">Modifier</a></center>
+                                            {% else %}
+                                                <center><a href="{{ path('ls_imarket_dupliquer_annonce', {'id' :annonce.id})}}"
+                                                           class="btn btn-info">Créer à partir</a>
+                                                    <a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                                                       class="btn btn-success">Reserver</a></center>
+                                            {% endif %}
+                                        {% else %}
+                                            <center><a href="{{ path('ls_imarket_reserver_annonce', {'id': annonce.id}) }}"
+                                                       class="btn btn-success">Reserver</a></center>
+                                        {% endif %}
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                        <!--
+                              <div class="row-float text-center">
+                                <ul class="pagination">
+                                  <li>
+                                    <a href="#" aria-label="Previous">
+                                      <span aria-hidden="true">«</span>
+                                    </a>
+                                  </li>
+                                  <li><a href="#">1</a></li>
+                                  <li><a href="#">2</a></li>
+                                  <li><a href="#">3</a></li>
+                                  <li><a href="#">4</a></li>
+                                  <li><a href="#">5</a></li>
+                                  <li>
+                                    <a href="#" aria-label="Next">
+                                      <span aria-hidden="true">»</span>
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+
+                        <br><br>
+                        -->
+                    </div>
+            </main>
+            <!-- Sidebar  -->
+
+
+        </div>
+    </div>
+</section>
+
+<section class="content-section">
+    <div class="container">
+        <div class="title-row heading">
+            <div class="col-md-12">
+                <aside class="sidebar" id="map" style="height: 480px; width: 100%;"> </aside>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Search -->
+<div class="container">
+
+    <div class="title-row heading">
+        <div class="col-md-8">
+            <section class="content-section">
+                <div class="container">
+
+                    <div class="row-float contents pad-top-large">
+                        <div>&nbsp;
+                            <div class="comment-respond">
+                                <h2>Recherche avancée</h2>
+
+
+
+
+
+                                <div class="form-content form-cotent-map map-search-control">
+                                    {{ form_start(formrechavancee, {'attr': {'id': 'form-1', 'class': 'form-1'}}) }}
+                                    {#<form class="form-1" id="form-1">#}
+                                    <div class="row pad-top-large">
+                                        <div class="col-md-3">
+                                            <div class="form-group has-feedback">
+                                                {#<select class="form-control">#}
+                                                {#<option value="">Catégorie</option>#}
+                                                {{ form_widget(formrechavancee.categorie, {'attr': {'class': 'form-control'}}) }}
+                                                {#</select>          #}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group has-feedback">
+                                                {#<select class="form-control">
+                                                  <option value="">Pays</option>
+                                                </select> #}
+                                                {{ form_widget(formrechavancee.pays, {'attr': {'class': 'form-control',
+                                                    'placeholder': 'France'}}) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group has-feedback">
+                                                {#<select class="form-control">
+                                                  <option value="">Département</option>
+                                                </select> #}
+                                                {{ form_widget(formrechavancee.departement, {'attr': {'class': 'form-control',
+                                                    'placeholder': 'Departement...'}}) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group has-feedback">
+                                                {#<select class="form-control">
+                                                  <option value="">Ville</option>
+                                                </select> #}
+                                                {{ form_widget(formrechavancee.ville, {'attr': {'class': 'form-control',
+                                                    'placeholder': 'Ville...'}}) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <div class="form-group has-feedback">
+                                                {#<select class="form-control">
+                                                   <option value="">Mini</option>
+                                                </select> #}
+                                                {{ form_widget(formrechavancee.mini, {'attr': {'class': 'form-control', 'placeholder': 'Prix min...'}}) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group has-feedback">
+                                                {#<select class="form-control">
+                                                  <option value="">Max</option>
+                                                </select>  #}
+                                                {{ form_widget(formrechavancee.max, {'attr': {'class': 'form-control', 'placeholder': 'Prix max...'}}) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div  class="no-slider">
+            <span class="info">
+
+            <table >
+               <tr>
+                   <td class="td_title">Début</td>
+                   <td class="td_datepicker">
+                      {{ form_widget(formrechavancee.debutdate, {'attr': {'class': 'form-control', 'id': 'date_debut'}}) }}
+                   </td>
+               </tr>
+            </table>
+            <table >
+<br>
+               <tr>
+                   <td class="td_title">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                   <td class="td_datepicker">
+                       {{ form_widget(formrechavancee.findate, {'attr': {'class': 'form-control', 'id': 'date_fin'}}) }}
+                   </td>
+                </tr>
+            </table>
+
+            </span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="row-float pad-top-small">
+                                        <button class="btn btn-dark btn-large pull-right hvr-shutter-out-vertical" style="margin-bottom:20px">Rechercher</button>
+                                    </div>
+
+                                    {#</form>#}
+                                    {{ form_end(formrechavancee) }}
+
+                                </div></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Map Search // -->
+
+                <!-- Page layout // -->
+{%  endblock body %}
+{% block javascripts %}
+    {#<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>#}
+
+    {#<script type="text/javascript" src="{{ asset('bundles/lsimarket/js/jquery-ui-1.10.3.custom.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/lsimarket/js/jquery.ui.datepicker-fr.js') }}"></script>#}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: new google.maps.LatLng(48.864716, 2.349014),
+                zoom: 12
+            });
+            var infoWindow = new google.maps.InfoWindow;
+            {% if app.user %}
+            var usercoordonnes = {lat: {{ app.user.mairie.latitude }}, lng: {{ app.user.mairie.longitude }} };
+            var makeruser = usercoordonnes;
+            var markeruser = new google.maps.Marker({
+                position: makeruser,
+                map: map,
+                title: '{{ app.user.nom }}'
+
+            });
+
+            {% endif %}
+
+
+            // Traitement pour geocoder les adresses d'annonces
+
+            {% if annadress is defined %}
+            {% for annadress in annadress %}
+            var location = "{{ annadress.adresse.codePostal }}  ";
+            axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+                params:{
+                    address: location,
+                    key:'AIzaSyCZZVKfAjhdfo0VN0mk5IOq6ml3y1Ccuss'
+                }
+            })
+                .then(function(response) {
+
+                    var coordinates = response.data.results[0].geometry.location;
+
+
+                    // Afficher les annonces au click des markers
+
+
+                    {% for annonceimage in annadress.images %}
+
+                    var contentString =
+                        '<div>'+
+                        '<img src="{{ asset(annonceimage.webPath) }}" alt="{{ annonceimage.alt }}" style="float:left; width: 100px; height: 90px;object-fit: cover;margin-right:5px">'+
+                        '<h5 style="color: blue; position: relative; botton: 15px;font-size: 15px;font-family:gisha;text-transform: lowercase;">{{ annadress.titre }}</h5>'+
+                        '<h5 style="font-size: 12px;;font-family:gisha; text-transform: lowercase;">{{ annadress.description|truncate(50) }}</h5>'+
+                        '<h5 style="color: red; font-size: 12px;;font-family:gisha; text-transform: lowercase;">Prix : {{ annadress.prixDefaut }} &euro; / jour</h5>'+
+                        '</div>'
+                    ;
+
+                    {% endfor %}
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: contentString
+                    });
+
+                    {% if app.user != null and app.user.mairie.epci.nom == annadress.mairie.epci.nom %}
+                    var marker = new google.maps.Marker({
+                        position: coordinates,
+                        map: map,
+                        title: 'Double cliquer pour voir l\'annonce',
+                        animation: google.maps.Animation.BOUNCE,
+                        icon: {
+                            url: '../../../web/bundles/lsimarket/images/epci.png',
+                            scaledSize: new google.maps.Size(30, 30)
+                        }
+
+                    });
+
+                    {% elseif app.user != null and app.user.mairie.epci.nom != annadress.mairie.epci.nom %}
+                    var marker = new google.maps.Marker({
+                        position: coordinates,
+                        map: map,
+                        title: 'Double cliquer pour voir l\'annonce',
+                        animation: google.maps.Animation.BOUNCE,
+                        icon: {
+                            url: '../../../web/bundles/lsimarket/images/non_epci.png',
+                            scaledSize: new google.maps.Size(30, 30)
+                        }
+
+                    });
+
+                    {% else %}
+                    var marker = new google.maps.Marker({
+                        position: coordinates,
+                        map: map,
+                        title: 'Double cliquer pour voir l\'annonce',
+                        animation: google.maps.Animation.BOUNCE,
+                        icon: {
+                            url: '../../../web/bundles/lsimarket/images/logo_civilink.png',
+                            scaledSize: new google.maps.Size(30, 30)
+                        }
+
+                    });
+                    // Try HTML5 geolocation.
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            var pos = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            };
+
+                            infoWindow.setPosition(pos);
+                            infoWindow.setContent('Vous êtes ici');
+                            infoWindow.open(map);
+                            map.setCenter(pos);
+
+
+                        }, function() {
+                            handleLocationError(true, infoWindow, map.getCenter());
+                        });
+                    } else {
+                        // Browser doesn't support Geolocation
+                        handleLocationError(false, infoWindow, map.getCenter());
+                    }
+
+                    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent(browserHasGeolocation ?
+                            'Error: The Geolocation service failed.' :
+                            'Error: Your browser doesn\'t support geolocation.');
+                        infoWindow.open(map);
+                    }
+
+
+
+                    {% endif %}
+
+                    marker.addListener('mouseover', function() {
+
+                        infowindow.open(map, marker);
+
+                    });
+                    marker.addListener('mouseout', function() {
+                        infowindow.close(map, marker);
+                    });
+                    marker.addListener('dblclick', function() {
+                       // infowindow.open(map, marker);
+                        window.location.href = '{{ path("ls_imarket_voir_annonce", {"id": annadress.id}) }}';
+                    });
+                    marker.addListener('click', function() {
+                      infowindow.open(map, marker); 
+                    });
+
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+
+            {% endfor %}
+            {% endif %}
+
+        }
+
+
+    </script>
+
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZZVKfAjhdfo0VN0mk5IOq6ml3y1Ccuss&callback=initMap">
+    </script>
+
+{% endblock %}

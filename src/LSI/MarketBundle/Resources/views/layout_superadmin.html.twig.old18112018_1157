@@ -1,0 +1,36 @@
+
+{% block super %}
+    <div class="" style="height: 100%;">
+        <nav class="navbar navbar-inverse" >
+            <div class="container-fluid">
+                <div class="navbar navbar-fixed-left">
+                    <p class="navbar-brand">SUPER ADMINISTRATION</p>
+                </div>
+                <div id="accordion">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="{{ path('fos_user_profile_show') }}">Profil</a></li>
+                        <div class="card">
+                            <div class="card-header nav" id="headingOne">
+                                <h5 class="mb-0">
+                                    <li><a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne"
+                                            aria-expanded="false" aria-controls="collapseOne" role="button">
+                                        Gestion des administrateurs
+                                    </a></li>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body nav">
+                                    <li><a href="{{ path('ls_imarket_admin_registration') }}">Ajouter un administrateur</a></li>
+                                    <li><a href="{{ path('ls_imarket_liste_admin') }}">Liste des administrateurs</a></li>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p style="height: 150px;"></p>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+{% endblock super %}

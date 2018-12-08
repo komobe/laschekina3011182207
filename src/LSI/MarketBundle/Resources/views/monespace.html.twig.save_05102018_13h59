@@ -1,0 +1,656 @@
+{% extends '::layout.html.twig' %}
+
+
+{% block volet %}
+    {% if not app.user %}
+        {#{{ render(controller("LSIMarketBundle:Market:index")) }}#}
+    {% elseif app.user.hasRole('ROLE_PART') %}
+        {% include 'LSIMarketBundle::layout_administre.html.twig' %}
+        {#{{ render(controller("LSIMarketBundle:Espace:administreIndex")) }}#}
+    {% elseif app.user.hasRole('ROLE_MAIRIE') %}
+        {% include 'LSIMarketBundle::layout_mairie.html.twig' %}
+    {% elseif app.user.hasRole('ROLE_ADMIN') %}
+        {% include 'LSIMarketBundle::layout_admin.html.twig' %}
+    {% elseif app.user.hasRole('ROLE_SUPER_ADMIN') %}
+        {% include 'LSIMarketBundle::layout_superadmin.html.twig' %}
+    {% endif %}
+{% endblock volet %}
+
+{% block body %}
+
+    {% block monespace %}
+
+<!-- Page layout -->
+    
+     <!-- Properties description -->
+     <div class="row pad-top-large">
+       <div class="container">
+         <div class="properties-descriptions tabs-vertical" role="tabpanel">
+           <ul class="nav nav-tabs">
+             <li class="active"><a href="#compte" data-toggle="tab">MON COMPTE</a></li>
+             <li><a href="#engagements" data-toggle="tab">MES ENGAGEMENTS</a></li>
+             <li><a href="#annonces" data-toggle="tab">MES ANNONCES</a></li>
+             <li><a href="#location" data-toggle="tab">MES LOCATIONS</a></li>
+             <li><a href="#syntese" data-toggle="tab">MA SYNTHESE</a></li>
+           </ul>
+           <div class="tab-content">
+             <div class="tab-pane fade in active" id="compte">               
+               <div class="contents">
+                    	<article class="section__wrapper">     	  
+						<!-- Menu - Info -->
+						<div class="search-interaction row-float">
+							<div  id="map-cotnent2">
+								<div class="map-search-form row-float" >
+									<div class="container">
+										<div class="row pad-top-large">
+										  <div class="form-tab">
+											<a class="active"  href="#form-1">Coordonnées</a>
+											<a href="#form-2">Habilitations</a>
+											<a href="#form-3">Paramètres</a>
+										  </div>
+										</div>
+										<div class="form-content form-cotent-map">
+											<form class="form-1" id="form-1">
+												<div class="row pad-top-large">
+													<div class="col-md-9" style="text-align:left">
+														<!-- bloc coordonées-->
+                                                                                                                
+																												
+                                                                                                                <!-- fin bloc coordonées-->					
+													</div>            
+												</div>
+											</form>  
+											<form class="form-1 hidden" id="form-2">
+												<div class="row pad-top-large">
+													<div class="col-md-9" style="text-align:left">
+														<!-- bloc habilitations -->	
+						
+                                                                                                                     <!-- Agents -->
+															<div class="content-panel agents-portfolio">
+
+															<p>PERSONNES HABILITEES A FAIRE UN DEVIS</p>
+
+																<div class="project-list">        
+																	<div class="project">
+																	  <div class="data">
+																	  <a href="#">
+																	  <img src="{{ asset('bundles/lsimarket/images/habilitation/14202195290_4ac1d5a92b_b.jpg') }}" height="205" width="262">
+																	  <span class="meta-list3">
+																		<span class="status">LISA MARIA</span>
+																		<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;">
+																	  </span>
+																	  </a>
+																	  </div>
+																	</div>
+																	<div class="project">
+																	  <div class="data">
+																	  <a href="#">
+																	  <img src="{{ asset('bundles/lsimarket/images/habilitation/9325995752_e4b4d0044a_b.jpg') }}" height="205" width="262">
+																	  <span class="meta-list3">
+																		<span class="status">JONATHAN LOR</span>
+																		<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;"> 
+																	  </span>
+																	  </a>
+																	  </div>
+																	</div>
+																	<div class="project">
+																	  <div class="data">
+																	  <a href="#">
+																	  <img src="{{ asset('bundles/lsimarket/images/habilitation/8203794182_8004f8f636_b.jpg') }}" height="205" width="262">
+																	  <span class="meta-list3">
+																		<span class="status">MICK CHRITIAN</span>
+																		<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;">
+																	  </span>
+																	  </a>
+																	  </div>
+																	</div>
+																	<div class="project">
+																	  <div class="data">
+																	  <a href="#">
+																	  <img src="{{ asset('bundles/lsimarket/images/habilitation/9675018730_f3ab9ab065_b.jpg') }}" height="205" width="262" alt="">
+																	  <span class="meta-list3">
+																		<span class="status">MICK DURANT</span>
+																		<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;">
+																	  </span>
+																	  </a>
+																	  </div>
+																	</div>
+																	
+																</div>
+															</div>
+															
+															<div class="content-panel agents-portfolio">
+															  <p>PERSONNES HABILITEES A SIGNER UN CONTRAT D'ACHAT</p>
+															  <div class="project-list">        
+																<div class="project">
+																    <div class="data">
+																	    <a href="#"><img src="{{ asset('bundles/lsimarket/images/habilitation/14202195290_4ac1d5a92b_b.jpg') }}" height="205" width="262"></a>
+																	    <span class="meta-list3">
+																		<span class="status">LISA MARIA</span>
+																		<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;">
+																	    </span> 
+																    </div>
+																</div>
+																<div class="project">
+																  <div class="data">
+																  <a href="#">
+																  <img src="{{ asset('bundles/lsimarket/images/habilitation/9325995752_e4b4d0044a_b.jpg') }}" height="205" width="262">
+																  <span class="meta-list3">
+																	<span class="status">JONATHAN LOR</span>
+																	<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;">
+																  </span>
+																  </a>
+																  </div>
+																</div>
+
+																<div class="project">
+																  <div class="data">
+																  <a href="#">
+																  <img src="{{ asset('bundles/lsimarket/images/habilitation/9675018730_f3ab9ab065_b.jpg') }}" height="205" width="262" alt="">
+																  <span class="meta-list3">
+																	<span class="status">MICK DURANT</span>
+																	<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;"> 
+																  </span>
+																  </a>
+																  </div>
+																</div>
+																
+															</div>
+															</div>
+															
+															<div class="content-panel agents-portfolio">
+															  <p>PERSONNES HABILITEES A AJOUTER UNE REFERENCE</p>
+															  <div class="project-list">        
+																<div class="project">
+																  <div class="data">
+																  <a href="#">
+																  <img src="{{ asset('bundles/lsimarket/images/habilitation/14202195290_4ac1d5a92b_b.jpg') }}" height="205" width="262">
+																  <span class="meta-list3">
+																	<span class="status">LISA MARIA</span>
+																	<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;">
+																  </span>
+																  </a>
+																  </div>
+																</div>
+																<div class="project">
+																  <div class="data">
+																  <a href="#">
+																  <img src="{{ asset('bundles/lsimarket/images/habilitation/9325995752_e4b4d0044a_b.jpg') }}" height="205" width="262">
+																  <span class="meta-list3">
+																	<span class="status">JONATHAN LOR</span>
+																	<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;">																	
+																  </span>
+																  </a>
+																  </div>
+																</div>
+															  
+															  </div>
+															</div>
+															<div class="content-panel agents-portfolio">
+															  <p>PERSONNES HABILITEES A SIGNER UN CONTRAT DE VENTE</p>
+															  <div class="project-list">        
+																<div class="project">
+																  <div class="data">
+																  <a href="#">
+																  <img src="{{ asset('bundles/lsimarket/images/habilitation/14202195290_4ac1d5a92b_b.jpg') }}" height="205" width="262">
+																  <span class="meta-list3">
+																	<span class="status">LISA MARIA</span>
+																	<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;">
+																  </span>
+																  </a>
+																  </div>
+																</div>
+																<div class="project">
+																  <div class="data">
+																  <a href="#">
+																  <img src="{{ asset('bundles/lsimarket/images/habilitation/9325995752_e4b4d0044a_b.jpg') }}" height="205" width="262">
+																  <span class="meta-list3">
+																	<span class="status">JONATHAN LOR</span>
+																	<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;">										 
+																  </span>
+																  </a>
+																  </div>
+																</div>
+																<div class="project">
+																  <div class="data">
+																  <a href="#">
+																  <img src="{{ asset('bundles/lsimarket/images/habilitation/8203794182_8004f8f636_b.jpg') }}" height="205" width="262">
+																  <span class="meta-list3">
+																	<span class="status">MICK CHRITIAN</span>
+																	<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;">
+																  </span>
+																  </a>
+																  </div>
+																</div>
+																<div class="project">
+																  <div class="data">
+																  <a href="#">
+																  <img src="{{ asset('bundles/lsimarket/images/habilitation/9675018730_f3ab9ab065_b.jpg') }}" height="205" width="262" alt="">
+                                                                                                                                  </a>
+																  <span class="meta-list3">
+																	<span class="status">MICK DURANT</span>
+																	<img src="{{ asset('bundles/lsimarket/images/delete.png') }}" height="20" width="20" style="margin-top: 2%;margin-left: 60px;"> 
+																  </span>
+																  
+																  </div>
+                                                                                                                                  
+																</div>
+																
+															  </div>
+															</div>                                                       
+															
+                                                                                                                        <!--Gestion des habilitations -->
+
+<div class="col-md-12" style="margin-top:20px">
+                                                                                                                           <div class="headline v3 text-center"><h4>Gestion des habilitations</h4></div></br>
+                                                                                                                        </div>
+                                                                                                                        <div class="col-md-9">
+																															<table style="width:100%">
+																																<tr>
+																																	<td style="width:30%">
+																																		<p>MICK DURANT
+																																	</td>
+																																	<td style="width:70%">
+																																		<div class="custom-select" style="width:100%;">
+																																		   <select>
+																																			  <option value="0">HABILITE(E) A FAIRE UN DEVIS</option>
+																																			  <option value="1">HABILITE(E) A SIGNER UN CONTRAT D'ACHAT</option>
+																																			  <option value="2">HABILITE(E) A AJOUTER UNE REFERENCE</option>
+																																			  <option value="3">HABILITE(E) A SIGNER UN CONTRAT DE VENTE</option>
+																																		   </select>
+																																		</div>
+																																	</td>
+																																</tr>
+																																<tr>
+																																	<td> 
+																																		<p>JONATHAN LOR
+																																	</td>
+																																	<td>
+																																		<div class="custom-select" style="width:100%;">
+																																			<select>
+																																				<option value="0">HABILITE(E) A FAIRE UN DEVIS</option>
+																																				<option value="1">HABILITE(E) A SIGNER UN CONTRAT D'ACHAT</option>
+																																				<option value="2">HABILITE(E) A AJOUTER UNE REFERENCE</option>
+																																				<option value="3">HABILITE(E) A SIGNER UN CONTRAT DE VENTE</option>
+																																			</select>
+																																		</div>
+																																	</td>
+																																</tr>
+																																<tr>
+																																	<td>
+																																		<p>LISA MARIA</a>
+																																	</td>
+																																	<td>
+																																		<div class="custom-select" style="width:100%;">
+																																			<select>
+																																				<option value="0">HABILITE(E) A FAIRE UN DEVIS</option>
+																																				<option value="1">HABILITE(E) A SIGNER UN CONTRAT D'ACHAT</option>
+																																				<option value="2">HABILITE(E) A AJOUTER UNE REFERENCE</option>
+																																				<option value="3">HABILITE(E) A SIGNER UN CONTRAT DE VENTE</option>
+																																			</select>
+																																		</div>
+																																	</td>
+																																</tr>
+																																<tr>
+																																	<td>
+																																		<p>MICK CHRITIAN</a>
+																																	</td>
+																																	 <td>
+																																		<div class="custom-select" style="width:100%;">
+																																			<select>
+																																				<option value="0">HABILITE(E) A FAIRE UN DEVIS</option>
+																																				<option value="1">HABILITE(E) A SIGNER UN CONTRAT D'ACHAT</option>
+																																				<option value="2">HABILITE(E) A AJOUTER UNE REFERENCE</option>
+																																				<option value="3">HABILITE(E) A SIGNER UN CONTRAT DE VENTE</option>
+																																			</select>
+																																		</div>
+																																	 </td>
+																																</tr>
+								      														                                          				</table>
+                                                                                                                                                                                                                                                        <button class="pull-right btn btn-info" style="margin-top:10px">Enregistrer</button>
+  
+														<!-- fin bloc habilitation -->	
+													</div>	
+												</div>
+											</form>
+											<form class="form-1 hidden" id="form-3">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- fin bloc info -->
+														Paramètres de mon compte
+														<!-- fin bloc info -->
+													</div>
+												</div>	
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Menu - Info -->	  
+					</article>
+  
+			   </div>               
+            </div>
+            <div class="tab-pane fade" id="engagements">               
+               <div class="contents">
+					<article class="section__wrapper">
+        	<!-- Menu - Info -->
+			<div class="search-interaction row-float">
+				<div  id="map-cotnent2">
+					<div class="map-search-form row-float" >
+						<div class="container">
+							<div class="row pad-top-large">
+							  <div class="form-tab">
+								<a class="active"  href="#form-4">Démarches</a>
+								<a href="#form-5">Budget</a>
+								<a href="#form-6">Archives</a>
+							  </div>
+							</div>
+							<div class="form-content form-cotent-map">
+								<form class="form-1" id="form-4">
+									<div class="row pad-top-large">
+										<div class="col-md-12" style="text-align:left">
+											<!-- bloc info -->
+											 Démarches
+											<!-- fin bloc info -->
+										</div>            
+									</div>
+								</form>  
+								<form class="form-1 hidden" id="form-5">
+									<div class="row pad-top-large">
+										<div class="col-md-12" style="text-align:left">
+											<!-- bloc info -->	
+											Simulateur de budget
+											<!-- fin bloc info -->	
+										</div>	
+									</div>
+								</form>
+								<form class="form-1 hidden" id="form-6">
+									<div class="row pad-top-large">
+										<div class="col-md-12" style="text-align:left">
+											<!-- fin bloc info -->
+											Archives
+											<!-- fin bloc info -->
+										</div>
+									</div>	
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Menu - Info --> 
+                  </article>
+				
+	    </div>      
+            </div>
+            <div class="tab-pane fade" id="annonces">               
+                <div class="contents">
+              
+					<article class="section__wrapper">
+                	<!-- Menu - Info -->
+						<div class="search-interaction row-float">
+							<div  id="map-cotnent2">
+								<div class="map-search-form row-float" >
+									<div class="container">
+										<div class="row pad-top-large">
+										  <div class="form-tab">
+											<a class="active"  href="#form-7">Créer</a>
+											<a href="#form-8">Modifier</a>
+											<a href="#form-9">Devis</a>
+											<a href="#form-10">Biens MAD</a>
+											<a href="#form-11">Facturations</a>
+											<a href="#form-12">Paramètres</a>
+										  </div>
+										</div>
+										<div class="form-content form-cotent-map">
+											<form class="form-1" id="form-7">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- bloc info Créer-->
+														
+														<!-- fin bloc info -->
+													</div>            
+												</div>
+											</form>  
+											<form class="form-1 hidden" id="form-8">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- bloc info -->	
+														Modifier
+														<!-- fin bloc info -->	
+													</div>	
+												</div>
+											</form>
+											<form class="form-1 hidden" id="form-9">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- fin bloc info -->
+														Etat des devis
+														<!-- fin bloc info -->
+													</div>
+												</div>	
+											</form>
+											<form class="form-1 hidden" id="form-10">
+												<div class="row pad-top-large">
+													<div class="col-md-9" style="text-align:left">
+														
+														<!-- fin Biens MAD -->
+													</div>            
+												</div>
+											</form>  
+											<form class="form-1 hidden" id="form-11">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- bloc info -->	
+														Suivi des facturations
+														<!-- fin bloc info -->	
+													</div>	
+												</div>
+											</form>
+											<form class="form-1 hidden" id="form-12">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- Bloc paramètres -->
+                                                                                                            <br><br>
+                                                                                                            <div class="col-md-9">
+                                                                                                                       <div class="tag-box tag-box-v2">
+                                                                                                                         Attention, vous ne devez pas dépasser votre budget annuel lors des réservations des produits disponibles en location.</br>
+                                                                                                                         Toute achat nécessitant un dépassement du budget nécessitera le téléchargement nécessaire à la justification.</br>
+                                                                                                                          Vos documents téléchargés sont accessibles ici :</br>  
+                                                                                                                       </div>
+                                                                                                           </div     													<div class="widget widget-newsletter">
+													   <div class="col-md-4">
+													   <h4>Gestion du budget annuel d'achat</h4>
+														   <div class="form-content newsletter-sidebar">
+															   <form data-parsley-validate>
+																	<div class="form-group">
+																	  <input type="text" placeholder="Budget annuel: 1 500 000 €" name="budget" class="form-control input-lg" required>
+																	</div>
+																	<div class="form-group" style="vertical-align:middle;margin-left:10px">
+																	  <div class="pull-right btn btn-success" style="width:60%;height:43px;text-align:right;"> 430 000 €</div> Disponible
+																	</div></br>
+																	<div class="form-group">
+																	  <button class="pull-right btn btn-info">Valider</button>
+																	</div>
+																	<div class="form-messges hidden">         
+																	</div>
+																</form>       
+															</div>
+                                                                                                                     
+														 </div>                                                                                                                 
+													 
+													 <div class="col-md-4">
+													 <h4>Gestion des prix avant MAD</h4>
+														   <div class="form-content newsletter-sidebar">
+															   <form data-parsley-validate>
+																	<div class="form-group">
+																	  <input type="text" placeholder="Réduction pour mon EPCI : 40%" name="name" class="form-control input-lg" required>
+																	</div>
+																	<div class="form-group">
+																	  <input type="text" placeholder="Réduction pour les mairies : 15%" name="email" class="form-control input-lg" required>
+																	</div>
+																	<div class="form-group">
+																	  <button class="pull-right btn btn-info">Valider</button>
+																	</div>
+																	<div class="form-messges hidden">         
+																	</div>
+															  </form>       
+															</div>
+														 
+													 </div>
+
+                                                                                                         
+                                                                                                         
+
+
+														
+                                                                                                         <div class="col-md-8" style="margin-top:20px">
+                                                                                                            <div class="headline v3 text-center"><h4>Gestion des CGU / CGV / Assurances</h4></div></br>
+                                                                                                            <p><a href="{{ path('lsi_market_homepage') }}">Conditions d'utilisations</a> <button class="pull-right btn btn-default btn-xs">Modifier</button></p>
+                                                                                                            <p><a href="{{ path('lsi_market_homepage') }}">Conditions de vente</a> <button class="pull-right btn btn-default btn-xs">Modifier</button></p>
+                                                                                                            <p><a href="{{ path('lsi_market_homepage') }}">Contrat d'assurance</a> <button class="pull-right btn btn-default btn-xs">Modifier</button></p>
+                                                                                                         </div>
+                                                                                                         
+                                                                                                           
+														<!-- fin bloc paramètres -->
+													</div>
+												</div>	
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Menu - Info --> 
+					</article>
+			  
+                </div>                 
+            </div>
+            <div class="tab-pane fade" id="location">
+				<div class="contents">
+				
+					<article class="section__wrapper">
+				    <!-- Menu - Info -->
+						<div class="search-interaction row-float">
+							<div  id="map-cotnent2">
+								<div class="map-search-form row-float" >
+									<div class="container">
+										<div class="row pad-top-large">
+										  <div class="form-tab">
+											<a class="active"  href="#form-13">Panier</a>
+											<a href="#form-14">Devis</a>
+											<a href="#form-15">Biens MAD</a>
+											<a href="#form-16">Facturation</a>
+										  </div>
+										</div>
+										<div class="form-content form-cotent-map">
+											<form class="form-1" id="form-13">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- bloc info -->
+														 Panier
+														<!-- fin bloc info -->
+													</div>            
+												</div>
+											</form>  
+											<form class="form-1 hidden" id="form-14">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- bloc info -->	
+														Devis
+														<!-- fin bloc info -->	
+													</div>	
+												</div>
+											</form>
+											<form class="form-1 hidden" id="form-15">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- fin bloc info -->
+														Biens MAD
+														<!-- fin bloc info -->
+													</div>
+												</div>	
+											</form>
+											<form class="form-1 hidden" id="form-16">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- fin bloc info -->
+														Facturation
+														<!-- fin bloc info -->
+													</div>
+												</div>	
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Menu - Info -->
+					</article>
+			 
+				</div>
+			</div>
+            <div class="tab-pane fade" id="syntese">               
+				<div class="contents">
+					<article class="section__wrapper">
+					<!-- Menu - Info -->
+						<div class="search-interaction row-float">
+							<div  id="map-cotnent2">
+								<div class="map-search-form row-float" >
+									<div class="container">
+										<div class="row pad-top-large">
+										  <div class="form-tab">
+											<a class="active"  href="#form-17">TDB</a>
+											<a href="#form-18">Synthèse</a>
+										  </div>
+										</div>
+										<div class="form-content form-cotent-map">
+											<form class="form-1" id="form-17">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- bloc info -->
+														 Tableau de bord
+														<!-- fin bloc info -->
+													</div>            
+												</div>
+											</form>  
+											<form class="form-1 hidden" id="form-18">
+												<div class="row pad-top-large">
+													<div class="col-md-12" style="text-align:left">
+														<!-- bloc info -->	
+														Etat de synthèse
+														<!-- fin bloc info -->	
+													</div>	
+												</div>
+											</form>							
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					<!-- Menu - Info -->
+					</article>
+				</div>      
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+     <!-- Properties description // -->
+    
+    
+  </div>
+</section>
+<!-- Page layout // -->
+
+
+    {% endblock monespace %}
+{% endblock body %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('bundles/lsimarket/js/vendor/vendor.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/lsimarket/js/main.js') }}"></script> 
+<script type="text/javascript" src="{{ asset('bundles/lsimarket/js/select.js') }}"></script>   
+{% endblock javascripts %}
