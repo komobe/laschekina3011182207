@@ -649,9 +649,15 @@ class MarketController extends BaseController
         $userId = $this->getUser()->getId();
 
         // Recuperer les reservations actives en BD dont l'auteur est le User connecte
-        $reservations = $em->getRepository('LSIMarketBundle:Reserver')->mesReservations($userId);
-        $annonceReservees = $em->getRepository('LSIMarketBundle:Reserver')->annonceReserver($userId);
-        $annonces = $em->getRepository('LSIMarketBundle:Annonce')->findMesAnnonces($userId);
+        $reservations = $em->getRepository('LSIMarketBundle:Reserver')->mesReservations($userId); // mes revervation ke j'ai passé
+        $annonceReservees = $em->getRepository('LSIMarketBundle:Reserver')->annonceReserver($userId); // mes annonces reservés
+        $annonces = $em->getRepository('LSIMarketBundle:Annonce')->findMesAnnonces($userId); // Mes annonces
+
+        //Recuperation du montant total de mes reservations
+        $prixTotalMesReservations = $em->getRepository('LSIMarketBundle:Reserver')->prixTotalMesReservations($userId);
+
+        //Recuperation du montant total de mes annonces reservées
+        $prixTotalMesAnnoncesReservees = $em->getRepository('LSIMarketBundle:Reserver')->prixTotalAnnoncesReservees($userId);
 
         // Recuperons id de la mairie
         $idmairie = $this->getUser()->getMairie();
@@ -687,7 +693,10 @@ class MarketController extends BaseController
                 'annoncesR' => $annonceReservees,
                 'mesannonces' => $annonces,
                 'erreurBudget' => $msgErr,
-                'habilitation' => $habilitation,));
+                'habilitation' => $habilitation,
+                'prixTotalMesReservations' => $prixTotalMesReservations,
+                'prixTotalMesAnnoncesReservees' => $prixTotalMesAnnoncesReservees)
+            );
         }
 
         //Formulaire de création de remises
@@ -736,14 +745,24 @@ class MarketController extends BaseController
                 'annoncesR' => $annonceReservees,
                 'mesannonces' => $annonces,
                 'erreurRemise' => $errMsg,
-                'habilitation' => $habilitation,));
+                'habilitation' => $habilitation,
+                'prixTotalMesReservations' => $prixTotalMesReservations,
+                'prixTotalMesAnnoncesReservees' => $prixTotalMesAnnoncesReservees)
+            );
+        }
+    ///
+        if(!isset($btBudget) && !isset($btRemise)){
+
         }
 
         return $this->render('LSIMarketBundle::monespace.html.twig', array(
             'annonces' => $reservations,
             'annoncesR' => $annonceReservees,
             'mesannonces' => $annonces,
-            'habilitation' => $habilitation,));
+            'habilitation' => $habilitation,
+            'prixTotalMesReservations' => $prixTotalMesReservations,
+            'prixTotalMesAnnoncesReservees' => $prixTotalMesAnnoncesReservees)
+        );
 
     }
 

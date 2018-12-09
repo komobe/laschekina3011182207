@@ -1,14 +1,17 @@
-<?php 
-
+<?php
 namespace LSI\MarketBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class BaseController extends Controller
 {
 
-	    /**
+
+    CONST DUREE_COOKIE_INDEX_RECH = 60*60*24;
+
+        /**
      * @author Moro KONE
      * @param $private_key
      * @param $str_to_crypt
@@ -73,7 +76,7 @@ class BaseController extends Controller
         $crypt = $this->getRechercheIndexCookieKey();
         $dates =['debut' =>$datedebut , 'fin' => $datefin] ;
         $content = serialize($dates);
-        $cookie = new Cookie($crypt, base64_encode($content), time() + 86400);
+        $cookie = new Cookie($crypt, base64_encode($content), time() + self::DUREE_COOKIE_INDEX_RECH);
         //$response = new Response();
         $response->headers->setCookie($cookie);
         return $response;

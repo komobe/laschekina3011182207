@@ -7,32 +7,49 @@ use Doctrine\ORM\EntityRepository;
 
 class ReserverRepository extends  EntityRepository {
 
+    /**
+     * @author  Moro KONÉ
+     * @param $idAuteur
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function prixTotalMesReservations($idAuteur){
+
+        $qb = $this->getQueryMesReservation($idAuteur);
+        $qb ->innerJoin('r.user','u')
+            ->select('sum(r.montantReservation) as total')
+            ->groupBy('u.id');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @author  Moro KONÉ
+     * @param $userId
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function prixTotalAnnoncesReservees($userId){
+        $qb = $this->getQueryMesAnnoncesReservees($userId);
+        $qb ->select('sum(r.montantReservation) as total')
+            ->groupBy('m.id');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
     public function mesReservations($idAuteur){
-        $qb = $this->createQueryBuilder('r');
 
-        $qb
-            ->where('r.user = :user')
-            ->setParameter('user', $idAuteur);
-
-        return $qb->getQuery()->getResult();
+        return $this->getQueryMesReservation($idAuteur) ->getQuery()->getResult();
     }
 
     // Les réservations sur mes annonces
     public function annonceReserver($userId){
-        $qb = $this->createQueryBuilder('r')
-            ->leftJoin('r.annonce', 'a')
-            ->addSelect('a')
-            ->leftJoin('a.mairie', 'm')
-            ->addSelect('m')
-            ->innerJoin('r.user', 'u')
-            ->addSelect('u')
-            ;
-
-        $qb
-            ->where('m.id = :id')
-            ->andWhere('m.id = r.annonce')
-            ->setParameter('id', $userId)
-        ;
+        $qb = $this->getQueryMesAnnoncesReservees($userId)
+                    ->addSelect('a')
+                    ->addSelect('m')
+                    ->addSelect('u');
 
         return $qb->getQuery()->getResult();
     }
@@ -241,6 +258,34 @@ class ReserverRepository extends  EntityRepository {
             ->andWhere('r.annonce = a.id');
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @author  Moro KONÉ
+     * @param $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    private function getQueryMesAnnoncesReservees($id){
+
+        return $this->createQueryBuilder('r')
+                    ->leftJoin('r.annonce', 'a')
+                    ->leftJoin('a.mairie', 'm')
+                    ->innerJoin('r.user', 'u')
+                    ->where('m.id = :id')
+                    ->andWhere('m.id = r.annonce')
+                    ->setParameter('id', $id);
+    }
+
+    /**
+     * @author  Moro KONÉ
+     * @param $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    private function getQueryMesReservation($id){
+
+        return $this->createQueryBuilder('r')
+            ->where('r.user = :user')
+            ->setParameter('user', $id);
     }
 
 }

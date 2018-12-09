@@ -780,11 +780,53 @@
                 <form class="form-1 hidden" id="form-5">
                   <div class="row pad-top-large">
                     <div class="col-md-12" style="text-align:left">
-                      <!-- bloc budget -->
-                                                                                        <br>  
-                      Ma période d’engagement du budget de JJ/MM/AA à JJ/MM/AA
+                      <!-- bloc budget -->  
+                       <!--  Ma période d’engagement du budget de JJ/MM/AA à JJ/MM/AA -->
+                        <!-- <p>Mon budget achat la période : {{ app.user.mairie.budgetInitial }} €</p><hr/> -->
+                        <!-- <p>Mon budget achat initial : {{ app.user.mairie.budgetInitial }} €</p><hr/>
+                        <p>Montant totat de mes annonces réservées : {{ prixTotalMesAnnoncesReservees }} €</p><hr/>
+                        <p>Montant totat de mes réservations : {{ prixTotalMesReservations }} €</p><hr/>
+                        <p>Mon budget achat actuel : {{app.user.mairie.budgetInitial + prixTotalMesAnnoncesReservees - prixTotalMesReservations 
+                             }} €</p><hr/> -->
 
-                                                                                        <p>Mon budget achat la période : {{ app.user.mairie.budgetInitial }} €</p>
+                          <div class="row card" style="margin-bottom: 2rem; margin-top:1.5rem">
+                              <div class="card-header">
+                                  <h4 class="card-title"> Comptabilité </h4>
+                              </div>
+                              <div class="card-body"> 
+                                <table class="table table-striped" style="margin-bottom:15px;">
+                                  <thead>
+                                    <td>Libelles</td>
+                                    <td>Montants € (en euros)</td>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>Budget initial (BI)</td>
+                                      <td>{{ app.user.mairie.budgetInitial }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Montant totat de mes annonces réservées (MAR)</td>
+                                      <td>{{ prixTotalMesAnnoncesReservees }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Montant totat de mes réservations(MR)</td>
+                                      <td>{{ prixTotalMesReservations }}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Budget actuel (BI + MAR - MR) </td>
+                                      <td> {{ app.user.mairie.budgetInitial + prixTotalMesAnnoncesReservees - prixTotalMesReservations }}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div> 
+                          </div>
+
+                        {% include 'LSIMarketBundle:partials:/monespace/mes_engagements/annonces_reservees.html.twig'
+                            with { "annoncesReservees": annoncesR} only %}
+
+                        {% include 'LSIMarketBundle:partials:/monespace/mes_engagements/mes_reservation.html.twig'
+                          with { "reservations": annonces} only %}
+
                       <!-- fin bloc budget -->  
                     </div>  
                   </div>

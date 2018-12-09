@@ -1,0 +1,30 @@
+
+<div class="row card">
+    <div class="card-header">
+        <h4 class="card-title">La liste des annonces louées (Mes reservations) </h4>
+    </div>
+    <div class="card-body">
+        <table id="mes-reservations-table" class="table table-striped table-bordered" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Objets</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Dépensé</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for index , reservation in reservations %}
+                <tr>
+                    <td>{{ index + 1 }}</td>
+                    <td>{{ reservation.annonce.titre }}</td>
+                    <td>{{ reservation.debutPrestation | date("Y-m-d")}}</td>
+                    <td>{{ reservation.finPrestation | date("Y-m-d")}}</td>
+                    <td>{{ reservation.montantReservation }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table> 
+    </div> 
+</div>
