@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityRepository;
 class ReserverRepository extends  EntityRepository {
 
     /**
-     * @author  Moro KONÉ
+     * @author Moro KONÉ
      * @param $idAuteur
      * @return mixed
      * @throws \Doctrine\ORM\NoResultException
@@ -20,12 +20,18 @@ class ReserverRepository extends  EntityRepository {
         $qb ->innerJoin('r.user','u')
             ->select('sum(r.montantReservation) as total')
             ->groupBy('u.id');
-
-        return $qb->getQuery()->getSingleScalarResult();
+        try{
+            $prix_total = $qb->getQuery()->getSingleScalarResult();
+        }catch (\Doctrine\ORM\NoResultException $e){
+            $prix_total = 0;
+        }catch(\Doctrine\ORM\NonUniqueResultException $e){
+            throw new Exception($e->getMessage());
+        }
+        return $prix_total;
     }
 
     /**
-     * @author  Moro KONÉ
+     * @author Moro KONÉ
      * @param $userId
      * @return mixed
      * @throws \Doctrine\ORM\NoResultException
@@ -36,7 +42,14 @@ class ReserverRepository extends  EntityRepository {
         $qb ->select('sum(r.montantReservation) as total')
             ->groupBy('m.id');
 
-        return $qb->getQuery()->getSingleScalarResult();
+        try{
+            $prix_total = $qb->getQuery()->getSingleScalarResult();
+        }catch (\Doctrine\ORM\NoResultException $e){
+            $prix_total = 0;
+        }catch(\Doctrine\ORM\NonUniqueResultException $e){
+            throw new Exception($e->getMessage());
+        }
+        return $prix_total;
     }
 
     public function mesReservations($idAuteur){
@@ -261,7 +274,7 @@ class ReserverRepository extends  EntityRepository {
     }
 
     /**
-     * @author  Moro KONÉ
+     * @author Moro KONÉ
      * @param $id
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -277,7 +290,7 @@ class ReserverRepository extends  EntityRepository {
     }
 
     /**
-     * @author  Moro KONÉ
+     * @author Moro KONÉ
      * @param $id
      * @return \Doctrine\ORM\QueryBuilder
      */

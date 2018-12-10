@@ -142,7 +142,7 @@ class MarketController extends BaseController
             $reposi_annonce = $this->getDoctrine()->getRepository('LSIMarketBundle:Annonce');
             $em = $this->getDoctrine()->getManager();
             $mairiename = $em->getRepository('LSIMarketBundle:User')->findNameMairie();
-            $annonces = $reposi_annonce->findByannonce($categ, $pays, $ville, $prixmini, $prixmax, $datedebut, $datefin);
+            $annonces = $reposi_annonce->findByAnnonce($categ, $pays, $ville, $prixmini, $prixmax, $datedebut, $datefin);
             $annadress = $annonces;
             return $this->render('LSIMarketBundle:market:offres.html.twig',
                 array('annonces' => $annonces,
@@ -1059,8 +1059,6 @@ class MarketController extends BaseController
     public function rechindexAction(Request $request)
     {
 
-        $repo_annonce = $this->getDoctrine()->getRepository('LSIMarketBundle:Annonce');
-
         // Recuperer le champ titre
         $titre = $request->get('titre_name');
 
@@ -1076,69 +1074,79 @@ class MarketController extends BaseController
         $datefin = $request->get('datefin');
 
         //$newdatfin = date("Y-m-d", $datefin);
-        $listeannonce = array();
 
-        $annadress = array();
+        //Recuperation de la liste des  annonces selon les donnees recuperées
+        $listeannonce =
+            $this->getDoctrine()->getRepository('LSIMarketBundle:Annonce')
+                 ->findRechIndex([
+                        'titre'=>$titre,
+                        'ville'=>$ville,
+                        'datedebut'=>$datedebut,
+                        'datefin'=>$datefin
+                 ]);
+
+        //$annadress = array();
+
         //
-        if ($titre != null && $ville == null) {
-            $listeannonce = $repo_annonce->findrechetitreindex($titre);
-            $annadress = $listeannonce;
-
-            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                 ['listeannonce' => $listeannonce,
-                     'annadress' => $annadress,
-                 ]);*/
-        } elseif ($ville != null && $titre == null) {
-            $listeannonce = $repo_annonce->findrechetitrevilleindex($ville);
-            $annadress = $listeannonce;
-
-            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                 ['listeannonce' => $listeannonce,
-                     'annadress' => $annadress,
-                 ]);*/
-        } elseif ($titre != null && $ville != null) {
-            $listeannonce = $repo_annonce->findtitretitrevilleindex($titre, $ville);
-            $annadress = $listeannonce;
-
-            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                 ['listeannonce' => $listeannonce,
-                     'annadress' => $annadress,
-                 ]);*/
-        } elseif ($datedebut != null && $datefin != null && $titre == null && $ville == null) {
-            $listeannonce = $repo_annonce->finddispoindex($datedebut, $datefin);
-            $annadress = $listeannonce;
-
-            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                 ['listeannonce' => $listeannonce,
-                     'annadress' => $annadress,
-                 ]);*/
-        } elseif ($titre != null && $ville == null && $datedebut != null && $datefin != null) {
-            $listeannonce = $repo_annonce->titreperiodeindex($titre, $datedebut, $datefin);
-            $annadress = $listeannonce;
-
-//            return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-//                ['listeannonce' => $listeannonce]);
-        } elseif ($titre == null && $ville != null && $datedebut != null && $datefin != null) {
-            $listeannonce = $repo_annonce->villeperiodeindex($ville, $datedebut, $datefin);
-            $annadress = $listeannonce;
-
-            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                 ['listeannonce' => $listeannonce,
-                     'annadress' => $annadress,
-                 ]);*/
-        } elseif ($titre != null && $ville != null && $datedebut != null && $datefin != null) {
-            $listeannonce = $repo_annonce->titrevilleperiodeindex($titre, $ville, $datedebut, $datefin);
-            $annadress = $listeannonce;
-
-            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-                 ['listeannonce' => $listeannonce,
-                     'annadress' => $annadress,
-                 ]);*/
-        }
+//        if ($titre != null && $ville == null) {
+//            $listeannonce = $repo_annonce->findrechetitreindex($titre);
+//            $annadress = $listeannonce;
+//
+//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+//                 ['listeannonce' => $listeannonce,
+//                     'annadress' => $annadress,
+//                 ]);*/
+//        } elseif ($ville != null && $titre == null) {
+//            $listeannonce = $repo_annonce->findrechetitrevilleindex($ville);
+//            $annadress = $listeannonce;
+//
+//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+//                 ['listeannonce' => $listeannonce,
+//                     'annadress' => $annadress,
+//                 ]);*/
+//        } elseif ($titre != null && $ville != null) {
+//            $listeannonce = $repo_annonce->findtitretitrevilleindex($titre, $ville);
+//            $annadress = $listeannonce;
+//
+//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+//                 ['listeannonce' => $listeannonce,
+//                     'annadress' => $annadress,
+//                 ]);*/
+//        } elseif ($datedebut != null && $datefin != null && $titre == null && $ville == null) {
+//            $listeannonce = $repo_annonce->finddispoindex($datedebut, $datefin);
+//            $annadress = $listeannonce;
+//
+//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+//                 ['listeannonce' => $listeannonce,
+//                     'annadress' => $annadress,
+//                 ]);*/
+//        } elseif ($titre != null && $ville == null && $datedebut != null && $datefin != null) {
+//            $listeannonce = $repo_annonce->titreperiodeindex($titre, $datedebut, $datefin);
+//            $annadress = $listeannonce;
+//
+////            return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+////                ['listeannonce' => $listeannonce]);
+//        } elseif ($titre == null && $ville != null && $datedebut != null && $datefin != null) {
+//            $listeannonce = $repo_annonce->villeperiodeindex($ville, $datedebut, $datefin);
+//            $annadress = $listeannonce;
+//
+//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+//                 ['listeannonce' => $listeannonce,
+//                     'annadress' => $annadress,
+//                 ]);*/
+//        } elseif ($titre != null && $ville != null && $datedebut != null && $datefin != null) {
+//            $listeannonce = $repo_annonce->titrevilleperiodeindex($titre, $ville, $datedebut, $datefin);
+//            $annadress = $listeannonce;
+//
+//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
+//                 ['listeannonce' => $listeannonce,
+//                     'annadress' => $annadress,
+//                 ]);*/
+//        }
 
         $response =  $this->render('LSIMarketBundle:market:resultat_recherche.html.twig', [
             'listeannonce' => $listeannonce,
-            'annadress' => $annadress]);
+            'annadress' => $listeannonce]);
 
         if(!is_null($datedebut) || !is_null($datefin)){ // Ajouté par Moro KONE
             $dates =  $this->getRechercheIndexCookie($request);

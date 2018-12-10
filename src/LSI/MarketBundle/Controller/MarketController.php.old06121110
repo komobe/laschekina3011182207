@@ -143,7 +143,7 @@ class MarketController extends Controller
             $reposi_annonce = $this->getDoctrine()->getRepository('LSIMarketBundle:Annonce');
             $em = $this->getDoctrine()->getManager();
             $mairiename = $em->getRepository('LSIMarketBundle:User')->findNameMairie();
-            $annonces = $reposi_annonce->findByannonce($categ, $pays, $ville, $prixmini, $prixmax, $datedebut, $datefin);
+            $annonces = $reposi_annonce->findByAnnonce($categ, $pays, $ville, $prixmini, $prixmax, $datedebut, $datefin);
             $annadress = $annonces;
             return $this->render('LSIMarketBundle:market:offres.html.twig',
                 array('annonces' => $annonces,
