@@ -1056,6 +1056,12 @@ class MarketController extends BaseController
             ['listeannonce' => $listeannonce]);
     }*/
 
+    /**
+     * @author Moro KONÉ
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     */
     public function rechindexAction(Request $request)
     {
 
@@ -1085,68 +1091,28 @@ class MarketController extends BaseController
                         'datefin'=>$datefin
                  ]);
 
-        //$annadress = array();
+        $msg = null ; //Message s'il n'y a pas d'annonce correspondant aux critères de recherche
 
-        //
-//        if ($titre != null && $ville == null) {
-//            $listeannonce = $repo_annonce->findrechetitreindex($titre);
-//            $annadress = $listeannonce;
-//
-//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-//                 ['listeannonce' => $listeannonce,
-//                     'annadress' => $annadress,
-//                 ]);*/
-//        } elseif ($ville != null && $titre == null) {
-//            $listeannonce = $repo_annonce->findrechetitrevilleindex($ville);
-//            $annadress = $listeannonce;
-//
-//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-//                 ['listeannonce' => $listeannonce,
-//                     'annadress' => $annadress,
-//                 ]);*/
-//        } elseif ($titre != null && $ville != null) {
-//            $listeannonce = $repo_annonce->findtitretitrevilleindex($titre, $ville);
-//            $annadress = $listeannonce;
-//
-//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-//                 ['listeannonce' => $listeannonce,
-//                     'annadress' => $annadress,
-//                 ]);*/
-//        } elseif ($datedebut != null && $datefin != null && $titre == null && $ville == null) {
-//            $listeannonce = $repo_annonce->finddispoindex($datedebut, $datefin);
-//            $annadress = $listeannonce;
-//
-//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-//                 ['listeannonce' => $listeannonce,
-//                     'annadress' => $annadress,
-//                 ]);*/
-//        } elseif ($titre != null && $ville == null && $datedebut != null && $datefin != null) {
-//            $listeannonce = $repo_annonce->titreperiodeindex($titre, $datedebut, $datefin);
-//            $annadress = $listeannonce;
-//
-////            return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-////                ['listeannonce' => $listeannonce]);
-//        } elseif ($titre == null && $ville != null && $datedebut != null && $datefin != null) {
-//            $listeannonce = $repo_annonce->villeperiodeindex($ville, $datedebut, $datefin);
-//            $annadress = $listeannonce;
-//
-//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-//                 ['listeannonce' => $listeannonce,
-//                     'annadress' => $annadress,
-//                 ]);*/
-//        } elseif ($titre != null && $ville != null && $datedebut != null && $datefin != null) {
-//            $listeannonce = $repo_annonce->titrevilleperiodeindex($titre, $ville, $datedebut, $datefin);
-//            $annadress = $listeannonce;
-//
-//            /* return $this->render('LSIMarketBundle:market:resultat_recherche.html.twig',
-//                 ['listeannonce' => $listeannonce,
-//                     'annadress' => $annadress,
-//                 ]);*/
-//        }
+        if (empty($listeannonce)) {
+            $listeannonce =
+            $this->getDoctrine()->getRepository('LSIMarketBundle:Annonce')
+                 ->findByOr([
+                        'titre'=>$titre,
+                        'ville'=>$ville,
+                        'datedebut'=>$datedebut,
+                        'datefin'=>$datefin
+                 ]);
+            if(empty($listeannonce)){
+                $msg = "Nous n'avons pas trouvé de résultat pour votre recherche mais nous vous proposons d'autres articles autour de vous";
+            }
+        }
 
+        /** @var String  $msg */
         $response =  $this->render('LSIMarketBundle:market:resultat_recherche.html.twig', [
             'listeannonce' => $listeannonce,
-            'annadress' => $listeannonce]);
+            'annadress' => $listeannonce,
+            'msgresultat' => $msg
+        ]);
 
         if(!is_null($datedebut) || !is_null($datefin)){ // Ajouté par Moro KONE
             $dates =  $this->getRechercheIndexCookie($request);

@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99da32e9-e8f5-489a-9c7e-cbd816061b11" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/symfony2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php.old06121110" beforeDir="false" afterPath="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php.old06121110" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php.old251018_1115" beforeDir="false" afterPath="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php.old251018_1115" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php.old6102018" beforeDir="false" afterPath="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php.old6102018" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LSI/MarketBundle/Repository/AnnonceRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/LSI/MarketBundle/Repository/AnnonceRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LSI/MarketBundle/Repository/ReserverRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/LSI/MarketBundle/Repository/ReserverRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/market/resultat_recherche.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/market/resultat_recherche.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,19 +33,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Repository/ReserverRepository.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="1173" lean-forward="true" selection-start-line="1173" selection-end-line="1173" />
+            <state relative-caret-position="11168">
+              <caret line="1094" selection-start-line="1094" selection-end-line="1094" />
               <folding>
                 <element signature="e#6492#7435#0#PHP" />
                 <element signature="e#7484#8677#0#PHP" />
@@ -64,7 +51,6 @@
                 <element signature="e#21714#21825#0#PHP" />
                 <element signature="e#22686#22771#0#PHP" />
                 <element signature="e#23257#23281#0#PHP" />
-                <element signature="e#44307#49136#0#PHP" />
               </folding>
             </state>
           </provider>
@@ -73,8 +59,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Repository/AnnonceRepository.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="770" lean-forward="true" selection-start-line="299" selection-start-column="2" selection-end-line="770" />
+            <state relative-caret-position="-33">
+              <caret line="321" selection-start-line="321" selection-end-line="321" />
             </state>
           </provider>
         </entry>
@@ -83,7 +69,7 @@
         <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/market/resultat_recherche.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="176">
-              <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+              <caret line="11" column="33" selection-end-line="243" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -132,8 +118,8 @@
         <option value="$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/partials/monespace/mes_engagements/reservation.html.twig" />
         <option value="$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/partials/monespace/mes_engagements/annonces_reservees.html.twig" />
         <option value="$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/partials/monespace/mes_engagements/mes_reservation.html.twig" />
-        <option value="$PROJECT_DIR$/src/LSI/MarketBundle/Repository/ReserverRepository.php" />
         <option value="$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/market/resultat_recherche.html.twig" />
+        <option value="$PROJECT_DIR$/src/LSI/MarketBundle/Repository/ReserverRepository.php" />
         <option value="$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php" />
         <option value="$PROJECT_DIR$/src/LSI/MarketBundle/Repository/AnnonceRepository.php" />
       </list>
@@ -203,6 +189,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -281,8 +269,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -340,18 +326,18 @@
       <workItem from="1544355216484" duration="19218000" />
       <workItem from="1544383917002" duration="668000" />
       <workItem from="1544393568998" duration="11874000" />
-      <workItem from="1544436342274" duration="2623000" />
+      <workItem from="1544436342274" duration="8389000" />
+      <workItem from="1544482193503" duration="250000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60991000" />
+    <option name="totallyTimeSpent" value="67007000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26040268" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2637584" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
@@ -429,15 +415,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Repository/ReserverRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11168">
+          <caret line="1094" selection-start-line="1094" selection-end-line="1094" />
+          <folding>
+            <element signature="e#6492#7435#0#PHP" />
+            <element signature="e#7484#8677#0#PHP" />
+            <element signature="e#8732#9386#0#PHP" />
+            <element signature="e#9421#10400#0#PHP" />
+            <element signature="e#10405#15048#0#PHP" />
+            <element signature="e#15054#19392#0#PHP" />
+            <element signature="e#19441#19983#0#PHP" />
+            <element signature="e#20055#20716#0#PHP" />
+            <element signature="e#20722#20837#0#PHP" />
+            <element signature="e#21481#21524#0#PHP" />
+            <element signature="e#21714#21825#0#PHP" />
+            <element signature="e#22686#22771#0#PHP" />
+            <element signature="e#23257#23281#0#PHP" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Resources/views/market/resultat_recherche.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
-          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+          <caret line="11" column="33" selection-end-line="243" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -462,33 +470,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Controller/MarketController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="1173" lean-forward="true" selection-start-line="1173" selection-end-line="1173" />
-          <folding>
-            <element signature="e#6492#7435#0#PHP" />
-            <element signature="e#7484#8677#0#PHP" />
-            <element signature="e#8732#9386#0#PHP" />
-            <element signature="e#9421#10400#0#PHP" />
-            <element signature="e#10405#15048#0#PHP" />
-            <element signature="e#15054#19392#0#PHP" />
-            <element signature="e#19441#19983#0#PHP" />
-            <element signature="e#20055#20716#0#PHP" />
-            <element signature="e#20722#20837#0#PHP" />
-            <element signature="e#21481#21524#0#PHP" />
-            <element signature="e#21714#21825#0#PHP" />
-            <element signature="e#22686#22771#0#PHP" />
-            <element signature="e#23257#23281#0#PHP" />
-            <element signature="e#44307#49136#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/LSI/MarketBundle/Repository/AnnonceRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="770" lean-forward="true" selection-start-line="299" selection-start-column="2" selection-end-line="770" />
+        <state relative-caret-position="-33">
+          <caret line="321" selection-start-line="321" selection-end-line="321" />
         </state>
       </provider>
     </entry>

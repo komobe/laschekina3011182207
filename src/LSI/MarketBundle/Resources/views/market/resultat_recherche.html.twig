@@ -13,8 +13,17 @@
 	<div class="container">
 		<div class="row heading">
 			<div class="col-xs-12">
-				<h2 class="pm-0">Matériels disponibles autour de moi </h2>
+				<h2 class="pm-0">Matériels disponibles autour de moi</h2>
 			</div>
+            {% if msgresultat is defined %}
+            <br><br><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 style="color: red">{{ msgresultat }}</h5>
+                </div>
+            </div>
+            <br><br><br>
+            {% endif %}
 		</div>
         <div class="clearfix"></div>
 		<div class="row mt-5">
@@ -41,11 +50,14 @@
                                         <div class="clearfix"></div>
     									<div class="description mt-2">
     										<div class="type img_search">
+
+                                                                                    <div class="owlCarousel properties-slider">
     											{% for listimg in listeannonce.images %}
     												<a href="{{ path('ls_imarket_voir_annonce', {'id': listeannonce.id}) }}">
                                                         <div alt="{{ listimg.alt }}" style="width:100%;height:150px;background:url({{ asset(listimg.webPath) }});background-size:cover;background-repeat:no-repeat;background-position:center;"></div>
                                                     </a>
     											{% endfor %}
+                                                                                </div>
                                             </div>
                                             <div class="clearfix"></div>
     										<div class="body">
@@ -54,9 +66,9 @@
     											<p>Categorie :  {{ listeannonce.categorie.name }}</p>
     											<p>Prix  : <span class="price red_logo">{{ listeannonce.prixDefaut }} {{ listeannonce.typeforfait }}</span> </p>
     											{#<p>Ville : {{ listeannonce.adresse.ville }}</p>#}
-                                                                                        {% for listimg in listeannonce.images %}
+
     											    <a href="{{ path('ls_imarket_voir_annonce', {'id': listeannonce.id}) }}" class="btn btn-primary btn-large pull-right">Voir l'objet</a>
-    											{% endfor %}
+
     											<br><br>
     										</div>
     									</div>

@@ -304,6 +304,27 @@ class AnnonceRepository extends EntityRepository {
      * @param array $params
      * @return array
      */
+    public function findByOr($params=array())
+    {
+        $req = $this->createQueryBuilder('a');
+
+        $req->innerJoin('a.adresse', 'adress')->addSelect('adress')
+            ->innerJoin('a.calendrier', 'calendar')
+            ->addSelect('calendar')
+
+            ->orWhere('adress.ville= :ville')->setParameter('ville', $params['ville'])
+            ->orWhere('a.titre= :titre')->setParameter('titre', $params['titre'])
+            ->orWhere('calendar.debut >= :debut')->setParameter('debut', $params['datedebut'])
+            ->orWhere('calendar.fin <= :fin')->setParameter('fin', $params['datefin']);
+
+        return $req->getQuery()->setMaxResults(10)->getResult();
+    }
+
+    /**
+     * @author Moro KONÉ
+     * @param array $params
+     * @return array
+     */
     public function findRechIndex($params=array()){
 
         extract($params); // Extrait les variables
@@ -338,398 +359,19 @@ class AnnonceRepository extends EntityRepository {
         return $req->getQuery()->setMaxResults(10)->getResult();
     }
 
-//
-//    // titre
-//    public function findrechetitreindex($titre){
-//
-//        $req = $this->createQueryBuilder('a');
-//
-//        $req->innerJoin('a.adresse', 'adress')
-//            ->addSelect('adress');
-//
-//        $req->where('a.titre= :titre')
-//            ->setParameter('titre', $titre);
-//
-//        return $req->getQuery()->setMaxResults(10)->getResult();
-//    }
-//
-//    // ville
-//
-//    public function findrechetitrevilleindex($ville){
-//
-//        $req = $this->createQueryBuilder('a');
-//        $req->innerJoin('a.adresse', 'adress')
-//            ->addSelect('adress');
-//        $req->where('adress.ville= :ville')
-//            ->setParameter('ville', $ville);
-//
-//        return $req->getQuery()->setMaxResults(10)->getResult();
-//    }
-//
-//    // Titre et la ville
-//
-//    public function findtitretitrevilleindex($titre, $ville){
-//
-//        $req = $this->createQueryBuilder('a');
-//        $req->innerJoin('a.adresse', 'adress')
-//            ->addSelect('adress');
-//        $req->where('adress.ville= :ville')
-//            ->setParameter('ville', $ville)
-//            ->andWhere('a.titre= :titre')
-//            ->setParameter('titre', $titre);
-//
-//        return $req->getQuery()->setMaxResults(10)->getResult();
-//    }
-//
-//    // disponibilite
-//
-//
-//    public function finddispoindex($datedebut, $datefin){
-//
-//        $req = $this->createQueryBuilder('a');
-//        $req->innerJoin('a.calendrier', 'calendar')
-//            ->addSelect('calendar')
-//            ->innerJoin('a.adresse', 'adress')
-//            ->addSelect('adress')
-//            ;
-//
-//        $req->where('calendar.debut >= :debut')
-//            ->setParameter('debut', $datedebut)
-//            ->andWhere('calendar.fin <= :fin')
-//            ->setParameter('fin', $datefin);
-//       /* $req->where(
-//                    $req->expr()->between('calendar.debut, calendar.fin',  debut, fin )
-//                    )
-//                    ->setParameter('debut', $datedebut)
-//                    ->setParameter('fin', $datefin);*/
-//
-//        return $req->getQuery()->setMaxResults(10)->getResult();
-//    }
-//
-//    // titre et disponibilite
-//
-//    public function titreperiodeindex($titre, $datedebut, $datefin){
-//
-//        $req = $this->createQueryBuilder('a');
-//        $req->innerJoin('a.calendrier', 'calendar')
-//            ->addSelect('calendar')
-//            ->innerJoin('a.adresse', 'adress')
-//            ->addSelect('adress')
-//            ;
-//        $req->where('a.titre= :titre')
-//            ->setParameter('titre', $titre)
-//            ->andWhere('calendar.debut >= :debut')
-//            ->setParameter('debut', $datedebut)
-//            ->andWhere('calendar.fin <= :fin')
-//            ->setParameter('fin', $datefin)
-//        ;
-//
-//        return $req->getQuery()->setMaxResults(10)->getResult();
-//    }
-//
-//    // Ville et disponibiite
-//
-//    public function villeperiodeindex($ville, $datedebut, $datefin){
-//
-//        $req = $this->createQueryBuilder('a');
-//
-//        $req->innerJoin('a.calendrier', 'calendar')
-//            ->addSelect('calendar')
-//            ->innerJoin('a.adresse', 'adress')
-//            ->addSelect('adress');
-//
-//        $req->where('adress.ville= :ville')
-//            ->setParameter('ville', $ville)
-//            ->andWhere('calendar.debut >= :debut')
-//            ->setParameter('debut', $datedebut)
-//            ->andWhere('calendar.fin <= :fin')
-//            ->setParameter('fin', $datefin)
-//        ;
-//
-//        return $req->getQuery()->setMaxResults(10)->getResult();
-//    }
-//
-//    // titre et ville et disponibilite
-//
-//    public function titrevilleperiodeindex($titre, $ville, $datedebut, $datefin){
-//
-//        $req = $this->createQueryBuilder('a');
-//
-//        $req->innerJoin('a.calendrier', 'calendar')
-//            ->addSelect('calendar')
-//            ->innerJoin('a.adresse', 'adress')
-//            ->addSelect('adress');
-//
-//        $req->where('a.titre= :titre')
-//            ->setParameter('titre', $titre)
-//            ->andWhere('adress.ville= :ville')
-//            ->setParameter('ville', $ville)
-//            ->andWhere('calendar.debut >= :debut')
-//            ->setParameter('debut', $datedebut)
-//            ->andWhere('calendar.fin <= :fin')
-//            ->setParameter('fin', $datefin)
-//        ;
-//
-//        return $req->getQuery()->setMaxResults(10)->getResult();
-//    }
-//
-//    // Requête pour la gestion de la disponibilité
-//
-//    public function disponibilite($id){
-//
-//        $req = $this->createQueryBuilder('a');
-//        $req->innerJoin('a.calendrier', 'c')
-//            ->addSelect('c')
-//            ->innerJoin('c.statut', 's')
-//            ->addSelect('s');
-//
-//        $req->where('a.id= :id')
-//            ->setParameter('id', $id);
-//
-//        return $req->getQuery()->getResult();
-//    }
+    // Requête pour la gestion de la disponibilité
+    public function disponibilite($id){
+        $req = $this->createQueryBuilder('a');
+        $req->innerJoin('a.calendrier', 'c')
+            ->addSelect('c')
+            ->innerJoin('c.statut', 's')
+            ->addSelect('s');
+        $req->where('a.id= :id')
+            ->setParameter('id', $id);
+        return $req->getQuery()->getResult();
+    }
 
     /*Recherche avancée*/
-/*
-    public function findByAnnonce($categorie, $pays, $depart, $ville, $prixmini, $prixmax, $datdebut, $datefin ){
-        $req = $this->createQueryBuilder('a');
-
-        $req
-            ->innerJoin('a.adresse', 'adrss')
-            ->addSelect('adrss')
-            ->innerJoin('a.categorie', 'cat')
-            ->addSelect('cat')
-            ->innerJoin('a.calendrier', 'calendar')
-            ->addSelect('calendar')
-            ;
-
-        if($categorie != null && $pays == null && $depart == null && $ville == null &&
-            $prixmini == null && $prixmax == null && $datdebut == null && $datefin == null ) {
-
-            $req->where('cat.id= :id')
-                ->setParameter('id', $categorie);
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-
-        }elseif ($categorie == null && $pays != null && $depart == null && $ville == null &&
-            $prixmini == null && $prixmax == null && $datdebut == null && $datefin == null) {
-
-            $req->where('adrss.pays= :pays')
-                ->setParameter('pays', $pays);
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays == null && $depart != null && $ville == null &&
-            $prixmini == null && $prixmax == null && $datdebut == null && $datefin == null) {
-
-            $req->where('adrss.pays= :pays')
-                ->setParameter('pays', $pays);
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays == null && $depart == null && $ville != null &&
-            $prixmini == null && $prixmax == null && $datdebut == null && $datefin == null) {
-
-            $req->where('adrss.ville= :ville')
-                ->setParameter('ville', $ville);
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays == null && $depart == null && $ville == null &&
-            $prixmini != null && $prixmax != null && $datdebut == null && $datefin == null) {
-
-            $req->where($req->expr()->between('a.prixDefaut', $prixmini, $prixmax));
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays == null && $depart == null && $ville == null &&
-            $prixmini == null && $prixmax == null && $datdebut != null && $datefin != null) {
-
-            $req->where('calendar.debut <= :debut')
-                ->setParameter('debut', $datdebut)
-                ->andWhere('calendar.fin <= :fin')
-                ->setParameter('fin', $datefin);
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie != null && $pays != null && $depart == null && $ville == null &&
-            $prixmini == null && $prixmax == null && $datdebut == null && $datefin == null) {
-
-            $req->where('cat.id= :id')
-                ->setParameter('id', $categorie)
-                ->andWhere('adrss.pays= :pays')
-                ->setParameter('pays', $pays);
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie != null && $pays == null && $depart != null && $ville == null &&
-            $prixmini == null && $prixmax == null && $datdebut == null && $datefin == null) {
-
-            $req->where('cat.id= :id')
-                ->setParameter('id', $categorie)
-                ->andWhere('adrss.pays= :pays')
-                ->setParameter('pays', $pays);
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie != null && $pays == null && $depart == null && $ville != null &&
-            $prixmini == null && $prixmax == null && $datdebut == null && $datefin == null) {
-
-            $req->where('cat.id= :id')
-                ->setParameter('id', $categorie)
-                ->andWhere('adrss.ville= :ville')
-                ->setParameter('ville', $ville);
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie != null && $pays == null && $depart == null && $ville == null &&
-            $prixmini != null && $prixmax != null && $datdebut == null && $datefin == null) {
-
-            $req->where('cat.id= :id')
-                ->setParameter('id', $categorie)
-                ->andWhere('a.prixDefaut <= :prixDefaut')
-                ->setParameter('prixDefaut', $prixmini)
-                ->andWhere('a.prixDefaut <= :prixDefaut')
-                ->setParameter('prixDefaut', $prixmax);
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie != null && $pays == null && $depart == null && $ville == null &&
-            $prixmini == null && $prixmax == null && $datdebut != null && $datefin != null) {
-
-            $req->where('cat.id= :id')
-                ->setParameter('id', $categorie)
-                ->andWhere('calendar.debut <= :debut')
-                ->setParameter('debut', $datdebut)
-                ->andWhere('calendar.fin <= :fin')
-                ->setParameter('fin', $datefin);
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays != null && $depart != null && $ville == null &&
-            $prixmini == null && $prixmax == null && $datdebut == null && $datefin == null) {
-
-            $req->where('adrss.pays= :pays')
-                ->setParameter('pays', $pays)
-                ->andWhere('adrss.departement= :departement')
-                ->setParameter('departement', $depart)
-
-            ;
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays != null && $depart == null && $ville != null &&
-            $prixmini == null && $prixmax == null && $datdebut == null && $datefin == null) {
-
-            $req->where('adrss.pays= :pays')
-                ->setParameter('pays', $pays)
-                ->andWhere('adrss.ville= :ville')
-                ->setParameter('ville', $ville)
-                ;
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays != null && $depart == null && $ville == null &&
-            $prixmini != null && $prixmax != null && $datdebut == null && $datefin == null) {
-
-            $req->where('adrss.pays= :pays')
-                ->setParameter('pays', $pays)
-                ->andWhere($req->expr()->between('a.prixDefaut', $prixmini, $prixmax))
-            ;
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays != null && $depart == null && $ville == null &&
-            $prixmini == null && $prixmax == null && $datdebut != null && $datefin != null) {
-
-            $req->where('adrss.pays= :pays')
-                ->setParameter('pays', $pays)
-                ->andWhere('calendar.debut <= :debut')
-                ->setParameter('debut', $datdebut)
-                ->andWhere('calendar.fin <= :fin')
-                ->setParameter('fin', $datefin)
-            ;
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays == null && $depart != null && $ville != null &&
-            $prixmini == null && $prixmax == null && $datdebut == null && $datefin == null) {
-
-            $req->where('adrss.departement= :departement')
-                ->setParameter('departement', $depart)
-                ->andWhere('adrss.ville= :ville')
-                ->setParameter('ville', $ville)
-
-            ;
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays == null && $depart != null && $ville == null &&
-            $prixmini != null && $prixmax != null && $datdebut == null && $datefin == null) {
-
-            $req->where('adrss.departement= :departement')
-                ->setParameter('departement', $depart)
-                ->andWhere($req->expr()->between('a.prixDefaut', $prixmini, $prixmax))
-
-            ;
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays == null && $depart != null && $ville == null &&
-            $prixmini == null && $prixmax == null && $datdebut != null && $datefin != null) {
-
-            $req->where('adrss.departement= :departement')
-                ->setParameter('departement', $depart)
-                ->andWhere('calendar.debut <= :debut')
-                ->setParameter('debut', $datdebut)
-                ->andWhere('calendar.fin <= :fin')
-                ->setParameter('fin', $datefin)
-
-            ;
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays == null && $depart == null && $ville != null &&
-            $prixmini == null && $prixmax == null && $datdebut != null && $datefin != null) {
-
-            $req->where('adrss.ville= :ville')
-                ->setParameter('ville', $ville)
-                ->andWhere('calendar.debut <= :debut')
-                ->setParameter('debut', $datdebut)
-                ->andWhere('calendar.fin <= :fin')
-                ->setParameter('fin', $datefin)
-
-            ;
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays == null && $depart == null && $ville != null &&
-            $prixmini != null && $prixmax != null && $datdebut == null && $datefin == null) {
-
-            $req->where('adrss.ville= :ville')
-                ->setParameter('ville', $ville)
-                ->andWhere($req->expr()->between('a.prixDefaut', $prixmini, $prixmax))
-
-            ;
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie == null && $pays == null && $depart == null && $ville == null &&
-            $prixmini != null && $prixmax != null && $datdebut != null && $datefin != null) {
-
-            $req->where('calendar.debut <= :debut')
-                ->setParameter('debut', $datdebut)
-                ->andWhere('calendar.fin <= :fin')
-                ->setParameter('fin', $datefin)
-                ->andWhere($req->expr()->between('a.prixDefaut', $prixmini, $prixmax))
-
-            ;
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }elseif ($categorie != null && $pays != null && $depart != null && $ville != null &&
-            $prixmini != null && $prixmax != null && $datdebut != null && $datefin != null) {
-
-            $req->where('cat.id= :id')
-                ->setParameter('id', $categorie)
-                ->andWhere('adrss.pays= :pays')
-                ->setParameter('pays', $pays)
-                ->andWhere('adrss.departement= :departement')
-                ->setParameter('departement', $depart)
-                ->andWhere('adrss.ville= :ville')
-                ->setParameter('ville', $ville)
-                ->andWhere('calendar.debut <= :debut')
-                ->setParameter('debut', $datdebut)
-                ->andWhere('calendar.fin <= :fin')
-                ->setParameter('fin', $datefin)
-                ->andWhere($req->expr()->between('a.prixDefaut', $prixmini, $prixmax))
-
-            ;
-
-            return $req->getQuery()->setMaxResults(10)->getResult();
-        }
-
-    }*/
 
     /**
      * @author Moro KONÉ
