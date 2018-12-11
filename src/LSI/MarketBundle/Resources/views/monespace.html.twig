@@ -1289,22 +1289,22 @@
 </div>
 
 
-                                                                                                         <div class="col-md-9" style="margin-top:20px"><br>
-                                                                                                            <div class="headline v3 text-center"><h4>Gestion du contrat d'assurance</h4></div></br>
-                                                                                                            <p><a href="#">Contrat d'assurance</a> <button id="bt-contact" type="button" class="pull-right btn btn-default btn-xs" data-target="#cgu">Modifier</button></p>
-                                                                                                             <div id="cgu" class="tohide">
-                                                                                                             <input type="file" id="file">
-                                                                                                                  <span class="custom-file-control"></span>
-                                                                                                                  <button class="btn btn-primary btn-large pull-right">Enregistrer</button>
-                                                                                                                         <br>
-                                                                                                             </div>
+                             <div class="col-md-9" style="margin-top:20px"><br>
+                                <div class="headline v3 text-center"><h4>Gestion du contrat d'assurance</h4></div></br>
+                                <p><a href="#">Contrat d'assurance</a> <button id="bt-contact" type="button" class="pull-right btn btn-default btn-xs" data-target="#cgu">Modifier</button></p>
+                                 <div id="cgu" class="tohide">
+                                 <input type="file" id="file">
+                                      <span class="custom-file-control"></span>
+                                      <button class="btn btn-primary btn-large pull-right">Enregistrer</button><br>
+                                 </div>
 
-                                                                                                         </div>
+                             </div>
 
 
-                                                                                                         <div class="col-md-9" style="margin-top:20px">
-                                                                                                            <div class="headline v3 text-center"><h4>Planning global des biens</h4></div></br>
-                                                                                                         <div> 
+                             <div class="col-md-9" style="margin-top:20px">
+                                <div class="headline v3 text-center"><h4>Planning global des biens</h4></div></br>
+                                 {% include '@LSIMarket/partials/monespace/mes_annonces/planning_global_des_biens.html.twig'  with { "annonces": disponibilite_de_mes_annonces} only  %}
+                             <div>
 
                             <!-- fin bloc paramètres -->
                           </div>

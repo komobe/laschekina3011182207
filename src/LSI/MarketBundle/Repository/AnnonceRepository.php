@@ -366,8 +366,8 @@ class AnnonceRepository extends EntityRepository {
             ->addSelect('c')
             ->innerJoin('c.statut', 's')
             ->addSelect('s');
-        $req->where('a.id= :id')
-            ->setParameter('id', $id);
+            $req->where('a.id= :id')
+                ->setParameter('id', $id);
         return $req->getQuery()->getResult();
     }
 
@@ -477,14 +477,36 @@ class AnnonceRepository extends EntityRepository {
 
 	// Requ?e qui g?e les annonces sur la map
 
-public function findAnnon(){
+    public function findAnnon(){
 
-    $req = $this->createQueryBuilder('a');
+        $req = $this->createQueryBuilder('a');
 
-    $req->innerJoin('a.adresse', 'adr')
-        ->addSelect('adr');
+        $req->innerJoin('a.adresse', 'adr')
+            ->addSelect('adr');
 
-        return $req->getQuery()->getResult();
-}
+            return $req->getQuery()->getResult();
+    }
+
+    /**
+     * @author Moro KONÉ
+     * @param $id
+     * @param bool $enable
+     * @return array
+     * @throws \Exception
+     */
+
+    public function findAllAnoncesWithCalendarByUserId($id, $enable = false){
+        $qb = $this->createQueryBuilder('a')
+            ->join('a.calendrier', 'c')
+            ->addSelect('c')
+            ->where('a.mairie = :id')
+            ->setParameter('id', $id);
+        if ($enable){
+            $qb->andWhere('c.fin >= :now')
+                ->setParameter('now', new \DateTime('now'));
+        }
+        return $qb->getQuery()->getResult();
+
+    }
 
 }

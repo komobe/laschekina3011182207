@@ -7,6 +7,7 @@ use LSI\MarketBundle\Entity\Contact;
 use LSI\MarketBundle\Entity\User;
 use LSI\MarketBundle\Form\ContactType;
 use LSI\MarketBundle\Form\UserType;
+use mysql_xdevapi\Collection;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -665,6 +666,10 @@ class MarketController extends BaseController
         // Gestion des habilitations
         $habilitation = $em->getRepository('LSIMarketBundle:User')->habilitation($idmairie);
 
+        //Recuperation des annonces et leurs disponibilités
+        $disponibilite_de_mes_annonces =
+            $em->getRepository('LSIMarketBundle:Annonce')->findAllAnoncesWithCalendarByUserId($userId,true);
+
         // Formulaire de créqtion de budget
         $btBudget = $request->get('val');
 
@@ -695,7 +700,8 @@ class MarketController extends BaseController
                 'erreurBudget' => $msgErr,
                 'habilitation' => $habilitation,
                 'prixTotalMesReservations' => $prixTotalMesReservations,
-                'prixTotalMesAnnoncesReservees' => $prixTotalMesAnnoncesReservees)
+                'prixTotalMesAnnoncesReservees' => $prixTotalMesAnnoncesReservees,
+                'disponibilite_de_mes_annonces' => $disponibilite_de_mes_annonces )
             );
         }
 
@@ -734,7 +740,6 @@ class MarketController extends BaseController
                 $em->flush();
 
                 $request->getSession()->getFlashBag()->add('info', 'Votre remise a bien été créée.');
-
                 return $this->redirect($this->generateUrl('ls_imarket_mon_espace'));
             } else {
                 $errMsg = "Veuillez renseigner l'un des champs !";
@@ -755,13 +760,16 @@ class MarketController extends BaseController
 
         }
 
+        //dump($disponibilite_de_mes_annonces[0]->getCalendrier()[0]->getDebut()); die();
         return $this->render('LSIMarketBundle::monespace.html.twig', array(
             'annonces' => $reservations,
             'annoncesR' => $annonceReservees,
             'mesannonces' => $annonces,
             'habilitation' => $habilitation,
             'prixTotalMesReservations' => $prixTotalMesReservations,
-            'prixTotalMesAnnoncesReservees' => $prixTotalMesAnnoncesReservees)
+            'prixTotalMesAnnoncesReservees' => $prixTotalMesAnnoncesReservees,
+            'disponibilite_de_mes_annonces' => $disponibilite_de_mes_annonces
+            )
         );
 
     }
